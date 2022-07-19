@@ -9,7 +9,7 @@
 
 ## Introduction
 
-For this course you will be creating a web application consisting of a front-end and backend. The frontd-end will be 
+For this course you will be creating a web application consisting of a front-end and backend. The front-end will be 
 created using Svelte [svelte.dev](https://svelte.dev). The backend will be created using Nodejs 
 [node.js](https://nodejs.org/) and Express [expressjs.com](https://expressjs.com/).
 
