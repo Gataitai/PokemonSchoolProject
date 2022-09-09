@@ -1,0 +1,4 @@
+GET {{protocol}}{{host}}:{{port}}/pokemon
+Content-Type: application/json
+Accept: application/json
+
