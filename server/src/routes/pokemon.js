@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const pokemons = require('../data/pokemons')
+const pokemonsService = require('../services/pokemonService')
 
 router.get("/", async (req, res) => {
-    // @todo check the credentials and return an appropriate response
-    // For testing purposes a dummy token is returned.
     res.json({
         pokemons
     })
