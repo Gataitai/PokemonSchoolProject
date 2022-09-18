@@ -10,9 +10,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-
+    const pokemon = pokemonService.save({
+        id: "25",
+        name: "pikachu",
+        type: "electric"
+    });
     res.json({
-        "name": "pikachu"
+        pokemon
     })
 });
 

@@ -18,10 +18,12 @@ const getByType = (type) => {
 
 const save = (pokemon) => {
     pokemons.push(pokemon);
+    return pokemon;
 }
 
 const update = (id, pokemon) => {
     pokemons.map(p => p.id !== id ? p : pokemon);
+    return pokemon;
 }
 
 const remove = (id) => {
