@@ -1,33 +1,39 @@
 const pokemons = require('../data/pokemonData');
 
-const get = (id, name, type) => {
-    if(id){
-        return pokemons;
-    }
-
-    if(name){
-
-    }
-
-    if(type){
-
-    }
+const getAll = () => {
+    return pokemons;
 }
 
-const save = (pokemon) =>{
+const getById = (id) => {
+    return pokemons.filter(p => p.id === id);
+}
 
+const getByName = (name) => {
+    return pokemons.filter(p => p.name === name);
+}
+
+const getByType = (type) => {
+    return pokemons.filter(p => p.type === type);
+}
+
+const save = (pokemon) => {
+    pokemons.push(pokemon);
 }
 
 const update = (id, pokemon) => {
-
+    pokemons.map(p => p.id !== id ? p : pokemon);
 }
 
 const remove = (id) => {
-
+    const index = pokemons.findIndex(p => p.id === id);
+    pokemons.splice(index, 1);
 }
 
 module.exports = {
-    get,
+    getAll,
+    getById,
+    getByName,
+    getByType,
     save,
     update,
     remove,

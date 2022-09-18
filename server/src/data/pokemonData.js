@@ -1,47 +1,47 @@
 const pokemonData = [
     {
         "id": "1",
-        "name": "bulbasaur",
+        "name": "Bulbasaur",
         "type": "grass"
     },
     {
         "id": "2",
-        "name": "ivysaur",
+        "name": "Ivysaur",
         "type": "grass"
     },
     {
         "id": "3",
-        "name": "venusaur",
+        "name": "Venusaur",
         "type": "grass"
     },
     {
         "id": "4",
-        "name": "charmander",
+        "name": "Charmander",
         "type": "fire"
     },
     {
         "id": "5",
-        "name": "chameleon",
+        "name": "Chameleon",
         "type": "fire"
     },
     {
         "id": "6",
-        "name": "charizard",
+        "name": "Charizard",
         "type": "fire"
     },
     {
         "id": "7",
-        "name": "squirtle",
+        "name": "Squirtle",
         "type": "water"
     },
     {
         "id": "8",
-        "name": "wartortle",
+        "name": "Wartortle",
         "type": "water"
     },
     {
         "id": "9",
-        "name": "blastoise",
+        "name": "Blastoise",
         "type": "water"
     }
 ];

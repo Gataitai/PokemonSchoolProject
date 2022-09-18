@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const pokemonsService = require('../services/pokemonService')
+const pokemonService = require("../services/pokemonService");
 
 router.get("/", async (req, res) => {
+    const pokemons = pokemonService.getAll();
     res.json({
         pokemons
     })
