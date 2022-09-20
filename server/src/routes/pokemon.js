@@ -6,6 +6,7 @@ const pokemonData = require("../data/pokemonData")
 router.get("/", async (req, res) => {
     const pokemons = pokemonService.getAll();
     res.json({
+
         pokemons
     })
 });
