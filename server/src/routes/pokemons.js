@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const pokemonService = require("../services/pokemonService");
-const pokemonData = require("../data/pokemonData")
 
 router.get("/", async (req, res) => {
     const pokemons = pokemonService.getAll();
@@ -11,31 +10,30 @@ router.get("/", async (req, res) => {
     })
 });
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const pokemons = pokemonService.getAll();
     res.json({
         pokemons
     })
 });
 
-router.post("/{id}", async (req, res) => {
-    const pokemon = req.body.filter(key => pokemonData.pokemon.includes(key));
-
+router.post("/", async (req, res) => {
+    const pokemon = pokemonService.pokemon(req);
     console.log(pokemon);
     res.json({
         pokemon
     })
 });
 
-router.post("/", async (req, res) => {
-    const pokemon = pokemonService.save({
-        id: "25",
-        name: "pikachu",
-        type: "electric"
-    });
-    res.json({
-        pokemon
-    })
-});
+// router.post("/", async (req, res) => {
+//     const pokemon = pokemonService.save({
+//         id: "25",
+//         name: "pikachu",
+//         type: "electric"
+//     });
+//     res.json({
+//         pokemon
+//     })
+// });
 
 module.exports = router;

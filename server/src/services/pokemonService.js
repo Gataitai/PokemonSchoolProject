@@ -1,11 +1,15 @@
-const pokemons = require('../data/pokemonData');
+const pokemonData = require("../data/pokemonData");
+
+const pokemon = (req) => {
+    return req.body.filter(key => pokemonData.pokemon.includes(key));
+}
 
 const getAll = () => {
-    return pokemons;
+    return pokemonData.data;
 }
 
 const getById = (id) => {
-    return pokemons.filter(p => p.id === id);
+    return pokemonData.data.filter(p => p.id === id);
 }
 
 const getByName = (name) => {
@@ -32,6 +36,7 @@ const remove = (id) => {
 }
 
 module.exports = {
+    pokemon,
     getAll,
     getById,
     getByName,
