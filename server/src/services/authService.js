@@ -6,7 +6,7 @@ const user = (req) => {
 }
 
 const getToken = (username, password) =>{
-
+    bcrypt.co
 }
 
 module.exports = {

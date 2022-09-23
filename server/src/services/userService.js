@@ -8,12 +8,8 @@ const getAll = () => {
     return userData.data;
 }
 
-const getById = (id) => {
-    return userData.data.filter(u => u.id === id);
-}
-
 const getByName = (username) => {
-    return userData.data.filter(u => u.username === username);
+    return userData.data.find(u => u.username === username);
 }
 
 const getByType = (type) => {
@@ -26,7 +22,7 @@ const save = (user) => {
 }
 
 const update = (id, user) => {
-    userData.data.map(u => u.id !== id ? u : user);
+
     return user;
 }
 
@@ -38,7 +34,6 @@ const remove = (id) => {
 module.exports = {
     user,
     getAll,
-    getById,
     getByName,
     getByType,
     save,

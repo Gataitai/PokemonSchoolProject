@@ -1,6 +1,7 @@
 const user = [
     username,
     password,
+    email,
     type
 ]
 

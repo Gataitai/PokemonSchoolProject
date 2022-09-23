@@ -9,11 +9,11 @@ const getAll = () => {
 }
 
 const getById = (id) => {
-    return pokemonData.data.filter(p => p.id === id);
+    return pokemonData.data.find(p => p.id === id);
 }
 
 const getByName = (name) => {
-    return pokemons.filter(p => p.name === name);
+    return pokemons.find(p => p.name === name);
 }
 
 const getByType = (type) => {
