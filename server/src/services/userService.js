@@ -16,8 +16,8 @@ const getByType = (type) => {
     return userData.data.filter(p => p.type === type);
 }
 
-const save = (user) => {
-    userData.data.push(user);
+const save = (req) => {
+    const u = user(req);
     return user;
 }
 
@@ -29,6 +29,14 @@ const update = (id, user) => {
 const remove = (id) => {
     const index = userData.data.findIndex(u => u.id === id);
     pokemons.splice(index, 1);
+}
+
+function allowedProperties(pokemon){
+    for (let key in pokemon){
+        if(!userData.data.includes(key)){
+            return statusCodes.BAD_REQUEST;
+        }
+    }
 }
 
 module.exports = {

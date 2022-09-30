@@ -12,7 +12,8 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const user = req.body.filter(key => userData.user.includes(key));
+    const user = userService.user(req);
+    userService.save(user);
     res.json({
 
     })
