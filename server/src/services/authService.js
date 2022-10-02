@@ -1,14 +1,15 @@
-const userData = require("../data/userData");
-const bcrypt = require("bcrypt")
+const authData = require("../data/authData");
+const allowedProperties = require("../util/allowedProperties");
+const bcrypt = require("bcrypt");
 
-const user = (req) => {
-    return req.body.filter(key => userData.user.includes(key));
+const auth = (jsonObject) => {
+    return allowedProperties(jsonObject, authData.definition);
 }
 
 const getToken = (username, password) =>{
-    bcrypt.co
+
 }
 
 module.exports = {
-    user,
+
 };

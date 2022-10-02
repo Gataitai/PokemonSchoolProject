@@ -1,7 +1,7 @@
-const pokemon = [
-    id,
-    name,
-    type
+const definition = [
+    "id",
+    "name",
+    "type"
 ]
 
 const data = [
@@ -52,4 +52,4 @@ const data = [
     }
 ];
 
-module.exports = {pokemon, data};
+module.exports = {definition, data};

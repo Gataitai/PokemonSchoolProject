@@ -1,5 +1,5 @@
 const express = require('express');
-const authData = require("../data/authData");
+// const authData = require("../data/authData");
 const router = express.Router();
 
 router.post("/", async (req, res) => {

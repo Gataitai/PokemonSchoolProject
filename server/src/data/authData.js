@@ -1,6 +1,6 @@
-const auth = [
-    username,
-    password
+const definition = [
+    "username",
+    "password"
 ]
 
-module.exports = auth;
+module.exports = {definition};

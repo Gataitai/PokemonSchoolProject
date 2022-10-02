@@ -1,7 +1,9 @@
 const userData = require("../data/userData");
+const statusCodes = require('http-status-codes');
+const allowedProperties = require("../util/allowedProperties")
 
-const user = (req) => {
-    return req.body.filter(key => userData.user.includes(key));
+const user = (jsonObject) => {
+    return allowedProperties(jsonObject, userData.definition)
 }
 
 const getAll = () => {
@@ -29,14 +31,6 @@ const update = (id, user) => {
 const remove = (id) => {
     const index = userData.data.findIndex(u => u.id === id);
     pokemons.splice(index, 1);
-}
-
-function allowedProperties(pokemon){
-    for (let key in pokemon){
-        if(!userData.data.includes(key)){
-            return statusCodes.BAD_REQUEST;
-        }
-    }
 }
 
 module.exports = {
