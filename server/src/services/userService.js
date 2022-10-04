@@ -20,11 +20,15 @@ const getByType = (type) => {
 }
 
 const save = async (user) => {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    userData.data.push(user);
-    console.log(user);
-    return user;
+    const x = async (u) => await bcrypt.hash(u.password, 10, function (err, hash) {
+        u.password = hash;
+        console.log(u);
+        return u;
+    });
+    const u = await x(user);
+    console.log(u);
+    userData.data.push(u);
+    return u;
 }
 
 const update = (id, user) => {
@@ -38,7 +42,6 @@ const remove = (id) => {
 }
 
 module.exports = {
-    user,
     getAll,
     getByName,
     getByType,

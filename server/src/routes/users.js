@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const userService = require("../services/userService");
 const { validateUser } = require("../middleware/validate");
-const userData = require("../data/userData");
 
 
 
