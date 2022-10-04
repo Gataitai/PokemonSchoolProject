@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const userService = require("../services/userService")
+const userService = require("../services/userService");
+const { validateUser } = require("../middleware/validate");
 const userData = require("../data/userData");
 
 
@@ -11,11 +12,10 @@ router.get("/:id", async (req, res) => {
     })
 });
 
-router.post("/", async (req, res) => {
-    const user = userService.user(req);
-    userService.save(user);
+router.post("/", validateUser, async (req, res) => {
+    const user = await userService.save(req.body);
     res.json({
-
+        user
     })
 });
 

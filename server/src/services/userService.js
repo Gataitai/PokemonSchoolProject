@@ -1,6 +1,7 @@
 const userData = require("../data/userData");
 const statusCodes = require('http-status-codes');
-const allowedProperties = require("../util/allowedProperties")
+const bcrypt = require('bcrypt');
+const allowedProperties = require("../util/allowedProperties");
 
 const user = (jsonObject) => {
     return allowedProperties(jsonObject, userData.definition)
@@ -18,8 +19,11 @@ const getByType = (type) => {
     return userData.data.filter(p => p.type === type);
 }
 
-const save = (req) => {
-    const u = user(req);
+const save = async (user) => {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    userData.data.push(user);
+    console.log(user);
     return user;
 }
 

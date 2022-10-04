@@ -1,12 +1,20 @@
 const pokemonData = require("../data/pokemonData");
 const allowedProperties = require("../util/allowedProperties");
+const statusCodes = require("http-status-codes");
+
 
 const getAll = () => {
     return pokemonData.data;
 }
 
 const getById = (id) => {
-    return pokemonData.data.find(p => p.id === id);
+    const index = pokemonData.data.findIndex(p => p.id === id);
+    if(index === -1){
+        return statusCodes.NOT_FOUND;
+    }
+    else{
+        return pokemonData.data.find(p => p.id === id);
+    }
 }
 
 const getByName = (name) => {
@@ -23,13 +31,15 @@ const save = (pokemon) => {
 }
 
 const update = (id, pokemon) => {
-    pokemonData.data.map(p => p.id !== id ? p : pokemon);
+    const index = pokemonData.data.findIndex(p => p.id === id);
+    pokemonData.data[index] = pokemon;
     return pokemon;
 }
 
 const remove = (id) => {
     const index = pokemonData.data.findIndex(p => p.id === id);
-    pokemons.splice(index, 1);
+    pokemonData.data.splice(index, 1);
+    return statusCodes.NO_CONTENT;
 }
 
 module.exports = {
