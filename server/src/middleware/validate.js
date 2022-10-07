@@ -1,4 +1,4 @@
-const allowedProperties = require("../util/allowedProperties");
+const {allowedProperties} = require("../util/allowedProperties");
 const pokemonData = require("../data/pokemonData");
 const userData = require("../data/userData");
 const authData = require("../data/authData");
@@ -15,7 +15,7 @@ const validatePokemon = (req, res, next) => {
 }
 
 const validateUser = (req, res, next) => {
-    const validate = allowedProperties(req.body, userData.definition);
+    const validate = allowedProperties(req.body, userData.publicDefinition);
     if(validate === statusCodes.BAD_REQUEST){
         return res.status(validate).send();
     }

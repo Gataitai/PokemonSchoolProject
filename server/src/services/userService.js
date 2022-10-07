@@ -1,13 +1,17 @@
 const userData = require("../data/userData");
 const statusCodes = require('http-status-codes');
+const {filterProperties} = require("../util/allowedProperties");
 const bcrypt = require('bcrypt');
-const allowedProperties = require("../util/allowedProperties");
-
-const user = (jsonObject) => {
-    return allowedProperties(jsonObject, userData.definition)
-}
+const uuid = require("uuid");
+const crypto = require("crypto");
 
 const getAll = () => {
+    // const users = [];
+    // for(let user in userData.data){
+    //     users.push(filterProperties(user, userData.publicDefinition));
+    // }
+    // return users;
+
     return userData.data;
 }
 
@@ -20,15 +24,9 @@ const getByType = (type) => {
 }
 
 const save = async (user) => {
-    const x = async (u) => await bcrypt.hash(u.password, 10, function (err, hash) {
-        u.password = hash;
-        console.log(u);
-        return u;
-    });
-    const u = await x(user);
-    console.log(u);
-    userData.data.push(u);
-    return u;
+    user.password = bcrypt.hashSync(user.password, 10);
+    user.secret = crypto.randomBytes(64).toString('hex');
+    return user;
 }
 
 const update = (id, user) => {

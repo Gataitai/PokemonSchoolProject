@@ -1,6 +1,5 @@
 const definition = [
-    "username",
-    "password"
+    "username"
 ]
 
 module.exports = {definition};

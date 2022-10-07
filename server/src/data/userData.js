@@ -1,27 +1,26 @@
-// const Joi = require('joi');
-//
-// const user = Joi.object({
-//     username: Joi.string()
-//         .alphanum()
-//         .max(30)
-//         .required(),
-//
-//     password: Joi.string()
-//         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-//
-//     email: Joi.string()
-//         .email(),
-//
-//     type: Joi.object()
-// })
-
-const definition = [
+const publicDefinition = [
     "username",
-    "password",
     "email",
     "type"
 ]
 
-const data = [];
+const privateDefinition = [
+    "username",
+    "password",
+    "email",
+    "type",
+    "secret"
+]
 
-module.exports = {definition, data};
+const data = [
+    {
+        username: 'mathijs',
+        password: '$2b$10$lMT7FxsqZi2VSGzAg.JD.Og/n7Eg.piuiusAyxhpR0lLEvQ2loGTK',
+        email: 'mpattipeilohy1@gmail.com',
+        type: 'user',
+        secret: '33bedc447d70ed62a4b8f0cc5d0dee1ffcf9f3be84135cbc90ecfb7fca66934c829d493a0dbc16fbc6def6a5a6ad290b872261127d5a2c9bfb26c93b124afb05'
+    }
+
+];
+
+module.exports = {publicDefinition, privateDefinition, data};

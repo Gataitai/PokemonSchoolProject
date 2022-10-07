@@ -9,4 +9,16 @@ const allowedProperties = (object, definition) => {
     return object;
 }
 
-module.exports = allowedProperties;
+const filterProperties = (object, definition) => {
+    return Object.keys(object)
+        .filter(key => definition.includes(key))
+        .reduce((obj, key) => {
+            obj[key] = object[key];
+            return obj;
+        }, {});
+}
+
+module.exports = {
+    allowedProperties,
+    filterProperties
+};
