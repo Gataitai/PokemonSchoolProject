@@ -11,12 +11,13 @@ router.get("/:id", async (req, res) => {
     })
 });
 
-router.post("/", validateUser, async (req, res) => {
-    const user = await userService.save(req.body);
-    const filteredUser = filterProperties(user, publicDefinition);
-    res.json({
-        filteredUser
-    })
-});
+// router.post("/", validateUser, async (req, res) => {
+//     const user = await userService.save(req.body);
+//     const filteredUser = filterProperties(user, publicDefinition);
+//
+//     res.json({
+//         filteredUser
+//     })
+// });
 
 module.exports = router;

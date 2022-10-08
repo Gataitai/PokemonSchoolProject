@@ -12,9 +12,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    const pokemons = pokemonService.getById(req.params.id);
+    const pokemon = pokemonService.getById(req.params.id);
     res.json({
-        pokemons
+        pokemon
     })
 });
 

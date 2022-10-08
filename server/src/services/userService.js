@@ -23,9 +23,10 @@ const getByType = (type) => {
     return userData.data.filter(p => p.type === type);
 }
 
-const save = async (user) => {
+const save = (user) => {
     user.password = bcrypt.hashSync(user.password, 10);
     user.secret = crypto.randomBytes(64).toString('hex');
+    userData.data.push(user);
     return user;
 }
 
