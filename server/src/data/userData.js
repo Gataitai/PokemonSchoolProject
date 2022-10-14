@@ -4,12 +4,23 @@ const publicDefinition = [
     "type"
 ]
 
+const registerDefinition = [
+    "username",
+    "password",
+    "email"
+]
+
 const privateDefinition = [
     "username",
     "password",
     "email",
     "type",
     "secret"
+]
+
+const userTypes = [
+    "user",
+    "admin"
 ]
 
 const data = [
@@ -23,4 +34,10 @@ const data = [
 
 ];
 
-module.exports = {publicDefinition, privateDefinition, data};
+module.exports = {
+    userTypes,
+    publicDefinition,
+    privateDefinition,
+    registerDefinition,
+    data
+};

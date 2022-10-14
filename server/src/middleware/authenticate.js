@@ -5,6 +5,7 @@ const userService = require("../services/userService");
 const jwt = require("jsonwebtoken");
 
 const authenticateLogin = (req, res, next) => {
+    console.log(req.body);
     const user = userData.data.find(u => {return u.username === req.body.username});
 
     if(bcrypt.compareSync(req.body.password, user.password)){
@@ -14,22 +15,7 @@ const authenticateLogin = (req, res, next) => {
     }
 }
 
-const authorizeToken = (req, res, next) => {
-
-    const header = jwt.decode(req.body.token);
-
-    const user = userService.getByName(header.username);
-
-    if(jwt.verify(req.body.token, user.secret)){
-        next();
-    } else {
-        return res.status(statusCodes.UNAUTHORIZED).send();
-    }
-
-}
-
 
 module.exports = {
-    authenticateLogin,
-    authorizeToken
+    authenticateLogin
 };

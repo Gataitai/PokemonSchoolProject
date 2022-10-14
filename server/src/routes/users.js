@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userService = require("../services/userService");
-const { validateUser } = require("../middleware/validate");
+const { validateRegister} = require("../middleware/validate");
 const { publicDefinition } = require("../data/userData");
 const { filterProperties } = require("../util/allowedProperties");
+const {userExists} = require("../middleware/exists");
+const authService = require("../services/authService");
 
 router.get("/:id", async (req, res) => {
     res.json({
@@ -11,13 +13,13 @@ router.get("/:id", async (req, res) => {
     })
 });
 
-// router.post("/", validateUser, async (req, res) => {
-//     const user = await userService.save(req.body);
-//     const filteredUser = filterProperties(user, publicDefinition);
-//
-//     res.json({
-//         filteredUser
-//     })
-// });
+router.post("/", validateRegister, userExists, async (req, res) => {
+    const token = userService.save(req.body);
+
+    res.json({
+        token
+    })
+});
+
 
 module.exports = router;

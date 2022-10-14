@@ -34,9 +34,8 @@ const validateUser = (req, res, next) => {
     }
 }
 
-
-const validateAuthRegister = (req, res, next) => {
-        const validate = allowedProperties(req.body, authData.registerDefinition);
+const validateRegister = (req, res, next) => {
+        const validate = allowedProperties(req.body, userData.registerDefinition);
         if(validate === statusCodes.BAD_REQUEST){
             return res.status(validate).send();
         }
@@ -45,7 +44,7 @@ const validateAuthRegister = (req, res, next) => {
         }
 }
 
-const validateAuthLogin = (req, res, next) => {
+const validateLogin = (req, res, next) => {
     const validate = allowedProperties(req.body, authData.loginDefinition);
     if(validate === statusCodes.BAD_REQUEST){
         return res.status(validate).send();
@@ -58,6 +57,6 @@ const validateAuthLogin = (req, res, next) => {
 module.exports = {
     validatePokemon,
     validateUser,
-    validateAuthRegister,
-    validateAuthLogin
+    validateRegister,
+    validateLogin
 };

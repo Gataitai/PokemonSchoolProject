@@ -2,12 +2,6 @@ const tokenDefinition = [
     "token"
 ]
 
-const registerDefinition = [
-    "username",
-    "password",
-    "email"
-]
-
 const loginDefinition = [
     "username",
     "password"
@@ -15,6 +9,5 @@ const loginDefinition = [
 
 module.exports = {
     tokenDefinition,
-    loginDefinition,
-    registerDefinition
+    loginDefinition
 };

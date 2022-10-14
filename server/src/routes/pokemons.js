@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pokemonService = require("../services/pokemonService");
 const { validatePokemon } = require("../middleware/validate");
+const { authorizeToken } = require("../middleware/authorize");
 const { definition } = require("../data/pokemonData");
 
-router.get("/", async (req, res) => {
+router.get("/", authorizeToken, async (req, res) => {
     const pokemons = pokemonService.getAll();
     res.json({
         pokemons

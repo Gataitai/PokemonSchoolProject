@@ -4,6 +4,7 @@ const {filterProperties} = require("../util/allowedProperties");
 const bcrypt = require('bcrypt');
 const uuid = require("uuid");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
 const getAll = () => {
     // const users = [];
@@ -27,7 +28,13 @@ const save = (user) => {
     user.password = bcrypt.hashSync(user.password, 10);
     user.secret = crypto.randomBytes(64).toString('hex');
     userData.data.push(user);
-    return user;
+
+    const payload = {
+        username: user.username,
+        type: userData.userTypes[0]
+    }
+
+    return jwt.sign(payload, user.secret);
 }
 
 const update = (id, user) => {
