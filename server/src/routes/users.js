@@ -4,7 +4,7 @@ const userService = require("../services/userService");
 const { validateRegister} = require("../middleware/validate");
 const { publicDefinition } = require("../data/userData");
 const { filterProperties } = require("../util/allowedProperties");
-const {userExists} = require("../middleware/exists");
+const {userExists, userCantExist} = require("../middleware/exists");
 const authService = require("../services/authService");
 
 router.get("/:id", async (req, res) => {
@@ -13,7 +13,7 @@ router.get("/:id", async (req, res) => {
     })
 });
 
-router.post("/", validateRegister, userExists, async (req, res) => {
+router.post("/", validateRegister, userCantExist, async (req, res) => {
     const token = userService.save(req.body);
 
     res.json({

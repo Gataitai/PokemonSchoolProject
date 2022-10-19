@@ -1,28 +1,26 @@
 const pokemonData = require("../data/pokemonData");
+const pokemons = require("json-pokemon");
 const allowedProperties = require("../util/allowedProperties");
 const statusCodes = require("http-status-codes");
+const {setCharset} = require("express/lib/utils");
 
 
 const getAll = () => {
-    return pokemonData.data;
+    return pokemons;
 }
 
 const getById = (id) => {
-    const index = pokemonData.data.findIndex(p => p.id === id);
-    if(index === -1){
-        return statusCodes.NOT_FOUND;
-    }
-    else{
-        return pokemonData.data.find(p => p.id === id);
-    }
+    return pokemons[id-1];
 }
 
 const getByName = (name) => {
-    return pokemonData.data.find(p => p.name === name);
+    return pokemons.find(p => p.name.toLowerCase() === name.toLowerCase());
 }
 
 const getByType = (type) => {
-    return pokemonData.data.filter(p => p.type === type);
+    type = type.charAt(0).toUpperCase() + type.slice(1);
+    return pokemons.filter(p => p.typeList.includes(type));
+    // return pokemonData.data.filter(p => p.type.toLowerCase() === type.toLowerCase());
 }
 
 const save = (pokemon) => {

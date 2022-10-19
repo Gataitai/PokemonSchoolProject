@@ -1,6 +1,6 @@
 const express = require('express');
 const {validateAuth, validateUser, validateAuthLogin, validateAuthRegister, validateLogin} = require("../middleware/validate");
-const {userExists} = require("../middleware/exists");
+const {userHasToExist} = require("../middleware/exists");
 const authService = require("../services/authService");
 const userService = require("../services/userService");
 const {filterProperties} = require("../util/allowedProperties");
@@ -11,7 +11,7 @@ const bcrypt = require("bcrypt");
 const statusCodes = require("http-status-codes");
 const {authenticateLogin} = require("../middleware/authenticate");
 
-router.post("/", validateLogin,  authenticateLogin, async (req, res) => {
+router.post("/", validateLogin, userHasToExist, authenticateLogin, async (req, res) => {
     const token = authService.login(req.body);
     res.json({
         token
