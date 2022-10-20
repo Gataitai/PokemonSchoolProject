@@ -1,13 +1,8 @@
 const express = require('express');
-const {validateAuth, validateUser, validateAuthLogin, validateAuthRegister, validateLogin} = require("../middleware/validate");
+const {validateLogin} = require("../middleware/validate");
 const {userHasToExist} = require("../middleware/exists");
 const authService = require("../services/authService");
-const userService = require("../services/userService");
-const {filterProperties} = require("../util/allowedProperties");
-const {registerDefinition} = require("../data/authData");
-const {loginDefinition} = require("../data/authData");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const statusCodes = require("http-status-codes");
 const {authenticateLogin} = require("../middleware/authenticate");
 

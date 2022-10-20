@@ -20,7 +20,6 @@ const getByName = (name) => {
 const getByType = (type) => {
     type = type.charAt(0).toUpperCase() + type.slice(1);
     return pokemons.filter(p => p.typeList.includes(type));
-    // return pokemonData.data.filter(p => p.type.toLowerCase() === type.toLowerCase());
 }
 
 const save = (pokemon) => {
