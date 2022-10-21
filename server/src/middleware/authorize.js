@@ -6,11 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const authorizeToken = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[0];
-    console.log(token);
     const payload = jwt.decode(token);
 
     if(payload !== null){
-        console.log(payload);
 
         const user = userService.getByName(payload.username);
 

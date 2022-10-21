@@ -1,6 +1,4 @@
 const auctionDefinition = [
-    "id",
-    "user",
     "startingPrice",
     "pokemon"
 ];
