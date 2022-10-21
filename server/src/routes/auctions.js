@@ -3,6 +3,7 @@ const router = express.Router();
 const auctionService = require("../services/auctionService");
 const {validateAuction} = require("../middleware/validate");
 const {authorizeToken} = require("../middleware/authorize");
+const {getUserName} = require("../util/getUser");
 
 router.get("/", (req, res) => {
     const auctions = auctionService.getAll();
@@ -11,10 +12,11 @@ router.get("/", (req, res) => {
     })
 });
 
-router.post("/",validateAuction, authorizeToken, (req, res) => {
-    const auctions = auctionService.getAll();
+router.post("/", validateAuction, authorizeToken, (req, res) => {
+    const user = getUserName(req.headers.authorization);
+    const auction = auctionService.save(req.body, user);
     res.json({
-        auctions
+        auction
     })
 });
 

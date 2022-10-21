@@ -3,6 +3,7 @@ const pokemonData = require("../data/pokemonData");
 const userData = require("../data/userData");
 const authData = require("../data/authData");
 const statusCodes = require("http-status-codes");
+const bidData = require("../data/bidData");
 const auctionData = require("../data/auctionData");
 
 const validate = (req, res, next, def) => {
@@ -27,6 +28,16 @@ const validatePokemon = (req, res, next) => {
 
 const validateAuction = (req, res, next) => {
     const validate = allowedProperties(req.body, auctionData.auctionDefinition);
+    if(validate === statusCodes.BAD_REQUEST){
+        return res.status(validate).send();
+    }
+    else{
+        next();
+    }
+}
+
+const validateBid = (req, res, next) => {
+    const validate = allowedProperties(req.body, bidData.bidDefinition);
     if(validate === statusCodes.BAD_REQUEST){
         return res.status(validate).send();
     }
@@ -69,6 +80,7 @@ module.exports = {
     validatePokemon,
     validateAuction,
     validateUser,
+    validateBid,
     validateRegister,
     validateLogin
 };

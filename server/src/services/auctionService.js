@@ -1,5 +1,6 @@
 const auctionData = require("../data/auctionData");
-
+const crypto = require("crypto");
+const { getById } = require("../services/pokemonService");
 const getAll = () => {
     return auctionData.data;
 }
@@ -8,7 +9,14 @@ const getAll = () => {
 //     return pokemons[id-1];
 // }
 
-const save = (auction) => {
+const save = (auct, user) => {
+    const auction = {
+        id: crypto.randomUUID(),
+        user: user,
+        startingPrice: auct.startingPrice,
+        pokemon: getById(auct.pokemonId),
+        startingDate: new Date()
+    }
     auctionData.data.push(auction);
     return auction;
 }
@@ -28,8 +36,8 @@ const save = (auction) => {
 
 module.exports = {
     getAll,
+    save,
     // getById,
-    // save,
     // update,
     // remove,
 };
