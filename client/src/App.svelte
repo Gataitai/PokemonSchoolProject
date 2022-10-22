@@ -4,7 +4,10 @@
 
   import Home from "./pages/Home.svelte";
   import About from "./pages/About.svelte";
+  import Auctions from "./pages/Auctions.svelte";
+  import Pokemons from "./pages/Pokemons.svelte";
   import Header from "./components/Header.svelte";
+
 
   let page;
   let params;
@@ -16,6 +19,14 @@
   });
   router('/about', (ctx) => {
     page = About;
+    currentRoute = ctx.pathname;
+  });
+  router('/pokemons', (ctx) => {
+    page = Auctions;
+    currentRoute = ctx.pathname;
+  });
+  router('/auctions', (ctx) => {
+    page = Pokemons;
     currentRoute = ctx.pathname;
   });
 
