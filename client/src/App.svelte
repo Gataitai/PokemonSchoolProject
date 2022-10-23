@@ -8,9 +8,6 @@
   import Pokemons from "./pages/Pokemons.svelte";
   import Header from "./components/Header.svelte";
 
-  const imgUrl = "https://img.pokemondb.net/sprites/sword-shield/icon/"
-
-
   let page;
   let params;
   let currentRoute;
