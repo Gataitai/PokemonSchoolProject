@@ -8,6 +8,8 @@
   import Pokemons from "./pages/Pokemons.svelte";
   import Header from "./components/Header.svelte";
 
+  const imgUrl = "https://img.pokemondb.net/sprites/sword-shield/icon/"
+
 
   let page;
   let params;
@@ -22,11 +24,11 @@
     currentRoute = ctx.pathname;
   });
   router('/pokemons', (ctx) => {
-    page = Auctions;
+    page = Pokemons;
     currentRoute = ctx.pathname;
   });
   router('/auctions', (ctx) => {
-    page = Pokemons;
+    page = Auctions;
     currentRoute = ctx.pathname;
   });
 
@@ -34,7 +36,7 @@
 </script>
 
 <main>
-  <img src={logo} alt="Svelte Logo" />
+<!--  <img src={logo} alt="Svelte Logo" />-->
   <Header active={currentRoute} />
   <svelte:component this={page} {params} />
 </main>
@@ -43,17 +45,6 @@
   :root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
-  img {
-    height: 16rem;
-    width: 16rem;
   }
 
 </style>

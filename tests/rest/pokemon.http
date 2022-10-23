@@ -1,4 +1,4 @@
-GET {{protocol}}{{host}}:{{port}}/pokemon
+GET {{protocol}}{{host}}:{{port}}/pokemons
 Content-Type: application/json
 Accept: application/json
 

@@ -5,7 +5,7 @@ const { validatePokemon } = require("../middleware/validate");
 const { authorizeToken } = require("../middleware/authorize");
 const { definition } = require("../data/pokemonData");
 
-router.get("/", authorizeToken, async (req, res) => {
+router.get("/", async (req, res) => {
     const type = req.query.type;
 
     let pokemons;
