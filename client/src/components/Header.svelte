@@ -52,6 +52,10 @@
                     <a class:active={active === "/about"} class="nav-link" href="/about">About</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
+                </li>
+
             </ul>
 
             <form class="d-flex" role="search">
