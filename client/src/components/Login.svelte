@@ -1,23 +1,42 @@
 <script>
-    import { getUserDetails } from '../hooks/auth';
-    import { store } from '../hooks/auth';
+    import { getUserDetails } from '../stores/auth';
+    import { store } from '../stores/auth';
 
     let username = '';
     let password = '';
     let error = ''
 
     async function login() {
-        const user = await getUserDetails( username, password )
+        const login = {
+            username,
+            password
+        }
 
-        if ( user ) {
-            console.log(user)
-            $store = user
-            if ( error ) error = ''
-        }
-        else {
-            error = 'Incorrect username and password.'
-            console.log("Incorrect username and password.")
-        }
+        fetch('http://localhost:3001/auths',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(login),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+        })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
+        // const user = await getUserDetails( username, password )
+
+        // if ( user ) {
+        //     console.log(user)
+        //     $store = user
+        //     if ( error ) error = ''
+        // }
+        // else {
+        //     error = 'Incorrect username and password.'
+        //     console.log("Incorrect username and password.")
+        // }
 
     }
 
@@ -27,12 +46,12 @@
 
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="email" class="form-control" id="username" bind:value={username} />
+        <input class="form-control" id="username" bind:value={username} />
     </div>
 
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" bind:value={password} />
+        <input class="form-control" id="password" bind:value={password} />
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

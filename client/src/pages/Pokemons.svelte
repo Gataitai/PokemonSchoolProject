@@ -14,9 +14,7 @@
 
 <div class="pokemon-list">
     {#each pokemons as pokemon}
-        <div class="pokemon-card">
-            <PokemonCard pokemon={pokemon}/>
-        </div>
+        <PokemonCard pokemon={pokemon}/>
     {/each}
 </div>
 
