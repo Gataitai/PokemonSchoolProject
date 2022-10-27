@@ -1,5 +1,5 @@
 <script>
-    import TypeBadgeList from "./TypeBadgeList.svelte";
+    import TypeBadge from "./TypeBadge.svelte";
 
     export let pokemon;
     const imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
@@ -11,7 +11,10 @@
     <div class="card-body">
         <h4 class="card-title">{pokemon.name}</h4>
         <p class="text-muted">{id}</p>
-        <TypeBadgeList types={pokemon.typeList}/>
+
+        {#each pokemon.typeList as type}
+            <TypeBadge type={type}/>
+        {/each}
     </div>
 </div>
 
