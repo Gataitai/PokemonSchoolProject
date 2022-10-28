@@ -6,12 +6,12 @@ const { authorizeToken } = require("../middleware/authorize");
 const { definition } = require("../data/pokemonData");
 
 router.get("/", async (req, res) => {
-    const type = req.query.type;
+    const types = req.query.types;
 
     let pokemons;
 
-    if(type){
-        pokemons = pokemonService.getByType(type);
+    if(types){
+        pokemons = pokemonService.getByTypes(types.split(','));
     }
     else{
         pokemons = pokemonService.getAll();

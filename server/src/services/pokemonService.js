@@ -17,9 +17,11 @@ const getByName = (name) => {
     return pokemons.find(p => p.name.toLowerCase() === name.toLowerCase());
 }
 
-const getByType = (type) => {
-    type = type.charAt(0).toUpperCase() + type.slice(1);
-    return pokemons.filter(p => p.typeList.includes(type));
+const getByTypes = (types) => {
+    // type = type.charAt(0).toUpperCase() + type.slice(1);
+    // return pokemons.filter(p => p.typeList.includes(type));
+
+    return pokemons.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
 }
 
 const save = (pokemon) => {
@@ -43,7 +45,7 @@ module.exports = {
     getAll,
     getById,
     getByName,
-    getByType,
+    getByTypes,
     save,
     update,
     remove,
