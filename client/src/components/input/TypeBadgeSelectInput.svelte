@@ -47,8 +47,8 @@
 
 </script>
 
-<div class="card" id="TypeBadgeSelectInput">
-    <div class="card-body">
+<div class="card">
+    <div class="card-header">
         {#if typesInput.length <= 0}
             Pick type
         {:else}
@@ -60,26 +60,21 @@
             {/each}
         {/if}
     </div>
-    <div class="card-footer">
-        <div id="typeBadge">
-            {#each types as type}
-                <span class="badge rounded-pill {type}" on:click={() => addBadge(type)}>{type}</span>
-            {/each}
-        </div>
+    <div class="card-body">
+        {#each types as type}
+            <span class="badge rounded-pill {type}" on:click={() => addBadge(type)}>{type}</span>
+        {/each}
     </div>
 </div>
 
 
 <style>
-    #TypeBadgeSelectInput{
-        
-    }
-
-    #typeBadge:hover{
-        cursor: pointer;
+    .card{
+        margin-bottom: 1rem;
     }
 
     .badge{
+        cursor: pointer;
         margin-right: 3px;
     }
 

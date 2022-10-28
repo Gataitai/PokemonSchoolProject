@@ -1,22 +1,34 @@
 <script>
     import {fetchPokemons} from '../util/fetch.js';
     import PokemonCard from "../components/PokemonCard.svelte";
-    import TypeBadgeSelectInput from "../components/TypeBadgeSelectInput.svelte";
+    import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
+    import RangeInput from "../components/input/RangeInput.svelte";
+    import TextInput from "../components/input/TextInput.svelte";
 
     export let params;
 
     let promise;
     $: promise = fetchPokemons();
 
-    const updatePokemon = (event) => {
-        console.log(event.detail.types);
-        $: promise = fetchPokemons(event.detail.types)
+    const updatePokemonTypes = (event) => {
+        const types = event.detail.types;
+        $: promise = fetchPokemons(types);
+    }
+
+    const updatePokemonPrice = (event) => {
+        const price = event.detail.number;
+        $: promise = fetchPokemons(price);
     }
 </script>
 
 <div class="filter">
-    <TypeBadgeSelectInput on:typesSelected={updatePokemon}/>
-    <input type="range" class="form-range" id="customRange1">
+    <TextInput/>
+
+    <TypeBadgeSelectInput on:typesSelected={updatePokemonTypes}/>
+
+    <RangeInput on:rangeSelected={updatePokemonPrice}>
+        Price
+    </RangeInput>
 </div>
 
 <div class="items">
@@ -32,7 +44,6 @@
 </div>
 
 <style>
-
     .filter{
         position: fixed;
         padding: 4.5rem 1rem 1rem 1rem;
@@ -45,7 +56,7 @@
     .items{
         margin: 1rem 1rem 1rem 20%;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         grid-gap: 1rem;
     }
 </style>

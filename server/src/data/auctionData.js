@@ -1,6 +1,7 @@
 const auctionDefinition = [
     "startingPrice",
-    "pokemonId"
+    "pokemonId",
+    "endingDate"
 ];
 
 const data = [
@@ -15,7 +16,8 @@ const data = [
                 "Electric"
             ]
         },
-        "startingDate": "2022-10-21T01:11:00.000Z"
+        "startingDate": "2022-10-21T01:11:00.000Z",
+        "endingDate": "2022-10-21T01:11:00.000Z"
     }
 ];
 

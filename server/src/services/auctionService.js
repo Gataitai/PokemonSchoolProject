@@ -15,7 +15,8 @@ const save = (auct, user) => {
         user: user,
         startingPrice: auct.startingPrice,
         pokemon: getById(auct.pokemonId),
-        startingDate: new Date()
+        startingDate: new Date(),
+        endDate: auct.endDate
     }
     auctionData.data.push(auction);
     return auction;
