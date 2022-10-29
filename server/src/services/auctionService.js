@@ -5,9 +5,16 @@ const getAll = () => {
     return auctionData.data;
 }
 
-// const getById = (id) => {
-//     return pokemons[id-1];
-// }
+const getByName = (name) => {
+    return auctionData.data.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
+}
+
+const getByTypes = (types) => {
+    // type = type.charAt(0).toUpperCase() + type.slice(1);
+    // return pokemons.filter(p => p.typeList.includes(type));
+
+    return auctionData.data.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
+}
 
 const save = (auct, user) => {
     const auction = {

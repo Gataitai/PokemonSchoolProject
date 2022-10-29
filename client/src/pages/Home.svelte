@@ -1,5 +1,5 @@
 <script>
-    import {fetchPokemons} from '../util/fetch.js';
+    import {fetchPokemons, fetchPokemonsByName, fetchPokemonsByPrice, fetchPokemonsByTypes} from '../util/fetch.js';
     import PokemonCard from "../components/PokemonCard.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
@@ -10,23 +10,28 @@
     let promise;
     $: promise = fetchPokemons();
 
-    const updatePokemonTypes = (event) => {
+    const updatePokemonByTypes = (event) => {
         const types = event.detail.types;
-        $: promise = fetchPokemons(types);
+        $: promise = fetchPokemonsByTypes(types);
     }
 
-    const updatePokemonPrice = (event) => {
+    const updatePokemonByPrice = (event) => {
         const price = event.detail.number;
-        $: promise = fetchPokemons(price);
+        $: promise = fetchPokemonsByPrice(price);
+    }
+
+    const updatePokemonByName = (event) => {
+        const name = event.detail.text;
+        $: promise = fetchPokemonsByName(name);
     }
 </script>
 
 <div class="filter">
-    <TextInput/>
+    <TextInput on:textTyped={updatePokemonByName}/>
 
-    <TypeBadgeSelectInput on:typesSelected={updatePokemonTypes}/>
+    <TypeBadgeSelectInput on:typesSelected={updatePokemonByTypes}/>
 
-    <RangeInput on:rangeSelected={updatePokemonPrice}>
+    <RangeInput on:rangeSelected={updatePokemonByPrice}>
         Price
     </RangeInput>
 </div>
@@ -56,7 +61,7 @@
     .items{
         margin: 1rem 1rem 1rem 20%;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         grid-gap: 1rem;
     }
 </style>

@@ -14,7 +14,7 @@ const getById = (id) => {
 }
 
 const getByName = (name) => {
-    return pokemons.find(p => p.name.toLowerCase() === name.toLowerCase());
+    return pokemons.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
 }
 
 const getByTypes = (types) => {

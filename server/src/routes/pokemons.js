@@ -7,11 +7,15 @@ const { definition } = require("../data/pokemonData");
 
 router.get("/", async (req, res) => {
     const types = req.query.types;
+    const name = req.query.name;
 
     let pokemons;
 
     if(types){
         pokemons = pokemonService.getByTypes(types.split(','));
+    }
+    else if(name){
+        pokemons = pokemonService.getByName(name);
     }
     else{
         pokemons = pokemonService.getAll();
