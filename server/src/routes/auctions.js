@@ -4,7 +4,6 @@ const auctionService = require("../services/auctionService");
 const {validateAuction} = require("../middleware/validate");
 const {authorizeToken} = require("../middleware/authorize");
 const {getUserName} = require("../util/getUser");
-const pokemonService = require("../services/pokemonService");
 
 router.get("/", (req, res) => {
     const types = req.query.types;

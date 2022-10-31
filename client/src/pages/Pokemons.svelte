@@ -1,5 +1,5 @@
 <script>
-    import PokemonCard from "../components/PokemonCard.svelte";
+    import PokemonCard from "../components/card/PokemonCard.svelte";
     import {onMount} from "svelte";
 
     let pokemons = [];

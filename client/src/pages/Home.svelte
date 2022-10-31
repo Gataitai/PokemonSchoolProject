@@ -1,29 +1,35 @@
 <script>
-    import {fetchPokemons, fetchPokemonsByName, fetchPokemonsByPrice, fetchPokemonsByTypes} from '../util/fetch.js';
-    import PokemonCard from "../components/PokemonCard.svelte";
+    import { get } from '../util/fetch.js';
+    import PokemonCard from "../components/card/PokemonCard.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
     import TextInput from "../components/input/TextInput.svelte";
+    import Auctions from "./Auctions.svelte";
+    import AuctionCard from "../components/card/AuctionCard.svelte";
 
-    export let params;
-
-    let promise;
-    $: promise = fetchPokemons();
+    let promise = get("auctions");
 
     const updatePokemonByTypes = (event) => {
         const types = event.detail.types;
-        $: promise = fetchPokemonsByTypes(types);
+        let queryParam = "types="
+        for(let type of types){
+            queryParam+= type + ","
+        }
+        promise = get("auctions", queryParam);
     }
 
     const updatePokemonByPrice = (event) => {
-        const price = event.detail.number;
-        $: promise = fetchPokemonsByPrice(price);
+        const price = event.detail.number
+        const queryParam = "price=" + price;
+        promise = get("auctions", queryParam);
     }
 
     const updatePokemonByName = (event) => {
         const name = event.detail.text;
-        $: promise = fetchPokemonsByName(name);
+        const queryParam = "name=" + name;
+        promise = get("auctions", queryParam);
     }
+
 </script>
 
 <div class="filter">
@@ -38,11 +44,11 @@
 
 <div class="items">
     {#await promise}
-        ASDFASDFASDF
-    {:then pokemons}
-        {#each pokemons as pokemon}
-            <PokemonCard pokemon={pokemon}/>
-        {/each}
+        Loading
+        {:then auctions}
+            {#each auctions as auction}
+                <AuctionCard auction={auction}/>
+            {/each}
         {:catch error}
         <p>{error.message}</p>
     {/await}

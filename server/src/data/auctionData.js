@@ -1,25 +1,27 @@
+const crypto = require("crypto");
+const pokemonService = require("../services/pokemonService");
 const auctionDefinition = [
     "startingPrice",
     "pokemonId",
     "endingDate"
 ];
 
-const data = [
-    {
-        "id": "54e76544-1d5a-4eb6-8250-4a9de7d0f8fd",
-        "user": "mathijs",
-        "startingPrice": "1",
-        "pokemon": {
-            "id": 25,
-            "name": "Pikachu",
-            "typeList": [
-                "Electric"
-            ]
-        },
-        "startingDate": "2022-10-21T01:11:00.000Z",
-        "endingDate": "2022-10-21T01:11:00.000Z"
+const data = [];
+
+const x = () => {
+    for (let i = 0; i < 500; i++) {
+        const auction  = {
+            "id": crypto.randomUUID(),
+            "user": "mathijs",
+            "startingPrice": Math.floor(Math.random() * 1000),
+            "pokemon": pokemonService.getById(Math.floor(Math.random() * (809 - 1 + 1) + 1)),
+            "startingDate": new Date(),
+            "endingDate": "2022-11-15T01:11:00.000Z"
+        }
+        data.push(auction);
     }
-];
+}
+x()
 
 module.exports = {
     auctionDefinition,

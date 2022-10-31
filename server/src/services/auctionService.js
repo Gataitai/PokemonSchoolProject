@@ -6,14 +6,15 @@ const getAll = () => {
 }
 
 const getByName = (name) => {
-    return auctionData.data.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
+    return auctionData.data.filter(a => a.pokemon.name.toLowerCase().match(name.toLowerCase()));
 }
 
 const getByTypes = (types) => {
-    // type = type.charAt(0).toUpperCase() + type.slice(1);
-    // return pokemons.filter(p => p.typeList.includes(type));
+    return auctionData.data.filter(a => a.pokemon.typeList.some(t => types.includes(t)));
+}
 
-    return auctionData.data.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
+const getByPrice = (price) => {
+    return auctionData.data.filter(a => a.startingPrice < price);
 }
 
 const save = (auct, user) => {
@@ -44,6 +45,9 @@ const save = (auct, user) => {
 
 module.exports = {
     getAll,
+    getByName,
+    getByTypes,
+    getByPrice,
     save,
     // getById,
     // update,
