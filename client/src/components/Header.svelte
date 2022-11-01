@@ -1,5 +1,13 @@
 <script>
+    import {token} from '../stores/auth.js';
+    import decode from 'jwt-decode'
+
     export let active;
+
+    let payload;
+    $: if ($token) {
+        payload = decode($token);
+    }
 
     let hamburger = false;
 
@@ -30,9 +38,14 @@
 
             </ul>
 
-            <div class="d-flex">
-                <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
-            </div>
+            {#if payload}
+                {payload.username}
+                {:else}
+                <div class="d-flex">
+                    <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
+                </div>
+            {/if}
+
         </div>
     </div>
 </nav>

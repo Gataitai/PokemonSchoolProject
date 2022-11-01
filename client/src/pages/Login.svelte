@@ -1,5 +1,5 @@
 <script>
-    import {tokenStore} from '../stores/auth.js';
+    import {token} from '../stores/auth.js';
     import {error} from '../stores/error.js'
     import {post} from "../util/fetch.js";
 
@@ -16,7 +16,7 @@
             $error = response.error;
         }
         else{
-            $tokenStore = response.token;
+            $token = response.token;
         }
     }
 
