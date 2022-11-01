@@ -6,7 +6,7 @@
   import Auctions from "./pages/Auctions.svelte";
   import Pokemons from "./pages/Pokemons.svelte";
   import Header from "./components/Header.svelte";
-  import Login from "./components/Login.svelte";
+  import Login from "./pages/Login.svelte";
 
   let page;
   let params;

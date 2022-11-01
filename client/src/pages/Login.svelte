@@ -1,7 +1,4 @@
 <script>
-    import { getUserDetails } from '../stores/auth';
-    import { store } from '../stores/auth';
-
     let username = '';
     let password = '';
     let error = ''
@@ -42,21 +39,42 @@
 
 </script>
 
-<form on:submit|preventDefault={login} class="flex mx-auto col-6">
+<div class="container flex mx-auto col-6">
+    <div class="card">
+        <form on:submit|preventDefault={login} class="m-5">
+            <h1 class="text-center">
+                Login
+            </h1>
 
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input class="form-control" id="username" bind:value={username} />
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input class="form-control" id="username" bind:value={username} />
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input class="form-control" id="password" bind:value={password} />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+            <div id="error_message" class="text-danger">
+                <small>{error}</small>
+            </div>
+
+        </form>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input class="form-control" id="password" bind:value={password} />
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <div id="error_message" class="text-danger">
-        <small>{error}</small>
-    </div>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 90vh;
+    }
+</style>
 
-</form>
+
+

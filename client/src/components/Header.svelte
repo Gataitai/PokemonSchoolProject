@@ -45,22 +45,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class:active={active === "/auctions"} class="nav-link" href="/auctions">Auctions</a>
-                </li>
-
-                <li class="nav-item">
                     <a class:active={active === "/about"} class="nav-link" href="/about">About</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
                 </li>
 
             </ul>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            </form>
+            <div class="d-flex">
+                <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
+            </div>
         </div>
     </div>
 </nav>
