@@ -15,11 +15,11 @@ const authorizeToken = (req, res, next) => {
         if(jwt.verify(token, user.secret)){
             next();
         } else {
-            return res.status(statusCodes.UNAUTHORIZED).send();
+            return res.status(statusCodes.UNAUTHORIZED).json({error:'Wrong token'});
         }
     }
     else{
-        return res.status(statusCodes.BAD_REQUEST).send();
+        return res.status(statusCodes.BAD_REQUEST).json({'error':'Wrong token'});
     }
 }
 

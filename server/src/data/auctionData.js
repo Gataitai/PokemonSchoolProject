@@ -26,4 +26,4 @@ x()
 module.exports = {
     auctionDefinition,
     data
-};
+}

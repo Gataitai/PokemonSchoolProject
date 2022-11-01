@@ -1,40 +1,23 @@
 <script>
+    import {tokenStore} from '../stores/auth.js';
+    import {error} from '../stores/error.js'
+    import {post} from "../util/fetch.js";
+
     let username = '';
     let password = '';
-    let error = ''
 
     async function login() {
         const login = {
             username,
             password
         }
-
-        fetch('http://localhost:3001/auths',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(login),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-        })
-            .catch((error) => {
-                console.log('Error:', error);
-            });
-        // const user = await getUserDetails( username, password )
-
-        // if ( user ) {
-        //     console.log(user)
-        //     $store = user
-        //     if ( error ) error = ''
-        // }
-        // else {
-        //     error = 'Incorrect username and password.'
-        //     console.log("Incorrect username and password.")
-        // }
-
+        const response = await post("auths", login);
+        if(response.error){
+            $error = response.error;
+        }
+        else{
+            $tokenStore = response.token;
+        }
     }
 
 </script>
@@ -57,9 +40,6 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <div id="error_message" class="text-danger">
-                <small>{error}</small>
-            </div>
 
         </form>
     </div>

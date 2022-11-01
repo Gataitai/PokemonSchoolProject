@@ -8,6 +8,9 @@
   import Header from "./components/Header.svelte";
   import Login from "./pages/Login.svelte";
 
+  import {error} from "./stores/error.js";
+  import Message from "./components/Message.svelte";
+
   let page;
   let params;
   let currentRoute;
@@ -38,12 +41,35 @@
   });
 
   router.start();
+
+
+  let errorMessage;
+
+  const clear = () => {
+    if($error != null){
+      $error = null;
+      errorMessage = null;
+    }
+  }
+
+  $: if ($error) {
+    errorMessage = $error;
+    setTimeout(clear, 5000)
+  }
+
 </script>
 
 <main>
 <!--  <img src={logo} alt="Svelte Logo" />-->
   <Header active={currentRoute} />
   <svelte:component this={page} {params} />
+
+  {#if errorMessage}
+    <Message>
+      {errorMessage}
+    </Message>
+  {/if}
+
 </main>
 
 <style>

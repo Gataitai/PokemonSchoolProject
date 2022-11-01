@@ -9,6 +9,35 @@ export const get = async (resource, queryParam) => {
     return json[resource];
 }
 
+export const post = async (resource, object, token) => {
+    let url = 'http://localhost:3001/' + resource;
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(object)
+    }
+
+    if(token){
+        options.headers["Authorization"] = 'Bearer ' + token;
+    }
+
+    return fetch(url, options)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+            return data;
+        })
+        .catch((e) => {
+            console.log(e);
+            return {
+                error: e.error
+            };
+        });
+}
+
 // const get = async (url) => {
 //     const response = await fetch(url);
 //     const json = await response.json();

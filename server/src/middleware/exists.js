@@ -6,13 +6,13 @@ const userHasToExist = (req, res, next) => {
         next();
     }
     else{
-        return res.status(statusCodes.CONFLICT).send();
+        return res.status(statusCodes.CONFLICT).json({error: "User doesnt exist"});
     }
 }
 
 const userCantExist = (req, res, next) => {
     if(userData.data.some(u => u.username === req.body.username)){
-        return res.status(statusCodes.CONFLICT).send();
+        return res.status(statusCodes.CONFLICT).json({error: "User already exists"});
     }
     else{
         next();
