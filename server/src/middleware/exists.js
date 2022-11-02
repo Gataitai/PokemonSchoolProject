@@ -6,7 +6,7 @@ const userHasToExist = (req, res, next) => {
         next();
     }
     else{
-        return res.status(statusCodes.CONFLICT).json({error: "User doesnt exist"});
+        return res.status(statusCodes.CONFLICT).json({error: "Wrong username or password"});
     }
 }
 

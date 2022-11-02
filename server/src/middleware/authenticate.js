@@ -11,7 +11,7 @@ const authenticateLogin = (req, res, next) => {
     if(bcrypt.compareSync(req.body.password, user.password)){
         next();
     } else {
-        return res.status(statusCodes.UNAUTHORIZED).send();
+        return res.status(statusCodes.UNAUTHORIZED).json({error:'Wrong username or password'});
     }
 }
 

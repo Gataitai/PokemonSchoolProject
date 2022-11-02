@@ -1,7 +1,9 @@
 <script>
-    import {token} from '../stores/auth.js';
+    import {token, payload} from '../stores/auth.js';
     import {error} from '../stores/error.js'
     import {post} from "../util/fetch.js";
+    import decode from "jwt-decode";
+    import router from 'page';
 
     let username = '';
     let password = '';
@@ -17,6 +19,8 @@
         }
         else{
             $token = response.token;
+            $payload = decode(response.token);
+            router('/');
         }
     }
 

@@ -1,16 +1,30 @@
 <script>
-    import {token} from '../stores/auth.js';
-    import decode from 'jwt-decode'
+    import { token, payload } from '../stores/auth.js';
+    import { clickOutside } from "../util/clickOutside";
+    import router from 'page';
 
     export let active;
 
-    let payload;
-
-
     let hamburger = false;
+    let user = false;
 
-    const toggle = () => {
+    const toggleHamburger = () => {
         hamburger = !hamburger;
+    }
+
+    const toggleUser = () => {
+        user = !user;
+    }
+
+    const userOff = () => {
+        user = false;
+    }
+
+    const logout = () => {
+        $token = null;
+        $payload = null;
+        user = false;
+        router('/login');
     }
 </script>
 
@@ -19,7 +33,7 @@
     <div class="container">
         <a class="navbar-brand" href="/">PokeAuct</a>
 
-        <button class="navbar-toggler" on:click={toggle} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" on:click={toggleHamburger} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="bi bi-list"></span>
         </button>
 
@@ -29,15 +43,17 @@
                 <li class="nav-item">
                     <a class:active={active === "/pokemons"} class="nav-link" href="/pokemons">Pokemons</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class:active={active === "/about"} class="nav-link" href="/about">About</a>
-                </li>
-
             </ul>
 
-            {#if payload}
-                {payload.username}
+            {#if $payload}
+                <div use:clickOutside on:click_outside={userOff} class="d-flex">
+                    <a class="nav-link" data-bs-toggle="dropdown" on:click={toggleUser}>{$payload.username}</a>
+
+                    <ul class="dropdown-menu {user ? 'show' : ''}">
+                        <li><a class="dropdown-item" href="#">Account</a></li>
+                        <li><a class="dropdown-item" on:click={logout}>Logout</a></li>
+                    </ul>
+                </div>
                 {:else}
                 <div class="d-flex">
                     <a class:active={active === "/login"} class="nav-link" href="/login">Login</a>
@@ -54,14 +70,14 @@
         color: white;
     }
 
-    .bars{
-        background-color: rgba(255, 99, 99, 0.95);
+    .dropdown-menu{
+        transform: translate(0,2rem);
     }
 
     .navbar{
         background-color: rgba(255, 99, 99, 0.95);
     }
-    a{
+    .nav-link, .navbar-brand{
         color: white;
     }
 </style>

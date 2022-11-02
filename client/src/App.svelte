@@ -2,7 +2,6 @@
   import router from 'page';
 
   import Home from "./pages/Home.svelte";
-  import About from "./pages/About.svelte";
   import Auctions from "./pages/Auctions.svelte";
   import Pokemons from "./pages/Pokemons.svelte";
   import Header from "./components/Header.svelte";
@@ -17,11 +16,6 @@
 
   router('/', (ctx) => {
     page = Home;
-    currentRoute = ctx.pathname;
-  });
-
-  router('/about', (ctx) => {
-    page = About;
     currentRoute = ctx.pathname;
   });
 
