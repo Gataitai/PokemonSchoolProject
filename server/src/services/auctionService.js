@@ -1,8 +1,12 @@
 const auctionData = require("../data/auctionData");
 const crypto = require("crypto");
-const { getById } = require("../services/pokemonService");
+
 const getAll = () => {
     return auctionData.data;
+}
+
+const getById = (id) => {
+    return auctionData.data.find(a => a.id === id);
 }
 
 const getByName = (name) => {
@@ -45,11 +49,11 @@ const save = (auct, user) => {
 
 module.exports = {
     getAll,
+    getById,
     getByName,
     getByTypes,
     getByPrice,
     save,
-    // getById,
     // update,
     // remove,
 };

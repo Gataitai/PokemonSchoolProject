@@ -4,34 +4,40 @@
   import Home from "./pages/Home.svelte";
   import Auctions from "./pages/Auctions.svelte";
   import Pokemons from "./pages/Pokemons.svelte";
+  import Detail from "./pages/Detail.svelte"
   import Header from "./components/Header.svelte";
   import Login from "./pages/Login.svelte";
 
   import {error} from "./stores/error.js";
+  import {currentRoute} from "./stores/router";
   import Message from "./components/Message.svelte";
 
   let page;
   let params;
-  let currentRoute;
 
   router('/', (ctx) => {
     page = Home;
-    currentRoute = ctx.pathname;
+    $currentRoute = ctx.pathname;
   });
 
   router('/pokemons', (ctx) => {
     page = Pokemons;
-    currentRoute = ctx.pathname;
+    $currentRoute = ctx.pathname;
   });
 
   router('/auctions', (ctx) => {
     page = Auctions;
-    currentRoute = ctx.pathname;
+    $currentRoute = ctx.pathname;
   });
 
   router('/login', (ctx) => {
     page = Login;
-    currentRoute = ctx.pathname;
+    $currentRoute = ctx.pathname;
+  });
+
+  router('/detail', (ctx) => {
+    page = Detail;
+    $currentRoute = ctx.pathname;
   });
 
   router.start();
@@ -54,16 +60,12 @@
 </script>
 
 <main>
-<!--  <img src={logo} alt="Svelte Logo" />-->
-  <Header active={currentRoute} />
+  <Header active={$currentRoute} />
   <svelte:component this={page} {params} />
 
   {#if errorMessage}
-    <Message>
-      {errorMessage}
-    </Message>
+    <Message error="{errorMessage}"/>
   {/if}
-
 </main>
 
 <style>

@@ -1,10 +1,8 @@
 <script>
     import { get } from '../util/fetch.js';
-    import PokemonCard from "../components/card/PokemonCard.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
     import TextInput from "../components/input/TextInput.svelte";
-    import Auctions from "./Auctions.svelte";
     import AuctionCard from "../components/card/AuctionCard.svelte";
 
     let promise = get("auctions");

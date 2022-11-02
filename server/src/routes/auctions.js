@@ -30,6 +30,13 @@ router.get("/", (req, res) => {
     })
 });
 
+router.get("/:id", (req, res) => {
+    let auction = auctionService.getById(req.params.id);
+    res.json({
+        auction
+    })
+});
+
 router.post("/", validateAuction, authorizeToken, (req, res) => {
     const user = getUserName(req.headers.authorization);
     const auction = auctionService.save(req.body, user);

@@ -47,7 +47,7 @@
 
             {#if $payload}
                 <div use:clickOutside on:click_outside={userOff} class="d-flex">
-                    <a class="nav-link" data-bs-toggle="dropdown" on:click={toggleUser}>{$payload.username}</a>
+                    <a class="nav-link" href="" on:click={toggleUser}>{$payload.username}</a>
 
                     <ul class="dropdown-menu {user ? 'show' : ''}">
                         <li><a class="dropdown-item" href="#">Account</a></li>

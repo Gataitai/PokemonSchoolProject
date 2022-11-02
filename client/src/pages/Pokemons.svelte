@@ -1,21 +1,21 @@
 <script>
     import PokemonCard from "../components/card/PokemonCard.svelte";
-    import {onMount} from "svelte";
+    import {get} from "../util/fetch";
 
-    let pokemons = [];
-
-    onMount(async () => {
-        const response = await fetch('http://localhost:3001/pokemons');
-        const json = await response.json();
-        pokemons = json.pokemons;
-    });
+    let promise = get("pokemons");
 
 </script>
 
 <div class="pokemon-list">
-    {#each pokemons as pokemon}
-        <PokemonCard pokemon={pokemon}/>
-    {/each}
+    {#await promise}
+        Loading
+        {:then pokemons}
+            {#each pokemons as pokemon}
+                <PokemonCard pokemon={pokemon}/>
+            {/each}
+        {:catch error}
+        <p>{error.message}</p>
+    {/await}
 </div>
 
 
