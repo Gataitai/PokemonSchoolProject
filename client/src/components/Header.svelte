@@ -5,9 +5,7 @@
     export let active;
 
     let payload;
-    $: if ($token) {
-        payload = decode($token);
-    }
+
 
     let hamburger = false;
 
