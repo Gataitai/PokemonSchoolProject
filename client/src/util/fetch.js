@@ -1,12 +1,22 @@
 
-export const get = async (resource, queryParam) => {
-    let url = 'http://localhost:3001/' + resource;
+export const get = async (path, queryParam) => {
+    let url = 'http://localhost:3001/' + path;
     if(queryParam){
         url+= "?" + queryParam;
     }
     const response = await fetch(url);
     const json = await response.json();
-    return json[resource];
+    return json[path];
+}
+
+export const getById = async (path, id) => {
+    let url = 'http://localhost:3001/' + path;
+    if(id){
+        url+= "/" + id;
+    }
+    const response = await fetch(url);
+    const json = await response.json(); //resource url is altijd in het meervoud maar de resource zelf bij deze functie komt terug als object in enkelvoud
+    return json[path.substr(0, path.length-1)];
 }
 
 export const post = async (resource, object, token) => {

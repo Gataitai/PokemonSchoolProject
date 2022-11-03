@@ -1,15 +1,16 @@
 <script>
     import Card from "./Card.svelte";
     import TypeBadgeList from "../TypeBadgeList.svelte";
+    import { auctionId } from "../../stores/auction.js";
     import router from "page";
-    import Pokemons from "../../pages/Pokemons.svelte";
 
     export let auction;
     const imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     const date = new Date(auction.endingDate).toLocaleDateString("en-US");
 
-    const clickAuction = (id) => {
-        router('/detail');
+    const clickAuction = (auction) => {
+        $auctionId = auction.id;
+        router('/detail')
     }
 
 </script>
@@ -22,8 +23,7 @@
         <TypeBadgeList types={auction.pokemon.typeList}/>
 
         <div class="d-grid gap-2">
-            <a href="detail/{auction.id}">baba</a>
-            <button type="button" on:click={() => clickAuction(auction.id)} class="btn btn-success">
+            <button type="button" on:click={() => clickAuction(auction)} class="btn btn-success">
                 Bid now ${auction.startingPrice}
             </button>
         </div>
