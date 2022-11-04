@@ -10,7 +10,7 @@
 
     const clickAuction = (auction) => {
         $auctionId = auction.id;
-        router('/detail')
+        router('/detail/:')
     }
 
 </script>
@@ -23,9 +23,9 @@
         <TypeBadgeList types={auction.pokemon.typeList}/>
 
         <div class="d-grid gap-2">
-            <button type="button" on:click={() => clickAuction(auction)} class="btn btn-success">
+            <a href="/detail/{auction.id}" type="button"  class="btn btn-success">
                 Bid now ${auction.startingPrice}
-            </button>
+            </a>
         </div>
     </div>
     <div class="card-footer text-muted text-center">
@@ -35,7 +35,7 @@
 
 
 <style>
-    button{
+    a{
         margin-top: 1rem;
     }
 

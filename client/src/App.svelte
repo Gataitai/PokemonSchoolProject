@@ -37,9 +37,10 @@
     currentRoute = ctx.pathname;
   });
 
-  router('/detail', (ctx) => {
+  router('/detail/:id', (ctx) => {
     page = Detail;
     currentRoute = ctx.pathname;
+    params = ctx.params;
   });
 
   router.start();

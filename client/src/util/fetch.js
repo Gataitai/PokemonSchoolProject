@@ -16,10 +16,10 @@ export const getById = async (path, id) => {
     }
     const response = await fetch(url);
     const json = await response.json(); //resource url is altijd in het meervoud maar de resource zelf bij deze functie komt terug als object in enkelvoud
-    return json[path.substr(0, path.length-1)];
+    return json[path.substring(0, path.length-1)];
 }
 
-export const post = async (resource, object, token) => {
+export const post = async ({resource, object, token}) => {
     let url = 'http://localhost:3001/' + resource;
 
     const options = {
