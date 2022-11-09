@@ -25,6 +25,6 @@
     .items{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        grid-gap: 2rem;
+        grid-gap: 4rem;
     }
 </style>

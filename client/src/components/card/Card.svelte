@@ -43,6 +43,9 @@
         color: var(--text-primary);
         text-align: center;
         writing-mode: vertical-rl;
+        font-size: 1.5rem;
+        line-height: 0;
+        letter-spacing: 0.1ch;
     }
 
     .card-image{
