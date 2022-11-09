@@ -1,6 +1,7 @@
 <script>
     import PokemonCard from "../components/card/PokemonCard.svelte";
     import {get} from "../util/fetch";
+    import Card from "../components/card/Card.svelte";
 
     let promise = get("pokemons");
 
@@ -11,7 +12,7 @@
         Loading
         {:then pokemons}
             {#each pokemons as pokemon}
-                <PokemonCard pokemon={pokemon}/>
+                <Card pokemon={pokemon}/>
             {/each}
         {:catch error}
         <p>{error.message}</p>
@@ -21,10 +22,9 @@
 
 <style>
     .pokemon-list{
-        margin: 1rem;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        grid-gap: 1rem;
+        grid-gap: 5rem;
     }
 </style>
 

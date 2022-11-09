@@ -20,6 +20,8 @@
 
 <style>
     img{
-        background-color: #efefef;
+        background-color: var(--bg-primary);
+        border-top-left-radius: 1rem;
+        width: 10rem;
     }
 </style>

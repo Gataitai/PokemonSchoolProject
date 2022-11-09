@@ -1,5 +1,5 @@
 <script>
-    import {get, getById} from "../util/fetch";
+    import {get, getById, post} from "../util/fetch";
     import TypeBadgeList from "../components/TypeBadgeList.svelte";
     import {
         imgUrl0,
@@ -15,53 +15,9 @@
     } from "../util/images.js";
     import Modal from "../components/Modal.svelte";
     import NumberInput from "../components/input/NumberInput.svelte";
+    import {payload, token} from "../stores/auth";
 
     const bids = [
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        },
         {
             bid:"100"
         },
@@ -74,18 +30,28 @@
 
     let bidPrice = 0;
 
-    const showBidInput = () => {
+    const toggleBidInput = () => {
         modalOn = !modalOn;
     }
 
     const updateBidPrice = (event) => {
         bidPrice = event.detail.number
-        console.log(bidPrice);
     }
 
-    const saveBid = () => {
-        console.log("bid saved");
+    const saveBid = (id) => {
+        const bid = {
+            auctionId: id,
+            userId: $payload.userId,
+            biddingPrice: bidPrice
+        }
 
+        const params = {
+            resource: "bids",
+            object: bid,
+            token: $token
+        }
+        post(params)
+        console.log("bid " + bidPrice);
     }
 
     export let params;
@@ -138,7 +104,7 @@
                             </div>
 
                         </div>
-                        <button type="button" class="btn btn-success" on:click={showBidInput}>
+                        <button type="button" class="btn btn-success" on:click={toggleBidInput}>
                             Place bid
                         </button>
                     </div>
@@ -182,7 +148,7 @@
         margin-right: .4rem;
     }
     .bids{
-        height: 500px;
+        height: 82vh;
         overflow-y: scroll;
     }
 

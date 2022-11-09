@@ -37,3 +37,8 @@ export const imgUrl9 = (pokemon) => {
 export const imgUrl0 = (pokemon) => {
     return "https://img.pokemondb.net/sprites/yellow/normal/" + pokemon.toLowerCase() + ".png";
 }
+
+export const imgUrlId = (id) => {
+    return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+}
+

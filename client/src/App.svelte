@@ -1,16 +1,16 @@
 <script>
   import router from 'page';
 
-  import Home from "./pages/Home.svelte";
   import Auctions from "./pages/Auctions.svelte";
   import Pokemons from "./pages/Pokemons.svelte";
   import Detail from "./pages/Detail.svelte"
-  import Header from "./components/Header.svelte";
   import Login from "./pages/Login.svelte";
 
   import {error} from "./stores/error.js";
 
   import Message from "./components/Message.svelte";
+  import Nav from "./components/Nav.svelte";
+  import Home from "./pages/Home.svelte";
 
   let currentRoute;
 
@@ -60,20 +60,16 @@
   }
 
 </script>
-
+<Nav active="{currentRoute}"/>
 <main>
-  <Header active={currentRoute} />
   <svelte:component this={page} {params} />
-
-  {#if errorMessage}
-    <Message error="{errorMessage}"/>
-  {/if}
 </main>
-
+{#if errorMessage}
+  <Message error="{errorMessage}"/>
+{/if}
 <style>
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
 
+  main{
+    padding: 7rem 5rem 0 5rem;
+  }
 </style>
