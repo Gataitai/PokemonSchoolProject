@@ -1,6 +1,7 @@
 <script>
     import { get } from '../util/fetch.js';
     import AuctionCard from "../components/card/AuctionCard.svelte";
+    import Card from "../components/card/Card.svelte";
 
     let promise = get("auctions");
 
@@ -12,7 +13,7 @@
         Loading
     {:then auctions}
         {#each auctions as auction}
-            <AuctionCard auction={auction}/>
+            <Card pokemon={auction.pokemon}/>
         {/each}
     {:catch error}
         <p>{error.message}</p>
@@ -20,17 +21,10 @@
 </div>
 
 <style>
-    .filter{
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 20%;
-    }
 
     .items{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        grid-gap: 1rem;
+        grid-gap: 2rem;
     }
 </style>

@@ -23,8 +23,8 @@
 <style>
     .pokemon-list{
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        grid-gap: 5rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 3rem;
     }
 </style>
 
