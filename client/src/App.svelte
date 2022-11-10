@@ -68,8 +68,7 @@
   <Message error="{errorMessage}"/>
 {/if}
 <style>
-
   main{
-    padding: 7rem 5rem 0 5rem;
+    padding: 8rem 3rem 3rem 3rem;
   }
 </style>

@@ -51,7 +51,7 @@
     .navbar-nav {
         list-style: none;
         padding: 0;
-        margin: 0 5rem 0 5rem;
+        margin: 0 4rem 0 5rem;
         display: flex;
         gap: 2rem;
         height: 100%;

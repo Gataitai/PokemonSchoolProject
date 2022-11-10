@@ -72,7 +72,7 @@
         background-color: var(--bg-primary);
         border-bottom-right-radius: .5rem;
         display: flex;
-        justify-content: center;
+        padding-left: 1rem;
         align-items: center;
     }
 
