@@ -2,10 +2,13 @@
     import PokemonCard from "../components/card/PokemonCard.svelte";
     import {get} from "../util/fetch";
     import Card from "../components/card/Card.svelte";
+    import OptionsNav from "../components/navigation/OptionsNav.svelte";
 
     let promise = get("pokemons");
 
 </script>
+
+<OptionsNav name type generation/>
 
 <div class="pokemon-list">
     {#await promise}
@@ -22,6 +25,7 @@
 
 <style>
     .pokemon-list{
+        padding-left: 5rem;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         grid-gap: 4rem;

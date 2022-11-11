@@ -2,14 +2,15 @@
     import { get } from '../util/fetch.js';
     import AuctionCard from "../components/card/AuctionCard.svelte";
     import Card from "../components/card/Card.svelte";
-    import OptionsNav from "../components/OptionsNav.svelte";
+    import OptionsNav from "../components/navigation/OptionsNav.svelte";
+    import Modal from "../components/Modal.svelte";
 
     let promise = get("auctions");
 
 </script>
 
-<OptionsNav/>
-
+<OptionsNav name type price generation />
+<Modal state={true}/>
 <div class="items">
     {#await promise}
         Loading

@@ -9,7 +9,7 @@
   import {error} from "./stores/error.js";
 
   import Message from "./components/Message.svelte";
-  import Nav from "./components/Nav.svelte";
+  import Nav from "./components/navigation/Nav.svelte";
   import Home from "./pages/Home.svelte";
 
   let currentRoute;

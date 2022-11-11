@@ -1,7 +1,7 @@
 <script>
-    import AlienIcon from "../icons/AlienIcon.svelte";
-    import AuctionIcon from "../icons/AuctionIcon.svelte";
-    import LoginIcon from "../icons/LoginIcon.svelte";
+    import AlienIcon from "../../icons/AlienIcon.svelte";
+    import AuctionIcon from "../../icons/AuctionIcon.svelte";
+    import LoginIcon from "../../icons/LoginIcon.svelte";
 
     export let active;
 </script>
