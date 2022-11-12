@@ -10,7 +10,7 @@
 </script>
 
 <OptionsNav name type price generation />
-<Modal state={true}/>
+<Modal/>
 <div class="items">
     {#await promise}
         Loading
