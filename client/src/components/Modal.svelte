@@ -1,27 +1,58 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import { clickOutside } from "../util/clickOutside.js";
+    import CloseIcon from "../icons/CloseIcon.svelte";
     const dispatch = createEventDispatcher();
 
-    export let state = true;
+    let state = false;
+
+    export function toggle(){
+        state = !state;
+    }
+
+    export let title = "Modal";
 
     const save = () => {
         state = !state;
         dispatch('saved');
     }
+
+    function disableScroll() {
+        document.body.classList.add("stop-scrolling");
+    }
+
+    function enableScroll() {
+        document.body.classList.remove("stop-scrolling");
+    }
+
+    //stop scrolling when modal is open
+    $: {
+        if(state){
+            disableScroll();
+        }else{
+            enableScroll();
+        }
+    }
+
 </script>
 
-
-
 {#if state}
-    <div class="modal">
+    <div class="modal" >
 
-        <!-- Modal content -->
         <div class="modal-content" use:clickOutside on:outclick={() => (state = false)}>
             <div class="modal-header">
-                test
+                <div class="modal-title">
+                    <h4>{title}</h4>
+                </div>
+
+                <div on:click={toggle} class="modal-close">
+                    <CloseIcon/>
+                </div>
             </div>
-            <p>Some text in the Modal..</p>
+
+            <div class="modal-body">
+                <slot></slot>
+            </div>
         </div>
 
     </div>
@@ -29,45 +60,84 @@
 
 
 <style>
+
+    ::-webkit-scrollbar {
+        width: 1.8rem;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-left: 1rem var(--bg-tertiary) solid;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-left: 1rem var(--bg-tertiary) solid;
+    }
+
     .modal {
-        position: fixed; /* Stay in place */
-        z-index: 200; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
+        position: fixed;
+        z-index: 200;
         left: 0;
         top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        background-color: rgba(0,0,0,.5); /* Black w/ opacity */
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        background-color: rgba(0,0,0,.8);
     }
 
     /* Modal Content */
     .modal-content {
-        background-color: #fefefe;
+        background-color: var(--bg-tertiary);
         margin: auto;
         width: 50vw;
+        border-radius: .5rem;
     }
 
     .modal-header{
-        position: relative;
         display: flex;
         width: 50vw;
         height: 5rem;
+
         background-color: var(--bg-primary);
+        border-radius: .5rem .5rem 0 0;
+    }
+
+    .modal-title{
+        display: flex;
+        margin-left: 1rem;
+        color: var(--text-primary);
+        align-items: center;
+        font-size: 1.5rem;
+        letter-spacing: 0.1ch;
     }
 
     /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
+    .modal-close {
+        width: 5rem;
+        height: 5rem;
+        margin-left: auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: var(--text-primary);
+        filter: grayscale(100%) opacity(0.7);
+        transition: var(--transition-speed);
     }
 
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
+    .modal-close:hover{
+        border-top-right-radius: .5rem;
+        background-color: var(--bg-secondary);
+        filter: grayscale(0%) opacity(1);
         cursor: pointer;
+    }
+
+    .modal-body{
+        margin: 1rem;
+        max-height: 50vh;
+        color: var(--text-primary);
+        overflow-y: auto;
     }
 
 </style>

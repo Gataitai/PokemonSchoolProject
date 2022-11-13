@@ -5,10 +5,20 @@
     import FilterIcon from "../../icons/FilterIcon.svelte";
     import GenerationIcon from "../../icons/GenerationIcon.svelte";
 
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
+
     export let name;
     export let type;
     export let price;
     export let generation;
+
+    const dispatchButton = (button) => {
+        dispatch('buttonPushed', {
+            button: button
+        });
+    }
 </script>
 
 <nav class="navbar">
@@ -20,7 +30,7 @@
 
         {#if name}
             <li class="nav-item">
-                <a class="nav-link">
+                <a on:click={() => dispatchButton("name")} class="nav-link">
                     <TextIcon/>
                     <span class="link-text">Name</span>
                 </a>
@@ -29,7 +39,7 @@
 
         {#if type}
             <li class="nav-item">
-                <a class="nav-link">
+                <a on:click={() => dispatchButton("type")} class="nav-link">
                     <TypeIcon/>
                     <span class="link-text">Type</span>
                 </a>
@@ -38,7 +48,7 @@
 
         {#if price}
             <li class="nav-item">
-                <a class="nav-link">
+                <a on:click={() => dispatchButton("price")} class="nav-link">
                     <PriceIcon/>
                     <span class="link-text">Price</span>
                 </a>
@@ -46,7 +56,7 @@
         {/if}
 
         {#if generation}
-            <li class="nav-item">
+            <li on:click={() => dispatchButton("generation")} class="nav-item">
                 <a class="nav-link">
                     <GenerationIcon/>
                     <span class="link-text">Gen</span>
