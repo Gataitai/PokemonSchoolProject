@@ -4,7 +4,10 @@
     import Card from "../components/card/Card.svelte";
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
 
-    let promise = get("pokemons");
+    const params = {
+        resource: "pokemons",
+    }
+    let promise = get(params);
 
 </script>
 

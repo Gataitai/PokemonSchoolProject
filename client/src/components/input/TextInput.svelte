@@ -1,23 +1,34 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import {createEventDispatcher} from 'svelte';
 
     const dispatch = createEventDispatcher();
 
-    let text;
+    export let placeholder = "Type here";
 
-    const dispatchText = () => {
+    let text;
+    const dispatchText = (e) => {
         dispatch('textTyped', {
             text: text
         });
     }
 </script>
 
-<div class="input-group mb-3">
-    <span class="input-group-text" id="basic-addon1">@</span>
-    <input on:keyup={dispatchText} bind:value={text} type="text" class="form-control" placeholder="Name">
-</div>
-
+<input on:keyup={dispatchText} bind:value={text} type="text" class="form-control" placeholder="{placeholder}">
 
 <style>
+    input[type=text] {
+        background-color: var(--bg-tertiary);
+        width: 100%;
+        height: 2rem;
+        border: none;
+        margin: 1rem;
+        font-size: 2rem;
+        flex: 1;
+        color: var(--text-primary);
+        border-radius: .5rem;
+    }
 
+    input:focus {
+        outline: none;
+    }
 </style>

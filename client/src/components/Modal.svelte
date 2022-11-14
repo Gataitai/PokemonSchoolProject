@@ -34,12 +34,18 @@
         }
     }
 
+    const onKeyPress = e => {
+        if (e.charCode === 27 || e.charCode === 13){
+            toggle();
+        }
+    };
+
 </script>
 
 {#if state}
     <div class="modal" >
 
-        <div class="modal-content" use:clickOutside on:outclick={() => (state = false)}>
+        <div class="modal-content" on:keypress={onKeyPress} use:clickOutside on:outclick={() => (state = false)}>
             <div class="modal-header">
                 <div class="modal-title">
                     <h4>{title}</h4>
@@ -82,7 +88,8 @@
         height: 100%;
         display: flex;
         justify-content: center;
-        background-color: rgba(0,0,0,.8);
+        background-color: rgba(0,0,0,.5);
+        backdrop-filter: blur(5px);
     }
 
     /* Modal Content */
@@ -104,10 +111,10 @@
 
     .modal-title{
         display: flex;
-        margin-left: 1rem;
+        margin-left: 2rem;
         color: var(--text-primary);
         align-items: center;
-        font-size: 1.5rem;
+        font-size: 2rem;
         letter-spacing: 0.1ch;
     }
 
@@ -134,6 +141,7 @@
     }
 
     .modal-body{
+        display: flex;
         margin: 1rem;
         max-height: 50vh;
         color: var(--text-primary);

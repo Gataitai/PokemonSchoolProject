@@ -42,7 +42,6 @@
     .navbar {
         position: fixed;
         background-color: var(--bg-primary);
-        transition: width 600ms ease;
         width: 100vw;
         height: 5rem;
         z-index: 100;

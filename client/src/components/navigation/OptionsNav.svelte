@@ -6,13 +6,14 @@
     import GenerationIcon from "../../icons/GenerationIcon.svelte";
 
     import { createEventDispatcher } from 'svelte';
+    import BackwardsIcon from "../../icons/BackwardsIcon.svelte";
     const dispatch = createEventDispatcher();
-
 
     export let name;
     export let type;
     export let price;
     export let generation;
+    export let backwards;
 
     const dispatchButton = (button) => {
         dispatch('buttonPushed', {
@@ -24,9 +25,20 @@
 <nav class="navbar">
     <ul class="navbar-nav">
 
-        <li class="filter-icon">
-            <FilterIcon/>
-        </li>
+        {#if backwards}
+            <li class="nav-item">
+                <a on:click={() => dispatchButton("backwards")} class="filter-icon">
+                    <BackwardsIcon/>
+                </a>
+            </li>
+            {:else}
+            <li>
+                <a class="filter-icon">
+                    <FilterIcon/>
+                </a>
+            </li>
+
+        {/if}
 
         {#if name}
             <li class="nav-item">
@@ -93,12 +105,16 @@
     }
 
     .filter-icon{
-        width: 5rem;
-        height: 5rem;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 5rem;
         background: var(--bg-secondary);
+        color: var(--text-secondary);
+        text-decoration: none;
+        filter: grayscale(0%) opacity(1);
+        transition: var(--transition-speed);
     }
 
     .nav-link {
