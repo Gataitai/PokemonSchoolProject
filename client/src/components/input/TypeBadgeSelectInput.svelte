@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    import TypeBadgeList from "../TypeBadgeList.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -47,21 +48,21 @@
 
 </script>
 
-{#if typesInput.length <= 0}
-    Pick type
-{:else}
-    {#each typesInput as type}
-                <span class="badge rounded-pill {type.toLowerCase()}">
-                    {type}
-                    <span class="closebtn" on:click={() => removeBadge(type)}>&times;</span>
-                </span>
-    {/each}
-{/if}
+<!--{#if typesInput.length <= 0}-->
+<!--    Pick type-->
+<!--{:else}-->
+<!--    {#each typesInput as type}-->
+<!--                <span class="badge rounded-pill {type.toLowerCase()}">-->
+<!--                    {type}-->
+<!--                    <span class="closebtn" on:click={() => removeBadge(type)}>&times;</span>-->
+<!--                </span>-->
+<!--    {/each}-->
+<!--{/if}-->
 
-{#each types as type}
-    <span class="badge rounded-pill {type.toLowerCase()}" on:click={() => addBadge(type)}>{type}</span>
-{/each}
-
+<!--{#each types as type}-->
+<!--    <span class="badge rounded-pill {type.toLowerCase()}" on:click={() => addBadge(type)}>{type}</span>-->
+<!--{/each}-->
+    <TypeBadgeList types="{types}" closable/>
 <style>
 
     .badge{
