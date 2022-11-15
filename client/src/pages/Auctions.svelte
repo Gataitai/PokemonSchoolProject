@@ -4,6 +4,7 @@
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
     import Modal from "../components/Modal.svelte";
     import TextInput from "../components/input/TextInput.svelte";
+    import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
 
     let promise = get({resource: "auctions"});
 
@@ -54,7 +55,7 @@
 </Modal>
 
 <Modal bind:this={typeModal}>
-    type
+    <TypeBadgeSelectInput/>
 </Modal>
 
 <Modal bind:this={priceModal}>

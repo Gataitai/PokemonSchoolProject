@@ -27,7 +27,7 @@
 
         {#if backwards}
             <li class="nav-item">
-                <a on:click={() => dispatchButton("backwards")} class="filter-icon">
+                <a on:click={() => dispatchButton("backwards")} class="backwards-icon">
                     <BackwardsIcon/>
                 </a>
             </li>
@@ -115,6 +115,23 @@
         text-decoration: none;
         filter: grayscale(0%) opacity(1);
         transition: var(--transition-speed);
+    }
+
+    .backwards-icon{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 5rem;
+        background: var(--bg-secondary);
+        filter: grayscale(100%) opacity(0.7);
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition-speed);
+    }
+
+    .backwards-icon:hover{
+        filter: grayscale(0%) opacity(1);
     }
 
     .nav-link {

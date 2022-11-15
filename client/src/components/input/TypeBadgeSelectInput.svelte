@@ -47,31 +47,22 @@
 
 </script>
 
-<div class="card">
-    <div class="card-header">
-        {#if typesInput.length <= 0}
-            Pick type
-        {:else}
-            {#each typesInput as type}
-                <span class="badge rounded-pill {type}">
+{#if typesInput.length <= 0}
+    Pick type
+{:else}
+    {#each typesInput as type}
+                <span class="badge rounded-pill {type.toLowerCase()}">
                     {type}
                     <span class="closebtn" on:click={() => removeBadge(type)}>&times;</span>
                 </span>
-            {/each}
-        {/if}
-    </div>
-    <div class="card-body">
-        {#each types as type}
-            <span class="badge rounded-pill {type}" on:click={() => addBadge(type)}>{type}</span>
-        {/each}
-    </div>
-</div>
+    {/each}
+{/if}
 
+{#each types as type}
+    <span class="badge rounded-pill {type.toLowerCase()}" on:click={() => addBadge(type)}>{type}</span>
+{/each}
 
 <style>
-    .card{
-        margin-bottom: 1rem;
-    }
 
     .badge{
         cursor: pointer;
