@@ -44,14 +44,16 @@
         transform: translateY(.35rem) translateX(.35rem);
     }
 
-    @media only screen and (max-width: 1500px) {
+
+
+    @media only screen and (max-width: 1200px) {
         .badges{
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
         }
     }
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 600px) {
         .badges{
             grid-template-columns: 1fr;
         }
