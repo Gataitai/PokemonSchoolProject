@@ -9,7 +9,8 @@
 
     const dispatchUpdatedList = (type) => {
         types = types.filter(e => e !== type);
-        dispatch('newTypeList', {
+        dispatch('updatedTypeList', {
+            deleted: type,
             types: types
         });
     }

@@ -49,6 +49,15 @@
             </li>
         {/if}
 
+        {#if generation}
+            <li on:click={() => dispatchButton("generation")} class="nav-item">
+                <a class="nav-link">
+                    <GenerationIcon/>
+                    <span class="link-text">Gen</span>
+                </a>
+            </li>
+        {/if}
+
         {#if type}
             <li class="nav-item">
                 <a on:click={() => dispatchButton("type")} class="nav-link">
@@ -63,15 +72,6 @@
                 <a on:click={() => dispatchButton("price")} class="nav-link">
                     <PriceIcon/>
                     <span class="link-text">Price</span>
-                </a>
-            </li>
-        {/if}
-
-        {#if generation}
-            <li on:click={() => dispatchButton("generation")} class="nav-item">
-                <a class="nav-link">
-                    <GenerationIcon/>
-                    <span class="link-text">Gen</span>
                 </a>
             </li>
         {/if}

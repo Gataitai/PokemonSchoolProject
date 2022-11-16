@@ -142,7 +142,7 @@
 
     .modal-body{
         display: flex;
-        margin: 0 1rem 0 1rem;
+        padding: 2rem;
         max-height: 50vh;
         color: var(--text-primary);
         overflow-y: auto;

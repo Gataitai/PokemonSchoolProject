@@ -54,7 +54,7 @@
     <TextInput on:textTyped={nameSearch}/>
 </Modal>
 
-<Modal bind:this={typeModal}>
+<Modal bind:this={typeModal} title="Pokemon type">
     <TypeBadgeSelectInput/>
 </Modal>
 
@@ -83,6 +83,6 @@
         padding-left: 5rem;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        grid-gap: 4rem;
+        grid-gap: 3rem;
     }
 </style>

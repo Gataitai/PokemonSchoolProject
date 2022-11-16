@@ -18,10 +18,9 @@
 <style>
     input[type=text] {
         background-color: var(--bg-tertiary);
+        height: 2rem;
         width: 100%;
-        height: 4rem;
         border: none;
-        margin: 1rem;
         font-size: 2rem;
         flex: 1;
         color: var(--text-primary);
