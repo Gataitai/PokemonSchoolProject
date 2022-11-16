@@ -1,7 +1,8 @@
 <script>
     import { createEventDispatcher } from 'svelte';
-    import TypeBadgeList from "../TypeBadgeList.svelte";
-
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
+    import TypeBadge from "../badges/TypeBadge.svelte";
+    import TypeBadgeGrid from "../badges/TypeBadgeGrid.svelte";
     const dispatch = createEventDispatcher();
 
     let types = [
@@ -34,49 +35,59 @@
         });
     }
 
-    const addBadge = (type) => {
-        types = types.filter(t => t !== type);
+    const addBadge = (event) => {
+        const type = event.detail.type;
         typesInput = [...typesInput, type]
         dispatchTypes();
     }
 
-    const removeBadge = (type) => {
-        types = [...types, type]
-        typesInput = typesInput.filter(t => t !== type);
-        dispatchTypes();
+    const updateList = (event) => {
+        typesInput = event.detail.types;
     }
-
 </script>
 
-<!--{#if typesInput.length <= 0}-->
-<!--    Pick type-->
-<!--{:else}-->
-<!--    {#each typesInput as type}-->
-<!--                <span class="badge rounded-pill {type.toLowerCase()}">-->
-<!--                    {type}-->
-<!--                    <span class="closebtn" on:click={() => removeBadge(type)}>&times;</span>-->
-<!--                </span>-->
-<!--    {/each}-->
-<!--{/if}-->
+<div class="badge-input-container">
+    <div class="type-input">
+        {#if typesInput.length === 0}
+            <input type="text" disabled="disabled" placeholder="Choose type">
+        {:else}
+            <TypeBadgeList types="{typesInput}" removable on:newTypeList={updateList}/>
+        {/if}
+    </div>
 
-<!--{#each types as type}-->
-<!--    <span class="badge rounded-pill {type.toLowerCase()}" on:click={() => addBadge(type)}>{type}</span>-->
-<!--{/each}-->
-    <TypeBadgeList types="{types}" closable/>
+    <TypeBadgeGrid types="{types}" on:typeClicked={addBadge}/>
+
+</div>
+
 <style>
-
-    .badge{
-        cursor: pointer;
-        margin-right: 3px;
+    .badge-input-container{
+        margin: 0 1rem 2rem 1rem;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
     }
 
-    .closebtn {
-        padding-left: .5rem;
-        float: right;
-        cursor: pointer;
+    .type-input{
+        height: 6rem;
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        color: var(--text-muted);
     }
 
-    .closebtn:hover {
-        color: #000;
+    input[type=text] {
+        background-color: var(--bg-tertiary);
+        width: 100%;
+        height: 4rem;
+        border: none;
+        font-size: 2rem;
+        flex: 1;
+        color: var(--text-primary);
+        border-radius: .5rem;
+    }
+
+    input:focus {
+        outline: none;
     }
 </style>
+

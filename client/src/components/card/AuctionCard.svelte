@@ -1,6 +1,6 @@
 <script>
     import Card from "./Card.svelte";
-    import TypeBadgeList from "../TypeBadgeList.svelte";
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
     import { auctionId } from "../../stores/auction.js";
     import router from "page";
 

@@ -1,6 +1,6 @@
 <script>
     import Card from "./Card.svelte";
-    import TypeBadgeList from "../TypeBadgeList.svelte";
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
 
     export let pokemon;
     const imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";

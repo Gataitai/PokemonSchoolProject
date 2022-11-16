@@ -1,5 +1,5 @@
 <script>
-    import TypeBadgeList from "../TypeBadgeList.svelte";
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
     const imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     export let auction;
     const date = new Date(auction.endingDate).toLocaleDateString("en-US");

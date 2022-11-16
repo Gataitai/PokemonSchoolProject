@@ -1,6 +1,6 @@
 <script>
     import {get, getById, post} from "../util/fetch";
-    import TypeBadgeList from "../components/TypeBadgeList.svelte";
+    import TypeBadgeList from "../components/badges/TypeBadgeList.svelte";
     import {
         imgUrl0,
         imgUrl1,

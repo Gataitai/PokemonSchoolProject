@@ -1,6 +1,6 @@
 <script>
     import {imgUrlId} from "../../util/images";
-    import TypeBadgeList from "../TypeBadgeList.svelte";
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
     export let pokemon;
 </script>
 
@@ -72,7 +72,7 @@
         background-color: var(--bg-primary);
         border-bottom-right-radius: .5rem;
         display: flex;
-        padding-left: 1rem;
+        padding: 1rem;
         align-items: center;
     }
 

@@ -142,10 +142,25 @@
 
     .modal-body{
         display: flex;
-        margin: 1rem;
+        margin: 0 1rem 0 1rem;
         max-height: 50vh;
         color: var(--text-primary);
         overflow-y: auto;
+    }
+
+    @media only screen and (max-width: 1800px) {
+
+        .modal-content {
+            width: 80vw;
+        }
+
+        .modal-header{
+            width: 80vw;
+        }
+
+        .modal-body{
+            max-height: 80vh;
+        }
     }
 
 </style>

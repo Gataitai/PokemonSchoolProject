@@ -19,7 +19,7 @@
     input[type=text] {
         background-color: var(--bg-tertiary);
         width: 100%;
-        height: 2rem;
+        height: 4rem;
         border: none;
         margin: 1rem;
         font-size: 2rem;
