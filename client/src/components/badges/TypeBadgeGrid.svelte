@@ -44,7 +44,7 @@
         transform: translateY(.35rem) translateX(.35rem);
     }
 
-    @media only screen and (max-width: 1700px) {
+    @media only screen and (max-width: 1500px) {
         .badges{
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
