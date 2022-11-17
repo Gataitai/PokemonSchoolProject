@@ -11,28 +11,28 @@
 
         <li class="logo">
             <a href="/" class="nav-link" class:nav-link-active={active === "/"}>
-                <span class="link-text">Poke Auct</span>
+                <span>Poke Auct</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="/auctions" class="nav-link" class:nav-link-active={active === "/auctions"}>
                 <AuctionIcon/>
-                <span class="link-text">Auctions</span>
+                <span>Auctions</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="/pokemons" class="nav-link" class:nav-link-active={active === "/pokemons"}>
                 <AlienIcon/>
-                <span class="link-text">PkMn's</span>
+                <span>PkMn's</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="/login" class="nav-link" class:nav-link-active={active === "/login"}>
                 <LoginIcon/>
-                <span class="link-text">Login</span>
+                <span>Login</span>
             </a>
         </li>
     </ul>

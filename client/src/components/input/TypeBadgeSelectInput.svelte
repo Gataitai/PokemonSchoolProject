@@ -43,8 +43,8 @@
 
     const removeBadge = (event) => {
         types[event.detail.deleted].toggle();
-        typesInput = event.detail.types;
         twoBadgeCheck();
+        typesInput = event.detail.types;
         dispatchTypes();
     }
 

@@ -5,6 +5,7 @@
     import Modal from "../components/Modal.svelte";
     import TextInput from "../components/input/TextInput.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
+    import ButtonList from "../components/buttons/ButtonList.svelte";
 
     let promise = get({resource: "auctions"});
 
@@ -63,7 +64,7 @@
 </Modal>
 
 <Modal bind:this={generationModal}>
-    generation
+    <ButtonList/>
 </Modal>
 
 <div class="items">
