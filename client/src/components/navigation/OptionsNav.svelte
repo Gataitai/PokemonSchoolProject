@@ -7,12 +7,13 @@
 
     import { createEventDispatcher } from 'svelte';
     import BackwardsIcon from "../../icons/BackwardsIcon.svelte";
+    import RegionIcon from "../../icons/RegionIcon.svelte";
     const dispatch = createEventDispatcher();
 
     export let name;
     export let type;
     export let price;
-    export let generation;
+    export let region;
     export let backwards;
 
     const dispatchButton = (button) => {
@@ -49,11 +50,11 @@
             </li>
         {/if}
 
-        {#if generation}
-            <li on:click={() => dispatchButton("generation")} class="nav-item">
+        {#if region}
+            <li on:click={() => dispatchButton("region")} class="nav-item">
                 <a class="nav-link">
-                    <GenerationIcon/>
-                    <span class="link-text">Gen</span>
+                    <RegionIcon/>
+                    <span class="link-text">Region</span>
                 </a>
             </li>
         {/if}

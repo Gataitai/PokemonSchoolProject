@@ -6,13 +6,14 @@
     import TextInput from "../components/input/TextInput.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
     import ButtonList from "../components/buttons/ButtonList.svelte";
+    import RangeInput from "../components/input/RangeInput.svelte";
 
     let promise = get({resource: "auctions"});
 
     let nameModal;
     let typeModal;
     let priceModal;
-    let generationModal;
+    let regionModal;
 
 
     let toggleModal = (event) => {
@@ -26,8 +27,8 @@
             case "price":
                 priceModal.toggle();
                 break;
-            case "generation":
-                generationModal.toggle();
+            case "region":
+                regionModal.toggle();
                 break;
             case "backwards":
                 searchquery = '';
@@ -49,21 +50,21 @@
 
 </script>
 
-<OptionsNav on:buttonPushed={toggleModal} name type price generation backwards="{searchquery !== ''}"/>
+<OptionsNav on:buttonPushed={toggleModal} name type price region backwards="{searchquery !== ''}"/>
 
-<Modal bind:this={nameModal} title="Pokemon name">
+<Modal bind:this={nameModal} title="Name">
     <TextInput on:textTyped={nameSearch}/>
 </Modal>
 
-<Modal bind:this={typeModal} title="Pokemon type">
+<Modal bind:this={typeModal} title="Type">
     <TypeBadgeSelectInput/>
 </Modal>
 
-<Modal bind:this={priceModal}>
-    price
+<Modal bind:this={priceModal} title="Price">
+    <RangeInput max={10000}/>
 </Modal>
 
-<Modal bind:this={generationModal}>
+<Modal bind:this={regionModal} title="Region">
     <ButtonList/>
 </Modal>
 

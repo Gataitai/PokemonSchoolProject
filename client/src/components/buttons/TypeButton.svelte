@@ -34,11 +34,11 @@
         justify-content: center;
         align-items: center;
         border-radius: .5rem;
-        border: .23rem solid #0c0c0c;
         height: 3rem;
         font-size: 1.5rem;
         font-weight: bold;
         color: var(--text-secondary);
+        border: .23rem solid #0c0c0c;
         text-shadow: .15rem .15rem black;
         filter: drop-shadow(.35rem .35rem #0c0c0c);
     }

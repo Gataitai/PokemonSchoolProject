@@ -1,7 +1,12 @@
 <script>
-    import AlienIcon from "../../icons/AlienIcon.svelte";
-    import AuctionIcon from "../../icons/AuctionIcon.svelte";
-    import LoginIcon from "../../icons/LoginIcon.svelte";
+    import NumberOneIcon from "../../icons/numbers/NumberOneIcon.svelte";
+    import NumberTwoIcon from "../../icons/numbers/NumberTwoIcon.svelte";
+    import NumberThreeIcon from "../../icons/numbers/NumberThreeIcon.svelte";
+    import NumberFourIcon from "../../icons/numbers/NumberFourIcon.svelte";
+    import NumberFiveIcon from "../../icons/numbers/NumberFiveIcon.svelte";
+    import NumberSixIcon from "../../icons/numbers/NumberSixIcon.svelte";
+    import NumberSevenIcon from "../../icons/numbers/NumberSevenIcon.svelte";
+    import NumberEightIcon from "../../icons/numbers/NumberEightIcon.svelte";
 
     export let active;
 </script>
@@ -10,16 +15,51 @@
     <ul class="button-list">
 
         <li class="button">
-            <AuctionIcon/>
+            <NumberOneIcon/>
+            <span class="link-text">Kanto</span>
+        </li>
+
+        <li class="button">
+            <NumberTwoIcon/>
+            <span class="link-text">Johto</span>
+        </li>
+
+        <li class="button">
+            <NumberThreeIcon/>
+            <span class="link-text">Hoenn</span>
+        </li>
+
+        <li class="button">
+            <NumberFourIcon/>
             <span class="link-text">Sinnoh</span>
+        </li>
+
+        <li class="button">
+            <NumberFiveIcon/>
+            <span class="link-text">Unova</span>
+        </li>
+
+        <li class="button">
+            <NumberSixIcon/>
+            <span class="link-text">Kalos</span>
+        </li>
+
+        <li class="button">
+            <NumberSevenIcon/>
+            <span class="link-text">Alola</span>
+        </li>
+
+        <li class="button">
+            <NumberEightIcon/>
+            <span class="link-text">Galar</span>
         </li>
     </ul>
 </div>
 
 <style>
     .list {
-        width: 100%;
         height: 5rem;
+        width: 100%;
     }
 
     .button-list {
@@ -28,11 +68,13 @@
         margin: 0;
         display: flex;
         gap: 2rem;
-        height: 100%;
+        justify-content: space-around;
     }
 
     .button {
-        width: 5rem;
+        background-color: var(--bg-primary);
+        border-radius: .5rem;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -40,13 +82,17 @@
         height: 5rem;
         color: var(--text-primary);
         text-decoration: none;
-        filter: grayscale(100%) opacity(0.7);
-        transition: var(--transition-speed);
+
+        border: .23rem solid #0c0c0c;
+        text-shadow: .15rem .15rem black;
+        filter: drop-shadow(.35rem .35rem #0c0c0c);
     }
 
     .button:hover {
-        filter: grayscale(0%) opacity(1);
+        cursor: pointer;
         background: var(--bg-secondary);
         color: var(--text-secondary);
+        filter: drop-shadow(0 0 var(--bg-tertiary));
+        transform: translateY(.35rem) translateX(.35rem);
     }
 </style>
