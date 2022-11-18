@@ -6516,7 +6516,7 @@ const data = [
     },
     {
         id: 201,
-        name: "A",
+        name: "Unown",
         abilities: [
             {
                 name: "Levitate",
@@ -24478,7 +24478,7 @@ const data = [
     },
     {
         id: 773,
-        name: "Silvally-normal",
+        name: "Silvally",
         abilities: [
             {
                 name: "Rks-system",
