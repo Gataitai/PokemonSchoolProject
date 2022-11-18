@@ -1,23 +1,24 @@
 const pokemonData = require("../data/pokemonData");
-const pokemons = require("json-pokemon");
 const allowedProperties = require("../util/allowedProperties");
 const statusCodes = require("http-status-codes");
 
 
 const getAll = () => {
-    return pokemons;
+    return pokemonData.data;
 }
 
 const getById = (id) => {
-    return pokemons[id-1];
+    return pokemonData.data[id-1];
 }
 
 const getByName = (name) => {
-    return pokemons.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
+    // return pokemons.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
+
+    return pokemonData.data.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
 }
 
 const getByTypes = (types) => {
-    return pokemons.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
+    return pokemonData.data.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
 }
 
 const save = (pokemon) => {
