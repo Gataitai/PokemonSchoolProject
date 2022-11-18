@@ -21089,7 +21089,7 @@ const data = [
     },
     {
         id: 664,
-        name: "Scatterbug-icy-snow",
+        name: "Scatterbug",
         abilities: [
             {
                 name: "Shield-dust",
@@ -21123,7 +21123,7 @@ const data = [
     },
     {
         id: 665,
-        name: "Spewpa-icy-snow",
+        name: "Spewpa",
         abilities: [
             {
                 name: "Shed-skin",
