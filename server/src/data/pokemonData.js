@@ -28504,9 +28504,14 @@ const generations = [
     {
         name: "galar",
         from: 810,
+        to: 897
+    },
+    {
+        name: "hisui",
+        from: 898,
         to: 905
     }
-]
+];
 
 module.exports = {
     generations,

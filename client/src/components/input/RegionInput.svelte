@@ -9,6 +9,7 @@
     import NumberEightIcon from "../../icons/numbers/NumberEightIcon.svelte";
 
     import {createEventDispatcher} from 'svelte';
+    import NumberNineIcon from "../../icons/numbers/NumberNineIcon.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -60,6 +61,11 @@
         <li class="button" on:click={() => dispatchRegion("galar")}>
             <NumberEightIcon/>
             <span class="link-text">Galar</span>
+        </li>
+
+        <li class="button" on:click={() => dispatchRegion("hisui")}>
+            <NumberNineIcon/>
+            <span class="link-text">Hisui</span>
         </li>
     </ul>
 </div>
