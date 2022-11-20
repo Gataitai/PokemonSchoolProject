@@ -1,5 +1,6 @@
 const auctionData = require("../data/auctionData");
 const crypto = require("crypto");
+const pokemonData = require("../data/pokemonData");
 
 const getAll = () => {
     return auctionData.data;
@@ -14,7 +15,18 @@ const getByName = (name) => {
 }
 
 const getByTypes = (types) => {
-    return auctionData.data.filter(a => a.pokemon.typeList.some(t => types.includes(t)));
+    console.log(types);
+    if(types.length >= 2){
+        return auctionData.data.filter(a => a.pokemon.typeList[0].includes(types) && a.pokemon.typeList[1].includes(types))
+    }
+    else{
+        return auctionData.data.filter(a => a.pokemon.typeList.some(t => types.includes(t)));
+    }
+}
+
+const getByRegion = (region) => {
+    const generation = pokemonData.generations.find(g => g.name === region);
+    return auctionData.data.filter(p => p.pokemon.id >= generation.from && p.pokemon.id <= generation.to);
 }
 
 const getByPrice = (price) => {
@@ -52,6 +64,7 @@ module.exports = {
     getById,
     getByName,
     getByTypes,
+    getByRegion,
     getByPrice,
     save,
     // update,

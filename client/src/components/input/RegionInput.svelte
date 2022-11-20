@@ -8,48 +8,56 @@
     import NumberSevenIcon from "../../icons/numbers/NumberSevenIcon.svelte";
     import NumberEightIcon from "../../icons/numbers/NumberEightIcon.svelte";
 
-    export let active;
+    import {createEventDispatcher} from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    const dispatchRegion = (region) => {
+        dispatch('regionClicked', {
+            region: region
+        });
+    }
 </script>
 
 <div class="list">
     <ul class="button-list">
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("kanto")} >
             <NumberOneIcon/>
             <span class="link-text">Kanto</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("johto")}>
             <NumberTwoIcon/>
             <span class="link-text">Johto</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("hoenn")}>
             <NumberThreeIcon/>
             <span class="link-text">Hoenn</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("sinnoh")}>
             <NumberFourIcon/>
             <span class="link-text">Sinnoh</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("unova")}>
             <NumberFiveIcon/>
             <span class="link-text">Unova</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("kalos")}>
             <NumberSixIcon/>
             <span class="link-text">Kalos</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("alola")}>
             <NumberSevenIcon/>
             <span class="link-text">Alola</span>
         </li>
 
-        <li class="button">
+        <li class="button" on:click={() => dispatchRegion("galar")}>
             <NumberEightIcon/>
             <span class="link-text">Galar</span>
         </li>
@@ -85,7 +93,7 @@
 
         border: .23rem solid #0c0c0c;
         text-shadow: .15rem .15rem black;
-        filter: drop-shadow(.35rem .35rem #0c0c0c);
+        filter: drop-shadow(.35rem .35rem #0c0c0c) grayscale(100%) opacity(0.7);
     }
 
     .button:hover {

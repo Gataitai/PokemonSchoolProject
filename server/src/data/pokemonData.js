@@ -28465,7 +28465,51 @@ const data = [
     }
 ];
 
+const generations = [
+    {
+        name: "kanto",
+        from: 1,
+        to: 151
+    },
+    {
+        name: "johto",
+        from: 152,
+        to: 251
+    },
+    {
+        name: "hoenn",
+        from: 252,
+        to: 386
+    },
+    {
+        name: "sinnoh",
+        from: 387,
+        to: 493
+    },
+    {
+        name: "unova",
+        from: 494,
+        to: 649
+    },
+    {
+        name: "kalos",
+        from: 650,
+        to: 721
+    },
+    {
+        name: "alola",
+        from: 722,
+        to: 809
+    },
+    {
+        name: "galar",
+        from: 810,
+        to: 905
+    }
+]
+
 module.exports = {
+    generations,
     pokemonDefinition,
     data
 };

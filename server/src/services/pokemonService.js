@@ -12,13 +12,16 @@ const getById = (id) => {
 }
 
 const getByName = (name) => {
-    // return pokemons.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
-
     return pokemonData.data.filter(p => p.name.toLowerCase().match(name.toLowerCase()));
 }
 
 const getByTypes = (types) => {
     return pokemonData.data.filter(pokemon => pokemon.typeList.some(t => types.includes(t)));
+}
+
+const getByRegion = (region) => {
+    const generation = pokemonData.generations.find(g => g.name === region);
+    return pokemonData.data.filter(p => p.id >= generation.from && p.id <= generation.to);
 }
 
 const save = (pokemon) => {
@@ -43,6 +46,7 @@ module.exports = {
     getById,
     getByName,
     getByTypes,
+    getByRegion,
     save,
     update,
     remove,

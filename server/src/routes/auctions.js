@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
     const types = req.query.types;
     const name = req.query.name;
     const price = req.query.price;
+    const region = req.query.region;
 
     let auctions;
 
@@ -20,6 +21,9 @@ router.get("/", (req, res) => {
     }
     else if(price){
         auctions = auctionService.getByPrice(price)
+    }
+    else if(region){
+        auctions = auctionService.getByRegion(region)
     }
     else{
         auctions = auctionService.getAll();

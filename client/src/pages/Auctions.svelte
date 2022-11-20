@@ -5,10 +5,12 @@
     import Modal from "../components/Modal.svelte";
     import TextInput from "../components/input/TextInput.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
-    import ButtonList from "../components/buttons/ButtonList.svelte";
+    import RegionInput from "../components/input/RegionInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
 
     let promise = get({resource: "auctions"});
+
+    let searchquery = '';
 
     let nameModal;
     let typeModal;
@@ -37,27 +39,41 @@
         }
     }
 
-    let searchquery = '';
 
-    let nameSearch = (event) => {
-        searchquery = event.detail.text;
+
+    let search = (event) => {
+        const query = event.detail;
+
+        if(query.text){
+            searchquery = "name="+query.text;
+        }
+        if(query.region){
+            regionModal.toggle();
+            searchquery = "region="+query.region;
+        }
+        if(query.types){
+            let types = query.types.join(',');
+            searchquery = "types="+types;
+        }
+
         const params = {
             resource: "auctions",
-            queryParam: "name="+searchquery
+            queryParam: searchquery
         }
         promise = get(params)
     }
+
 
 </script>
 
 <OptionsNav on:buttonPushed={toggleModal} name type price region backwards="{searchquery !== ''}"/>
 
 <Modal bind:this={nameModal} title="Name">
-    <TextInput on:textTyped={nameSearch}/>
+    <TextInput on:textTyped={search}/>
 </Modal>
 
 <Modal bind:this={typeModal} title="Type">
-    <TypeBadgeSelectInput/>
+    <TypeBadgeSelectInput on:typesSelected={search}/>
 </Modal>
 
 <Modal bind:this={priceModal} title="Price">
@@ -65,7 +81,7 @@
 </Modal>
 
 <Modal bind:this={regionModal} title="Region">
-    <ButtonList/>
+    <RegionInput on:regionClicked={search}/>
 </Modal>
 
 <div class="items">

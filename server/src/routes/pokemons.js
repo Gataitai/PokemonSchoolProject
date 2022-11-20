@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const pokemonService = require("../services/pokemonService");
-const { validatePokemon } = require("../middleware/validate");
-const { authorizeToken } = require("../middleware/authorize");
-const { definition } = require("../data/pokemonData");
 
 router.get("/", async (req, res) => {
     const types = req.query.types;
     const name = req.query.name;
+    const region = req.query.region;
 
     let pokemons;
 
@@ -16,6 +14,9 @@ router.get("/", async (req, res) => {
     }
     else if(name){
         pokemons = pokemonService.getByName(name);
+    }
+    else if(region){
+        pokemons = pokemonService.getByRegion(region)
     }
     else{
         pokemons = pokemonService.getAll();

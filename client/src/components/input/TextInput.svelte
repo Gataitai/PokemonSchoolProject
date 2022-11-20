@@ -6,7 +6,7 @@
     export let placeholder = "Type here";
 
     let text;
-    const dispatchText = (e) => {
+    const dispatchText = () => {
         dispatch('textTyped', {
             text: text
         });
