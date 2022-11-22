@@ -15,16 +15,6 @@
     } from "../util/images.js";
     import Modal from "../components/Modal.svelte";
     import NumberInput from "../components/input/NumberInput.svelte";
-    import {payload, token} from "../stores/auth";
-
-    const bids = [
-        {
-            bid:"100"
-        },
-        {
-            bid:"100"
-        }
-    ]
 
     let modalOn = false;
 
@@ -38,24 +28,12 @@
         bidPrice = event.detail.number
     }
 
-    const saveBid = (id) => {
-        const bid = {
-            auctionId: id,
-            userId: $payload.userId,
-            biddingPrice: bidPrice
-        }
+    export let id;
+    let promise = getById({
+        resource: "auction",
+        id: id
+    });
 
-        const params = {
-            resource: "bids",
-            object: bid,
-            token: $token
-        }
-        post(params)
-        console.log("bid " + bidPrice);
-    }
-
-    export let params;
-    let promise = getById("auctions", params.id);
 </script>
     <div class="detail-page">
         {#await promise}
@@ -134,58 +112,5 @@
         <NumberInput on:numberTyped={updateBidPrice}/>
     </Modal>
 <style>
-    .card{
-        width: 100%;
-    }
-
-    .detail-page{
-        padding: 1rem;
-        display: flex;
-        gap: 1rem;
-    }
-
-    .bi{
-        margin-right: .4rem;
-    }
-    .bids{
-        height: 82vh;
-        overflow-y: scroll;
-    }
-
-    .bid{
-        margin-bottom: 1rem;
-    }
-
-    .bid-wrapper{
-        display: flex;
-        gap: .5rem;
-        width: 100%;
-        margin-top: 1rem;
-    }
-    .bid-stats{
-        display: flex;
-        flex-grow: 1;
-        align-items: center;
-        justify-content: space-around;
-        border-radius: 0.3rem;
-        background-color: #efefef;
-    }
-    .photo-grid{
-        display: grid;
-        align-items: center;
-        gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .photo-grid img{
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        border-radius: .5rem;
-        transition: all 0.2s ease-out;
-    }
-
-    .photo-grid img:hover{
-        transform: scale(1.02);
-    }
+W
 </style>
