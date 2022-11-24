@@ -40,7 +40,7 @@
   router('/detail/:id', (ctx) => {
     page = Detail;
     currentRoute = ctx.pathname;
-    id = ctx.params;
+    id = ctx.params.id;
   });
 
   router.start();

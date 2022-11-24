@@ -1,5 +1,4 @@
 <script>
-    import PokemonCard from "../components/card/PokemonCard.svelte";
     import {get} from "../util/fetch";
     import Card from "../components/card/Card.svelte";
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
