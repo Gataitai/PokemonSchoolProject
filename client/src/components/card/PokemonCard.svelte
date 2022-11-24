@@ -2,45 +2,24 @@
     import {imgUrlId} from "../../util/images";
     import TypeBadgeList from "../badges/TypeBadgeList.svelte";
     export let pokemon;
-    export let auction;
 </script>
 
 <div class="card">
-    {#if pokemon}
-        <div class="card-title">
-            <h4>{pokemon.name}</h4>
-        </div>
+    <div class="card-title">
+        <h4>{pokemon.name}</h4>
+    </div>
 
-        <div class="card-image {pokemon.typeList[0].toLowerCase() + '-pastel'}">
-            <img src={imgUrlId(pokemon.id)} alt="pokemon">
-        </div>
+    <div class="card-image {pokemon.typeList[0].toLowerCase() + '-pastel'}">
+        <img src={imgUrlId(pokemon.id)} alt="pokemon">
+    </div>
 
-        <div class="card-id">
-            <p>{"#"+pokemon.id}</p>
-        </div>
+    <div class="card-id">
+        <p>{"#"+pokemon.id}</p>
+    </div>
 
-        <div class="card-badge-list">
-            <TypeBadgeList types={pokemon.typeList}/>
-        </div>
-    {/if}
-
-    {#if auction}
-        <div class="card-title">
-            <h4>{pokemon.name}</h4>
-        </div>
-
-        <div class="card-image {pokemon.typeList[0].toLowerCase() + '-pastel'}">
-            <img src={imgUrlId(pokemon.id)} alt="pokemon">
-        </div>
-
-        <div class="card-id">
-            <p>{"#"+pokemon.id}</p>
-        </div>
-
-        <div class="card-badge-list">
-            <TypeBadgeList types={pokemon.typeList}/>
-        </div>
-    {/if}
+    <div class="card-badge-list">
+        <TypeBadgeList types={pokemon.typeList}/>
+    </div>
 </div>
 
 

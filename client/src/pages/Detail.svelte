@@ -1,6 +1,6 @@
 <script>
     import {getById} from "../util/fetch";
-    import Card from "../components/card/Card.svelte";
+    import Card from "../components/card/PokemonCard.svelte";
 
     export let id;
     let promise = getById({

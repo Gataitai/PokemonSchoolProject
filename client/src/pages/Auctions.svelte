@@ -1,12 +1,12 @@
 <script>
     import { get } from '../util/fetch.js';
-    import Card from "../components/card/Card.svelte";
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
     import Modal from "../components/Modal.svelte";
     import TextInput from "../components/input/TextInput.svelte";
     import TypeBadgeSelectInput from "../components/input/TypeBadgeSelectInput.svelte";
     import RegionInput from "../components/input/RegionInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
+    import AuctionCard from "../components/card/AuctionCard.svelte";
 
     let promise = get({resource: "auctions"});
 
@@ -89,7 +89,7 @@
         Loading
     {:then auctions}
         {#each auctions as auction}
-            <Card pokemon={auction.pokemon}/>
+            <AuctionCard auction={auction}/>
         {/each}
     {:catch error}
         <p>{error.message}</p>

@@ -1,7 +1,7 @@
 <script>
     import {get} from "../util/fetch";
-    import Card from "../components/card/Card.svelte";
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
+    import PokemonCard from "../components/card/PokemonCard.svelte";
 
     const params = {
         resource: "pokemons",
@@ -17,7 +17,7 @@
         Loading
         {:then pokemons}
             {#each pokemons as pokemon}
-                <Card pokemon={pokemon}/>
+                <PokemonCard pokemon={pokemon}/>
             {/each}
         {:catch error}
         <p>{error.message}</p>
