@@ -5,7 +5,7 @@
     // Props
     export let min = 0;
     export let max = 100;
-    export let initialValue = max/2;
+    export let initialValue = max;
     export let id = null;
     export let value =
         typeof initialValue === "string" ? parseInt(initialValue) : initialValue;

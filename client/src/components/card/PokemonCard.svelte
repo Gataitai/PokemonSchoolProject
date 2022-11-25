@@ -30,7 +30,7 @@
         display: grid;
         grid-template-columns: 4rem 1fr;
         grid-template-rows: 1fr 4rem;
-        transition: all 0.2s ease-out;
+        transition: var(--transition-speed);
     }
 
     .card:hover{
@@ -39,10 +39,11 @@
 
     .card-title{
         color: var(--text-primary);
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         writing-mode: vertical-rl;
         font-size: 1.5rem;
-        line-height: 0;
         letter-spacing: 0.1ch;
     }
 

@@ -4,7 +4,7 @@
 
     export let id;
     let promise = getById({
-        resource: "auction",
+        resource: "auctions",
         id: id
     });
 

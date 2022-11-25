@@ -13183,7 +13183,7 @@ const data = [
     },
     {
         id: 414,
-        name: "Mothim-plant",
+        name: "Mothim",
         abilities: [
             {
                 name: "Swarm",

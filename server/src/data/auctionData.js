@@ -16,7 +16,7 @@ const x = () => {
             "startingPrice": Math.floor(Math.random() * 1000),
             "pokemon": pokemonService.getById(Math.floor(Math.random() * (905 - 1 + 1) + 1)),
             "startingDate": new Date(),
-            "endingDate": "2022-11-15T01:11:00.000Z"
+            "endingDate": "2023-11-15T01:11:00.000Z"
         }
         data.push(auction);
     }

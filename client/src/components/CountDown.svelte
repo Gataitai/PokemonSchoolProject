@@ -26,6 +26,16 @@
     }, 1000);
 </script>
 
-{timer}
+<p>
+    {timer}
+</p>
+
+
+
+<style>
+    p{
+        width: 100%;
+    }
+</style>
 
 

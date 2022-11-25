@@ -5,7 +5,6 @@ const userService = require("../services/userService");
 const jwt = require("jsonwebtoken");
 
 const authenticateLogin = (req, res, next) => {
-    console.log(req.body);
     const user = userData.data.find(u => {return u.username === req.body.username});
 
     if(bcrypt.compareSync(req.body.password, user.password)){

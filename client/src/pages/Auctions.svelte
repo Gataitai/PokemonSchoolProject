@@ -17,7 +17,6 @@
     let priceModal;
     let regionModal;
 
-
     let toggleModal = (event) => {
         switch(event.detail.button) {
             case "name":
@@ -55,6 +54,9 @@
             let types = query.types.join(',');
             searchquery = "types="+types;
         }
+        if(query.value){
+            searchquery = "price="+query.value;
+        }
 
         const params = {
             resource: "auctions",
@@ -77,7 +79,7 @@
 </Modal>
 
 <Modal bind:this={priceModal} title="Price">
-    <RangeInput max={10000}/>
+    <RangeInput max={10000} on:change={search}/>
 </Modal>
 
 <Modal bind:this={regionModal} title="Region">

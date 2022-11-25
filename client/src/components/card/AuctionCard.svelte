@@ -1,70 +1,59 @@
 <script>
     import {imgUrlId} from "../../util/images";
     import TypeBadgeBlock from "../badges/TypeBadgeBlock.svelte";
+    import CountDown from "../CountDown.svelte";
+    import Button from "../buttons/Button.svelte";
     export let auction;
 
-    let countDownDate = new Date(auction.endingDate).getTime();
-
-    let timer;
-
-    // Update the count down every 1 second
-    let x = setInterval(function() {
-
-        // Get today's date and time
-        let now = new Date().getTime();
-
-        // Find the distance between now and the count down date
-        let distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Output the result in an element with id="demo"
-        timer = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-    }, 1000);
 </script>
 
 <div class="card">
-    <div class="card-title">
-        <h4>{auction.pokemon.name}</h4>
+    <div class="card-body">
+        <div class="card-title">
+            <h4>{auction.pokemon.name}</h4>
+        </div>
+
+        <div class="card-image {auction.pokemon.typeList[0].toLowerCase() + '-pastel'}">
+            <img src={imgUrlId(auction.pokemon.id)} alt="pokemon">
+        </div>
+
+        <div class="card-types">
+            <TypeBadgeBlock types={auction.pokemon.typeList}/>
+        </div>
+
+        <a href="detail/{auction.id}" class="card-button">
+            ${auction.startingPrice},-
+        </a>
+    </div>
+    <div class="card-footer">
+        <CountDown date={auction.endingDate}/>
     </div>
 
-    <div class="card-image {auction.pokemon.typeList[0].toLowerCase() + '-pastel'}">
-        <img src={imgUrlId(auction.pokemon.id)} alt="pokemon">
-    </div>
-
-    <div>
-        <TypeBadgeBlock types={auction.pokemon.typeList}/>
-    </div>
-
-    <div class="card-button {auction.pokemon.typeList[0].toLowerCase() + '-pastel'}">
-
-    </div>
-
-    <div class="card-time">
-        {timer}
+    <div class="card-button-background {auction.pokemon.typeList[0].toLowerCase() + '-pastel'}">
     </div>
 </div>
 
+
 <style>
     .card{
-        background-color: var(--bg-secondary);
-        border-radius: .5rem;
+        color: var(--text-primary);
+        font-weight: bold;
+    }
+
+    .card-body{
         display: grid;
         grid-template-columns: 4rem 1fr;
-        grid-template-rows: 1fr 4rem 2rem;
+        grid-template-rows: 1fr 4rem;
     }
 
     .card-title{
-        color: var(--text-primary);
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-left-radius: .5rem;
+        background-color: var(--bg-secondary);
         writing-mode: vertical-rl;
         font-size: 1.5rem;
-        line-height: 0;
         letter-spacing: 0.1ch;
     }
 
@@ -79,18 +68,58 @@
     }
 
     .card-button{
+        text-decoration: none;
         display: flex;
-        padding: 1rem 2rem 2rem 2rem;
+        justify-content: center;
         align-items: center;
-        filter: opacity(0.5);
+        font-size: 1.1rem;
+        letter-spacing: 0.1ch;
+        color: var(--text-secondary);
+        text-shadow: .1rem .1rem black;
     }
 
-    .card-time{
+    .card-button:hover{
+        cursor: pointer;
+        color: #ffd5ff;
+        animation: filter-animation 1s infinite;
+    }
+
+    .card-button-background{
+        z-index: -100;
+        position: relative;
+        border-radius: 1rem;
+        transform: translateY(-100%);
+        top: -5%;
+        left: 0;
+        height: 90%;
+        width: 100%;
+        filter: opacity(0.7);
+    }
+
+    .card-footer{
+        border-radius: 0 0 .5rem .5rem;
+        background-color: var(--bg-secondary);
+        height: 2rem;
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: white;
+        text-align: center;
         white-space: nowrap;
+        font-size: .8rem;
+    }
+
+    @keyframes filter-animation {
+        0% {
+            filter: hue-rotate(0deg);
+        }
+
+        50% {
+            filter: hue-rotate(180deg);
+        }
+
+        100% {
+            filter: hue-rotate(360deg);
+        }
     }
 
 </style>
