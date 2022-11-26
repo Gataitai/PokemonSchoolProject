@@ -3,6 +3,11 @@
     import Card from "../components/card/PokemonCard.svelte";
     import {imgUrlId} from "../util/images";
     import TypeBadgeList from "../components/badges/TypeBadgeList.svelte";
+    import DetailCard from "../components/card/DetailCard.svelte";
+    import TimeIcon from "../icons/TimeIcon.svelte";
+    import CountDown from "../components/CountDown.svelte";
+    import ArrowUpIcon from "../icons/ArrowUpIcon.svelte";
+    import HashtagIcon from "../icons/HashtagIcon.svelte";
 
     export let id;
     let promise = getById({
@@ -20,15 +25,25 @@
         </div>
 
         <div class="detail">
+            <DetailCard pokemon={auction.pokemon}/>
+            <span class="detail-info">
+                <div class="detail-info-item">
+                    <TimeIcon small/>
+                    <CountDown date={auction.endingDate}/>
+                </div>
 
-            <img class="{auction.pokemon.typeList[0].toLowerCase() + '-pastel'}" src={imgUrlId(auction.pokemon.id)} alt="pokemon">
-            <div class="detail-about">
-                <h1>#{auction.pokemon.id} {auction.pokemon.name}</h1>
-                <TypeBadgeList types={auction.pokemon.typeList}/>
-                <span class="detail-time-price">
-                    test
-                </span>
-            </div>
+                <div class="detail-info-item">
+                    <ArrowUpIcon small/>
+                    <p>Highest</p>
+                    ${auction.startingPrice},-
+                </div>
+
+                <div class="detail-info-item">
+                    <HashtagIcon small/>
+                    <p>Bids</p>
+                    {0}
+                </div>
+            </span>
 
         </div>
 
@@ -55,35 +70,33 @@
     .detail{
         width: 150%;
         display: flex;
-    }
-
-    .detail img{
-        border-radius: .5rem 0 0 .5rem;
-        width: 20vw;
-        object-fit: cover;
-    }
-
-    .detail-about{
-        display: flex;
         flex-direction: column;
-        background-color: var(--bg-primary);
-        border-radius: .5rem;
-        padding: 2rem;
-        width: 100%;
+        gap: 1rem;
     }
 
-    .detail-about h1{
-        color: var(--text-primary);
-        margin: 0 0 1rem 0;
-        padding: 0;
-    }
-
-    .detail-time-price{
+    .detail-info{
         display: flex;
-        margin-top: auto;
+        justify-content: space-between;
+        height: 1rem;
+        padding: 1rem;
+        flex-direction: row;
         background-color: var(--bg-secondary);
-        height: 4rem;
         border-radius: .5rem;
+    }
+
+    .detail-info-item{
+        color: var(--text-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: .3rem;
+        filter: grayscale(100%);
+    }
+
+    .detail-info-item p{
+        font-weight: bold;
+        color: var(--hl-secondary);
     }
 
 
