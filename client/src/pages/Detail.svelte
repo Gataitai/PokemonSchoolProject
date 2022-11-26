@@ -76,7 +76,7 @@
 
     .detail-info{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         height: 1rem;
         padding: 1rem;
         flex-direction: row;
