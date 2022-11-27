@@ -8,8 +8,11 @@
 <div class="container">
     <img class="{pokemon.typeList[0].toLowerCase() + '-pastel'}" src={imgUrlId(pokemon.id)} alt="pokemon">
     <div class="card">
-        <h1>#{pokemon.id} {pokemon.name}</h1>
-        <TypeBadgeList types={pokemon.typeList}/>
+        <span>#{pokemon.id}</span>
+        <h1>{pokemon.name}</h1>
+        <div class="type-list">
+            <TypeBadgeList types={pokemon.typeList}/>
+        </div>
     </div>
 </div>
 
@@ -27,14 +30,27 @@
     }
 
     .card{
+        display: flex;
+        flex-direction: column;
         background-color: var(--bg-primary);
         border-radius: 0 .5rem .5rem 0;
         padding: 1rem;
     }
 
+    .card span{
+        height: 1rem;
+        font-weight: bold;
+        filter: grayscale(100%);
+        color: var(--hl-secondary);
+    }
+
     .card h1{
-        margin: 0 0 1rem 0;
+        margin: 0;
         color: var(--text-primary);
+    }
+
+    .type-list{
+        margin-top: auto;
     }
 </style>
 
