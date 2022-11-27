@@ -70,7 +70,7 @@
     }
 
     .detail{
-        width: 100%;
+        width: 150%;
         display: flex;
         flex-direction: column;
         gap: 1rem;
