@@ -70,11 +70,17 @@
     }
 
     .detail{
-        width: 150%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 1rem;
     }
+
+    .bids{
+        width: 100%;
+        background-color: var(--bg-primary);
+    }
+
 
     .bid-button{
         font-weight: bold;
@@ -117,11 +123,6 @@
     }
 
     .detail-about{
-        background-color: var(--bg-primary);
-    }
-
-    .bids{
-        width: 100%;
         background-color: var(--bg-primary);
     }
 

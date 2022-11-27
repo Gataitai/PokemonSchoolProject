@@ -12,6 +12,8 @@
     let chartCanvas;
 
     onMount(async (promise) => {
+        Chart.defaults.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-tertiary');
+        Chart.defaults.color = getComputedStyle(document.documentElement).getPropertyValue('--text-primary');
         ctx = chartCanvas.getContext('2d');
         chartCanvas = new Chart(ctx, {
             type: 'bar',
