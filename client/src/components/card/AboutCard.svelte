@@ -22,6 +22,13 @@
                     data: chartData,
                     backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--hl-primary'),
                 }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        suggestedMax: 100
+                    }
+                }
             }
         });
     });
