@@ -1,9 +1,35 @@
 <script>
+    import Chart from 'chart.js/auto';
+    import {onMount} from "svelte";
+
     export let pokemon;
+    let stats = pokemon.baseStats
+
+
+    let chartData = [stats.hp, stats.attack, stats.defense, stats.spAttack, stats.spDefense, stats.speed];
+    let Labels = ['HP', 'Attack', 'Defense', 'SpAttack', 'SpDefense', 'Speed'];
+    let ctx;
+    let chartCanvas;
+
+    onMount(async (promise) => {
+        ctx = chartCanvas.getContext('2d');
+        chartCanvas = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Labels,
+                datasets: [{
+                    label: 'Base stats',
+                    data: chartData,
+                    backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--hl-primary'),
+                }]
+            }
+        });
+    });
+
 </script>
 
     <div class="about-card">
-        <h1 class="{pokemon.typeList[0]}">Abilities:</h1>
+        <h1>Abilities:</h1>
         <div class="abilities">
             {#each pokemon.abilities as ability}
                     <div class="ability">
@@ -12,7 +38,8 @@
                     </div>
             {/each}
         </div>
-
+        <h1>Stats:</h1>
+        <canvas bind:this={chartCanvas}></canvas>
     </div>
 
 <style>
@@ -27,11 +54,11 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        margin-bottom: 2rem;
     }
 
     h1{
         margin: 0 0 2rem 0;
-        font-size: 40px;
     }
     
     h3{

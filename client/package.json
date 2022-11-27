@@ -15,6 +15,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "chart.js": "^4.0.1",
     "jwt-decode": "^3.1.2",
     "page": "^1.11.6"
   }
