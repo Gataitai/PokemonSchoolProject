@@ -21,6 +21,25 @@
             button: button
         });
     }
+
+    let filters = []
+
+    const dispatchFilters = () => {
+        dispatch('filters', {
+            filters: filters
+        });
+    }
+
+    export const addFilter = (filter) => {
+        filters = [...filters + filter]
+        console.log(filters)
+        dispatchFilters();
+    }
+
+    const removefilter = (filter) => {
+        filter = filter.filter(e => e !== filter);
+        dispatchFilters();
+    }
 </script>
 
 <nav class="navbar">
@@ -79,6 +98,15 @@
     </ul>
 </nav>
 
+{#if filters.length > 0}
+    <div class="filters">
+        {#each filters as filter}
+            <div class="filter" onclick={() => removefilter(filter)}>
+                {filter}
+            </div>
+        {/each}
+    </div>
+{/if}
 
 <style>
     .navbar {
@@ -152,5 +180,32 @@
         filter: grayscale(0%) opacity(1);
         background: var(--bg-secondary);
         color: var(--text-secondary);
+    }
+
+    .filters{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: fixed;
+        top: 5rem;
+        left: 0;
+        height: 7rem;
+        padding-left: 8rem;
+        width: 100vw;
+        background-color: var(--bg-tertiary);
+        z-index: 50;
+    }
+
+    .filter{
+        height: 1rem;
+        padding: 1rem;
+        background-color: var(--bg-secondary);
+        border-radius: .5rem;
+        color: var(--text-primary);
+
+    }
+
+    .filter-name{
+        font-weight: bold;
     }
 </style>
