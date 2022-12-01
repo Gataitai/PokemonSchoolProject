@@ -46,7 +46,7 @@
         const query = event.detail;
 
         if(query.text){
-            filters.addFilter("test")
+            filters.addFilter({name: query.text})
             searchquery = "name="+query.text;
         }
         if(query.region){

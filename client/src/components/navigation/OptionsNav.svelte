@@ -8,6 +8,7 @@
     import { createEventDispatcher } from 'svelte';
     import BackwardsIcon from "../../icons/BackwardsIcon.svelte";
     import RegionIcon from "../../icons/RegionIcon.svelte";
+    import TypeBadgeList from "../badges/TypeBadgeList.svelte";
     const dispatch = createEventDispatcher();
 
     export let name;
@@ -17,12 +18,20 @@
     export let backwards;
 
     const dispatchButton = (button) => {
+        if(button === "backwards"){
+            removeAll()
+        }
         dispatch('buttonPushed', {
             button: button
         });
     }
 
-    let filters = []
+    const filters = {
+        name: null,
+        region: null,
+        types: null,
+        price: null,
+    }
 
     const dispatchFilters = () => {
         dispatch('filters', {
@@ -30,15 +39,27 @@
         });
     }
 
-    export const addFilter = (filter) => {
-        filters = [...filters + filter]
-        console.log(filters)
+    export const updateFilter = ({name, region, types, price}) => {
+        if(name){
+            filters.name = name;
+        }
+        if(region){
+            filters.region = region;
+        }
+        if(types){
+            filters.types = types;
+        }
+        if(price){
+            filters.price = price;
+        }
         dispatchFilters();
     }
 
-    const removefilter = (filter) => {
-        filter = filter.filter(e => e !== filter);
-        dispatchFilters();
+    const removeAll = () => {
+        filters.name = null;
+        filters.region = null;
+        filters.types = null;
+        filters.price = null;
     }
 </script>
 
@@ -98,13 +119,31 @@
     </ul>
 </nav>
 
-{#if filters.length > 0}
+{#if filters.name || filters.region || filters.types || filters.price}
     <div class="filters">
-        {#each filters as filter}
-            <div class="filter" onclick={() => removefilter(filter)}>
-                {filter}
+        {#if filters.name}
+            <div class="filter" on:click={() => updateFilter({name: null})}>
+                {filters.name}
             </div>
-        {/each}
+        {/if}
+
+        {#if filters.region}
+            <div class="filter" on:click={() => updateFilter({region: null})}>
+                {filters.region}
+            </div>
+        {/if}
+
+        {#if filters.types}
+            <div class="filter" on:click={() => updateFilter({types: null})}>
+                <TypeBadgeList types={filters.types}/>
+            </div>
+        {/if}
+
+        {#if filters.price}
+            <div class="filter" on:click={() => updateFilter({price: null})}>
+                {filters.price}
+            </div>
+        {/if}
     </div>
 {/if}
 
