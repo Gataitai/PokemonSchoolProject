@@ -3,7 +3,6 @@
     import TypeIcon from "../../icons/TypeIcon.svelte";
     import PriceIcon from "../../icons/PriceIcon.svelte";
     import FilterIcon from "../../icons/FilterIcon.svelte";
-    import GenerationIcon from "../../icons/GenerationIcon.svelte";
 
     import { createEventDispatcher } from 'svelte';
     import BackwardsIcon from "../../icons/BackwardsIcon.svelte";
