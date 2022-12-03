@@ -46,8 +46,14 @@
         const query = event.detail;
 
         if(query.text){
-            filters.updateFilter({name: query.text})
-            searchquery = "name="+query.text;
+            if(query.text === "EMPTY"){
+                searchquery = '';
+                filters.removeName();
+            }
+            else{
+                filters.updateFilter({name: query.text})
+                searchquery = "name="+query.text;
+            }
         }
         if(query.region){
             regionModal.toggle();

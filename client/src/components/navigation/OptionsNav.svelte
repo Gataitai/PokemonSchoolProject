@@ -18,7 +18,10 @@
 
     const dispatchButton = (button) => {
         if(button === "backwards"){
-            removeAll()
+            removeName();
+            removeRegion();
+            removeTypes();
+            removePrice();
         }
         dispatch('buttonPushed', {
             button: button
@@ -54,10 +57,19 @@
         dispatchFilters();
     }
 
-    const removeAll = () => {
+    export const removeName = () => {
         filters.name = null;
+    }
+
+    export const removeRegion = () => {
         filters.region = null;
+    }
+
+    export const removeTypes = () => {
         filters.types = null;
+    }
+
+    export const removePrice = () => {
         filters.price = null;
     }
 </script>
@@ -122,13 +134,13 @@
     <div class="filters">
         {#if filters.name}
             <div class="filter" on:click={() => updateFilter({name: null})}>
-                {filters.name}
+                <span class="filter-name">Name </span>{filters.name}
             </div>
         {/if}
 
         {#if filters.region}
             <div class="filter" on:click={() => updateFilter({region: null})}>
-                {filters.region}
+                <span class="filter-name">region </span>{filters.region}
             </div>
         {/if}
 

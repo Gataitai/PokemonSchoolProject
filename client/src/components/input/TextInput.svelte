@@ -5,15 +5,19 @@
 
     export let placeholder = "Type here";
 
-    let text;
+    let input;
     const dispatchText = () => {
+        let text = input;
+        if(!input){
+            text = "EMPTY";
+        }
         dispatch('textTyped', {
             text: text
         });
     }
 </script>
 
-<input on:keyup={dispatchText} bind:value={text} type="text" class="form-control" placeholder="{placeholder}">
+<input on:keyup={dispatchText} bind:value={input} type="text" class="form-control" placeholder="{placeholder}">
 
 <style>
     input[type=text] {
