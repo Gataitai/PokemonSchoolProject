@@ -40,8 +40,6 @@
         }
     }
 
-
-
     let search = (event) => {
         const query = event.detail;
 
@@ -56,14 +54,16 @@
             }
         }
         if(query.region){
-            regionModal.toggle();
+            filters.updateFilter({region: query.region})
             searchquery = "region="+query.region;
         }
         if(query.types){
+            filters.updateFilter({types: query.types})
             let types = query.types.join(',');
             searchquery = "types="+types;
         }
         if(query.value){
+            filters.updateFilter({price: query.value})
             searchquery = "price="+query.value;
         }
 
@@ -73,11 +73,9 @@
         }
         promise = get(params)
     }
-
-
 </script>
 
-<OptionsNav bind:this={filters} on:buttonPushed={toggleModal} name type price region backwards="{searchquery !== ''}"/>
+<OptionsNav bind:this={filters} on:buttonPushed={toggleModal} on:filters={search} name type price region backwards="{searchquery !== ''}"/>
 
 <Modal bind:this={nameModal} title="Name">
     <TextInput on:textTyped={search}/>

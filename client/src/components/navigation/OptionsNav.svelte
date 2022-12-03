@@ -8,6 +8,7 @@
     import BackwardsIcon from "../../icons/BackwardsIcon.svelte";
     import RegionIcon from "../../icons/RegionIcon.svelte";
     import TypeBadgeList from "../badges/TypeBadgeList.svelte";
+    import CloseIcon from "../../icons/CloseIcon.svelte";
     const dispatch = createEventDispatcher();
 
     export let name;
@@ -36,6 +37,9 @@
     }
 
     const dispatchFilters = () => {
+        if(!filters.name && !filters.region && !filters.types && !filters.price){
+            backwards = false;
+        }
         dispatch('filters', {
             filters: filters
         });
@@ -59,18 +63,22 @@
 
     export const removeName = () => {
         filters.name = null;
+        dispatchFilters();
     }
 
     export const removeRegion = () => {
         filters.region = null;
+        dispatchFilters();
     }
 
     export const removeTypes = () => {
         filters.types = null;
+        dispatchFilters();
     }
 
     export const removePrice = () => {
         filters.price = null;
+        dispatchFilters();
     }
 </script>
 
@@ -134,25 +142,29 @@
     <div class="filters">
         {#if filters.name}
             <div class="filter" on:click={() => updateFilter({name: null})}>
-                <span class="filter-name">Name </span>{filters.name}
+                <span class="filter-name">Name</span>{filters.name}
+                <span class="close-icon" on:click={removeName}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.region}
             <div class="filter" on:click={() => updateFilter({region: null})}>
                 <span class="filter-name">region </span>{filters.region}
+                <span class="close-icon" on:click={removeRegion}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.types}
             <div class="filter" on:click={() => updateFilter({types: null})}>
                 <TypeBadgeList types={filters.types}/>
+                <span class="close-icon" on:click={removeTypes}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.price}
             <div class="filter" on:click={() => updateFilter({price: null})}>
-                {filters.price}
+                <span class="filter-name">Price </span>${filters.price}
+                <span class="close-icon" on:click={removePrice}><CloseIcon mid/></span>
             </div>
         {/if}
     </div>
@@ -234,6 +246,7 @@
 
     .filters{
         display: flex;
+        gap: 2rem;
         flex-direction: row;
         align-items: center;
         position: fixed;
@@ -247,6 +260,10 @@
     }
 
     .filter{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         height: 1rem;
         padding: 1rem;
         background-color: var(--bg-secondary);
@@ -256,6 +273,21 @@
     }
 
     .filter-name{
+        margin-right: .5rem;
         font-weight: bold;
+    }
+
+    .close-icon{
+        margin-left: .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: grayscale(100%) opacity(0.7);
+        transition: var(--transition-speed);
+    }
+
+    .close-icon:hover{
+        cursor: pointer;
+        filter: grayscale(0%) opacity(1);
     }
 </style>
