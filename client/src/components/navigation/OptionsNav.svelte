@@ -15,14 +15,14 @@
     export let type;
     export let price;
     export let region;
-    export let backwards;
+    let backwards;
 
     const dispatchButton = (button) => {
         if(button === "backwards"){
-            removeName();
-            removeRegion();
-            removeTypes();
-            removePrice();
+            updateNameFilter(null);
+            updateRegionFilter(null);
+            updateTypesFilter(null);
+            updatePriceFilter(null);
         }
         dispatch('buttonPushed', {
             button: button
@@ -37,49 +37,36 @@
     }
 
     const dispatchFilters = () => {
-        if(!filters.name && !filters.region && !filters.types && !filters.price){
-            backwards = false;
-        }
+        backwards = !(!filters.name && !filters.region && !filters.types && !filters.price);
         dispatch('filters', {
             filters: filters
         });
     }
 
-    export const updateFilter = ({name, region, types, price}) => {
-        if(name){
+    export const  updateNameFilter = (name) =>{
+        if(name === "EMPTY"){
+            filters.name = null;
+        }else{
             filters.name = name;
         }
-        if(region){
-            filters.region = region;
-        }
-        if(types){
-            filters.types = types;
-        }
-        if(price){
-            filters.price = price;
-        }
         dispatchFilters();
     }
 
-    export const removeName = () => {
-        filters.name = null;
+    export const  updateRegionFilter = (region) =>{
+        filters.region = region;
         dispatchFilters();
     }
 
-    export const removeRegion = () => {
-        filters.region = null;
+    export const  updateTypesFilter = (types) =>{
+        filters.types = types;
         dispatchFilters();
     }
 
-    export const removeTypes = () => {
-        filters.types = null;
+    export const  updatePriceFilter = (price) =>{
+        filters.price = price;
         dispatchFilters();
     }
 
-    export const removePrice = () => {
-        filters.price = null;
-        dispatchFilters();
-    }
 </script>
 
 <nav class="navbar">
@@ -139,38 +126,43 @@
 </nav>
 
 {#if filters.name || filters.region || filters.types || filters.price}
+    <div class="spacing"></div>
     <div class="filters">
         {#if filters.name}
-            <div class="filter" on:click={() => updateFilter({name: null})}>
+            <div class="filter">
                 <span class="filter-name">Name</span>{filters.name}
-                <span class="close-icon" on:click={removeName}><CloseIcon mid/></span>
+                <span class="close-icon" on:click={() => updateNameFilter(null)}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.region}
-            <div class="filter" on:click={() => updateFilter({region: null})}>
+            <div class="filter">
                 <span class="filter-name">region </span>{filters.region}
-                <span class="close-icon" on:click={removeRegion}><CloseIcon mid/></span>
+                <span class="close-icon" on:click={() => updateRegionFilter(null)}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.types}
-            <div class="filter" on:click={() => updateFilter({types: null})}>
+            <div class="filter">
                 <TypeBadgeList types={filters.types}/>
-                <span class="close-icon" on:click={removeTypes}><CloseIcon mid/></span>
+                <span class="close-icon" on:click={() => updateTypesFilter(null)}><CloseIcon mid/></span>
             </div>
         {/if}
 
         {#if filters.price}
-            <div class="filter" on:click={() => updateFilter({price: null})}>
+            <div class="filter">
                 <span class="filter-name">Price </span>${filters.price}
-                <span class="close-icon" on:click={removePrice}><CloseIcon mid/></span>
+                <span class="close-icon" on:click={() => updatePriceFilter(null)}><CloseIcon mid/></span>
             </div>
         {/if}
     </div>
 {/if}
 
 <style>
+    .spacing{
+        margin-top: 4rem;
+    }
+
     .navbar {
         position: fixed;
         top: 0;

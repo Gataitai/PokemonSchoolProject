@@ -10,8 +10,6 @@
 
     let promise = get({resource: "auctions"});
 
-    let searchquery = '';
-
     let filters = [];
 
     let nameModal;
@@ -34,66 +32,72 @@
                 regionModal.toggle();
                 break;
             case "backwards":
-                searchquery = '';
                 promise = get({resource: "auctions"});
                 break;
         }
     }
 
-    let search = (event) => {
-        const query = event.detail;
+    const updateNameFilter = (event) => {
+        filters.updateNameFilter(event.detail.text);
+    }
 
-        if(query.text){
-            if(query.text === "EMPTY"){
-                searchquery = '';
-                filters.removeName();
-            }
-            else{
-                filters.updateFilter({name: query.text})
-                searchquery = "name="+query.text;
-            }
+    const updateRegionFilter = (event) => {
+        filters.updateRegionFilter(event.detail.region);
+    }
+
+    const updateTypesFilter = (event) => {
+        filters.updateTypesFilter(event.detail.types);
+    }
+
+    const updatePriceFilter = (event) => {
+        filters.updatePriceFilter(event.detail.value);
+    }
+
+    let search = (event) => {
+        let search = "";
+        const filters = event.detail.filters;
+
+        if(filters.name){
+            search = "name="+filters.name;
         }
-        if(query.region){
-            filters.updateFilter({region: query.region})
-            searchquery = "region="+query.region;
+        if(filters.region){
+            search = "region="+filters.region;
         }
-        if(query.types){
-            filters.updateFilter({types: query.types})
-            let types = query.types.join(',');
-            searchquery = "types="+types;
+        if(filters.types){
+            let types = filters.types.join(',');
+            search = "types="+types;
         }
-        if(query.value){
-            filters.updateFilter({price: query.value})
-            searchquery = "price="+query.value;
+        if(filters.price){
+            search = "price="+filters.price;
         }
 
         const params = {
             resource: "auctions",
-            queryParam: searchquery
+            queryParam: search
         }
         promise = get(params)
     }
 </script>
 
-<OptionsNav bind:this={filters} on:buttonPushed={toggleModal} on:filters={search} name type price region backwards="{searchquery !== ''}"/>
+<OptionsNav bind:this={filters} on:buttonPushed={toggleModal} on:filters={search} name type price region/>
 
 <Modal bind:this={nameModal} title="Name">
-    <TextInput on:textTyped={search}/>
+    <TextInput on:textTyped={updateNameFilter}/>
 </Modal>
 
 <Modal bind:this={typeModal} title="Type">
-    <TypeBadgeSelectInput on:typesSelected={search}/>
+    <TypeBadgeSelectInput on:typesSelected={updateTypesFilter}/>
 </Modal>
 
 <Modal bind:this={priceModal} title="Price">
-    <RangeInput max={10000} on:change={search}/>
+    <RangeInput max={10000} on:change={updatePriceFilter}/>
 </Modal>
 
 <Modal bind:this={regionModal} title="Region">
-    <RegionInput on:regionClicked={search}/>
+    <RegionInput on:regionClicked={updateRegionFilter}/>
 </Modal>
 
-<div class="items" style="{filters.length > 0 ? 'margin-top: 4rem;' : ''}">
+<div class="items">
     {#await promise}
         Loading
     {:then auctions}
