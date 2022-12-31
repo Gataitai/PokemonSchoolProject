@@ -2,28 +2,26 @@ const express = require('express');
 const router = express.Router();
 const pokemonService = require("../services/pokemonService");
 
+const parsePokemonQueryParam = (params) => {
+    const searchParams = new URLSearchParams(params);
+    const filters = {};
+    if (searchParams.has('typeList')) filters.typeList = searchParams.get('typeList').split(',');
+    return filters;
+}
+
 router.get("/", async (req, res) => {
-    const types = req.query.types;
-    const name = req.query.name;
-    const region = req.query.region;
+    try {
+        // const page = Number(req.query.page) || 1
+        // const pageSize = Number(req.query.pageSize) || 10
+        const filters = parsePokemonQueryParam(req.query);
+        const pokemons = pokemonService.get(filters)
 
-    let pokemons;
-
-    if(types){
-        pokemons = pokemonService.getByTypes(types.split(','));
+        res.json({
+            pokemons
+        });
+    } catch (error) {
+        res.status(500).json({error: error.message});
     }
-    else if(name){
-        pokemons = pokemonService.getByName(name);
-    }
-    else if(region){
-        pokemons = pokemonService.getByRegion(region)
-    }
-    else{
-        pokemons = pokemonService.getAll();
-    }
-    res.json({
-        pokemons
-    })
 });
 
 router.get("/:id", async (req, res) => {
@@ -32,28 +30,6 @@ router.get("/:id", async (req, res) => {
         pokemon
     })
 });
-
-// router.post("/", validatePokemon, async(req, res) => {
-//     const pokemon = pokemonService.save(req.body);
-//     res.json({
-//         pokemon
-//     })
-// });
-//
-// router.put("/:id", validatePokemon, async(req, res) => {
-//     const pokemon = pokemonService.update(req.params.id, req.body);
-//     res.json({
-//         pokemon
-//     })
-// });
-//
-// router.delete("/:id",async (req, res) => {
-//     const pokemon = pokemonService.remove(req.params.id);
-//     res.json({
-//         pokemon
-//     })
-// });
-
 
 
 module.exports = router;

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");
 
 const getUserName = (header) => {
-    const token = header.split(' ')[0];
+    const token = header.split(' ')[1];
     const payload = jwt.decode(token);
     return payload.username;
 }

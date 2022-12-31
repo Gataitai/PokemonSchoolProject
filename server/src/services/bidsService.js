@@ -1,44 +1,40 @@
 const bidData = require("../data/bidData");
 const crypto = require("crypto");
+const auctionData = require("../data/auctionData");
 
-const getByAuctionId = (auctionId) => {
-    return bidData.data.find(b => b.auctionId === auctionId);
-}
 
-// const getById = (id) => {
-//     return pokemons[id-1];
-// }
-
-const save = (b, user) => {
-    const bid = {
+const save = (bid, user, auctionId) => {
+    const newBid = {
         id: crypto.randomUUID(),
-        auctionId: b.auctionId,
-        user: user,
-        biddingPrice: b.biddingPrice,
+        user: user.username,
+        biddingPrice: bid.biddingPrice,
         bidDate: new Date()
-
     }
-    bidData.data.push(bid);
-    return bid;
+    const foundAuction = auctionData.data.find((auction) => auction.id === auctionId);
+    if(foundAuction){
+        foundAuction.bids.push(bid);
+        return newBid;
+    }
+    else{
+        throw new Error('Auction not found');
+    }
 }
 
-//
-// const update = (id, pokemon) => {
-//     const index = pokemonData.data.findIndex(p => p.id === id);
-//     pokemonData.data[index] = pokemon;
-//     return pokemon;
-// }
-//
-// const remove = (id) => {
-//     const index = pokemonData.data.findIndex(p => p.id === id);
-//     pokemonData.data.splice(index, 1);
-//     return statusCodes.NO_CONTENT;
-// }
+const remove = (bidId, auctionId) => {
+    const foundAuction = auctionData.data.find((auction) => auction.id === auctionId);
+    if(foundAuction){
+        const index = foundAuction.bids.findIndex((bid) => bid.id === bidId);
+        if(index === -1) {
+            throw new Error('Bid not found');
+        }
+        foundAuction.bids.splice(index, 1)
+    }
+    else{
+        throw new Error('Auction not found');
+    }
+}
 
 module.exports = {
-    getByAuctionId,
-    save
-    // getById,
-    // update,
-    // remove,
+    save,
+    remove
 };

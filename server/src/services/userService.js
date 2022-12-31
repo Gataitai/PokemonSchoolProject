@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const uuid = require("uuid");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const auctionData = require("../data/auctionData");
 
 const getAll = () => {
     // const users = [];
@@ -37,9 +38,15 @@ const save = (user) => {
     return jwt.sign(payload, user.secret);
 }
 
-const update = (id, user) => {
-
-    return user;
+const update = (updatedUser) => {
+    const index = userData.data.findIndex((user) => user.id === updatedUser.id);
+    if(updatedAuction.endDate){
+        auctionData.data[index].endDate = updatedAuction.endDate;
+    }
+    if(updatedAuction.startingPrice){
+        auctionData.data[index].endDate = updatedAuction.startingPrice;
+    }
+    return auctionData.data[index];
 }
 
 const remove = (id) => {

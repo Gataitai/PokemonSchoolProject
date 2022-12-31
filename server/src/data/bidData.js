@@ -4,10 +4,6 @@ const bidDefinition = [
     "biddingPrice"
 ];
 
-const data = [
-];
-
 module.exports = {
-    bidDefinition,
-    data
+    bidDefinition
 };

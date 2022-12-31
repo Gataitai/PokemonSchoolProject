@@ -1,15 +1,13 @@
 const auctionData = require("../data/auctionData");
+const pokemonService = require("../services/pokemonService");
 const crypto = require("crypto");
-const pokemonData = require("../data/pokemonData");
 
 const get = (filters, page, pageSize) => {
     let auctions = auctionData.data;
 
     if (filters.typeList) {
         if(filters.typeList.length >= 2){
-            console.log(filters.typeList)
-            console.log(auctions.filter(a => a.pokemon.typeList[0].includes(filters.typeList) && a.pokemon.typeList[1].includes(filters.typeList)))
-            return auctions.filter(a => a.pokemon.typeList[0].includes(filters.typeList) && a.pokemon.typeList[1].includes(filters.typeList))
+            return auctions.filter(a => filters.typeList.includes(a.pokemon.typeList[0]) && filters.typeList.includes(a.pokemon.typeList[1]))
         }
         else{
             return auctions.filter(a => a.pokemon.typeList.some(t => filters.typeList.includes(t)));
@@ -27,11 +25,11 @@ const get = (filters, page, pageSize) => {
     }
 
     if (filters.startingPrice) {
-        auctions = auctions.filter((auction) => auction.startingPrice >= filters.startingPrice)
+        auctions = auctions.filter(auction => auction.startingPrice <= filters.startingPrice)
     }
 
     if (filters.name) {
-        auctions = auctions.filter((auction) => auction.pokemon.name.toLowerCase().includes(filters.name.toLowerCase()))
+        auctions = auctions.filter(auction => auction.pokemon.name.toLowerCase().includes(filters.name.toLowerCase()))
     }
 
     const startIndex = (page - 1) * pageSize;
@@ -43,65 +41,58 @@ const getById = (id) => {
     return auctionData.data.find(a => a.id === id);
 }
 
-// const getAll = () => {
-//     return auctionData.data;
-// }
-//
-// const getById = (id) => {
-//     return auctionData.data.find(a => a.id === id);
-// }
-//
-// const getByName = (name) => {
-//     return auctionData.data.filter(a => a.pokemon.name.toLowerCase().match(name.toLowerCase()));
-// }
-//
-// const getByTypes = (types) => {
-//     console.log(types);
-//     if(types.length >= 2){
-//         return auctionData.data.filter(a => a.pokemon.typeList[0].includes(types) && a.pokemon.typeList[1].includes(types))
-//     }
-//     else{
-//         return auctionData.data.filter(a => a.pokemon.typeList.some(t => types.includes(t)));
-//     }
-// }
-//
-// const getByRegion = (region) => {
-//     const generation = pokemonData.generations.find(g => g.name === region);
-//     return auctionData.data.filter(p => p.pokemon.id >= generation.from && p.pokemon.id <= generation.to);
-// }
-//
-// const getByPrice = (price) => {
-//     return auctionData.data.filter(a => a.startingPrice < price);
-// }
-
-const save = (auct, user) => {
-    const auction = {
+const save = (auction, user) => {
+    const newAuction = {
         id: crypto.randomUUID(),
         user: user,
-        startingPrice: auct.startingPrice,
-        pokemon: getById(auct.pokemonId),
+        startingPrice: auction.startingPrice,
+        pokemon: pokemonService.getById(auction.pokemonId),
         startingDate: new Date(),
-        endDate: auct.endDate
+        endDate: auction.endDate,
+        bids: []
     }
-    auctionData.data.push(auction);
-    return auction;
+
+    auctionData.data.push(newAuction);
+    return newAuction;
 }
 
-//
-// const update = (id, pokemon) => {
-//     const index = pokemonData.data.findIndex(p => p.id === id);
-//     pokemonData.data[index] = pokemon;
-//     return pokemon;
+const update = (auctionId, updatedAuction) => {
+    const index = auctionData.data.findIndex((auction) => auction.id === auctionId);
+    if(updatedAuction.endDate){
+        auctionData.data[index].endDate = updatedAuction.endDate;
+    }
+    if(updatedAuction.startingPrice){
+        auctionData.data[index].startingPrice = updatedAuction.startingPrice;
+    }
+    return auctionData.data[index];
+}
+
+// const remove = (bidId, auctionId) => {
+//     const foundAuction = auctionData.data.find((auction) => auction.id === auctionId);
+//     if(foundAuction){
+//         const index = foundAuction.bids.findIndex((bid) => bid.id === bidId);
+//         if(index === -1) {
+//             throw new Error('Bid not found');
+//         }
+//         foundAuction.bids.splice(index, 1)
+//     }
+//     else{
+//         throw new Error('Auction not found');
+//     }
 // }
-//
-// const remove = (id) => {
-//     const index = pokemonData.data.findIndex(p => p.id === id);
-//     pokemonData.data.splice(index, 1);
-//     return statusCodes.NO_CONTENT;
-// }
+
+const remove = (id) => {
+    const index = auctionData.data.findIndex((auction) => auction.id === id)
+    if(index === -1) {
+        throw new Error('Bid not found');
+    }
+    auctionData.data.splice(index, 1)
+}
 
 module.exports = {
     get,
     getById,
     save,
+    update,
+    remove
 };
