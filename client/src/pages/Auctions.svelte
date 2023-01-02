@@ -1,5 +1,4 @@
 <script>
-    import { get } from '../util/fetch.js';
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
     import Modal from "../components/Modal.svelte";
     import TextInput from "../components/input/TextInput.svelte";
@@ -7,10 +6,27 @@
     import RegionInput from "../components/input/RegionInput.svelte";
     import RangeInput from "../components/input/RangeInput.svelte";
     import AuctionCard from "../components/card/AuctionCard.svelte";
+    import {onMount} from "svelte";
 
-    let promise = get({resource: "auctions"});
+    let auctions = []
+    let page = 1
+    let totalPages = 1
+    const pageSize = 24
+    let filters = {}
 
-    let filters = [];
+    onMount(async () => {
+        const response = await fetch(`http://localhost:3001/auctions?page=${page}&pageSize=${pageSize}`)
+        const data = await response.json()
+        auctions = data.auctions
+        totalPages = Math.ceil(data.totalCount / pageSize)
+    })
+
+    async function changePage(newPage) {
+        page = newPage
+        const response = await fetch(`http://localhost:3001/auctions?page=${page}&pageSize=${pageSize}`)
+        const data = await response.json()
+        auctions = data.auctions
+    }
 
     let nameModal;
     let typeModal;
@@ -32,7 +48,7 @@
                 regionModal.toggle();
                 break;
             case "backwards":
-                promise = get({resource: "auctions"});
+                changePage(1)
                 break;
         }
     }
@@ -75,7 +91,7 @@
             resource: "auctions",
             queryParam: search
         }
-        promise = get(params)
+        //makefilter
     }
 </script>
 
@@ -98,15 +114,9 @@
 </Modal>
 
 <div class="items">
-    {#await promise}
-        Loading
-    {:then auctions}
-        {#each auctions as auction}
-            <AuctionCard auction={auction}/>
-        {/each}
-    {:catch error}
-        <p>{error.message}</p>
-    {/await}
+    {#each auctions as auction}
+        <AuctionCard auction={auction}/>
+    {/each}
 </div>
 
 <style>
