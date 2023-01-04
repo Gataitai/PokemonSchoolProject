@@ -9,7 +9,7 @@ const auctionDefinition = [
 const data = [];
 
 const x = () => {
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 2000; i++) {
         const auction  = {
             "id": crypto.randomUUID(),
             "user": "mathijs",

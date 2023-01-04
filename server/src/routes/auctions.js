@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
         const totalCount = auctionData.data.length;
 
         res.json({
-            auctions, totalCount
+            auctions, totalCount, pageSize, page
         });
     } catch (error) {
         res.status(500).json({error: error.message});

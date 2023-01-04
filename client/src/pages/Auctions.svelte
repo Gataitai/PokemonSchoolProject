@@ -7,6 +7,7 @@
     import RangeInput from "../components/input/RangeInput.svelte";
     import AuctionCard from "../components/card/AuctionCard.svelte";
     import {onMount} from "svelte";
+    import Paginator from "../components/navigation/Paginator.svelte";
 
     let auctions = [];
     let totalPages;
@@ -26,8 +27,12 @@
         const response = await fetch("http://localhost:3001/"+route);
         const data = await response.json();
         auctions = data.auctions;
-        totalPages = Math.ceil(data.totalCount / params.pageSize);
+        totalPages = Math.ceil(data.totalCount / data.pageSize);
         window.history.pushState({}, "", route);
+    }
+
+    async function updatePage(event){
+        await newPage(event.detail.page);
     }
 
     onMount(async () => {
@@ -106,6 +111,8 @@
         <AuctionCard auction={auction}/>
     {/each}
 </div>
+
+<Paginator totalPages={totalPages} on:page={updatePage}/>
 
 <style>
     .items{
