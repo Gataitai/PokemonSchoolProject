@@ -59,7 +59,6 @@
 
     export const  updateTypesFilter = (types) =>{
         filters.types = types;
-        console.log(filters)
         dispatchFilters();
     }
 
@@ -79,7 +78,7 @@
                     <BackwardsIcon/>
                 </a>
             </li>
-            {:else}
+        {:else}
             <li>
                 <a class="filter-icon">
                     <FilterIcon/>
@@ -184,7 +183,7 @@
         gap: 2rem;
         flex-direction: column;
     }
-    
+
     .nav-item:hover {
         cursor: pointer;
     }

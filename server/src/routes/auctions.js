@@ -19,7 +19,7 @@ const parseAuctionQueryParams = (params) => {
 router.get("/", async (req, res) => {
     try {
         const page = Number(req.query.page) || 1
-        const pageSize = Number(req.query.pageSize) || 10
+        const pageSize = Number(req.query.pageSize) || 24
         const filters = parseAuctionQueryParams(req.query);
         const auctions = auctionService.get(filters, page, pageSize);
         const totalCount = auctionData.data.length;

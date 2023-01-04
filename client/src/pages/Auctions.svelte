@@ -8,30 +8,37 @@
     import AuctionCard from "../components/card/AuctionCard.svelte";
     import {onMount} from "svelte";
 
-    let auctions = []
-    let page = 1
-    let totalPages = 1
-    const pageSize = 24
-    let filters = {}
+    let auctions = [];
+    let totalPages;
+    let filters = {};
+
+    async function newPage(page) {
+        const params = new URLSearchParams(window.location.search);
+
+        page ? params.set('page', page) : null;
+
+        filters.name ? params.set('name', filters.name) : params.delete('name');
+        filters.region ? params.set('region', filters.region) : params.delete('region');
+        filters.types ? params.set('typeList', filters.types.join(',')) : params.delete('typeList');
+        filters.price ? params.set('price', filters.price) : params.delete('price');
+
+        const route = params.toString() ? `auctions?${params.toString()}` : "auctions";
+        const response = await fetch("http://localhost:3001/"+route);
+        const data = await response.json();
+        auctions = data.auctions;
+        totalPages = Math.ceil(data.totalCount / params.pageSize);
+        window.history.pushState({}, "", route);
+    }
 
     onMount(async () => {
-        const response = await fetch(`http://localhost:3001/auctions?page=${page}&pageSize=${pageSize}`)
-        const data = await response.json()
-        auctions = data.auctions
-        totalPages = Math.ceil(data.totalCount / pageSize)
-    })
-
-    async function changePage(newPage) {
-        page = newPage
-        const response = await fetch(`http://localhost:3001/auctions?page=${page}&pageSize=${pageSize}`)
-        const data = await response.json()
-        auctions = data.auctions
-    }
+        await newPage();
+    });
 
     let nameModal;
     let typeModal;
     let priceModal;
     let regionModal;
+    let filterComponent;
 
     let toggleModal = (event) => {
         switch(event.detail.button) {
@@ -48,54 +55,35 @@
                 regionModal.toggle();
                 break;
             case "backwards":
-                changePage(1)
+                filters = null;
+                newPage(1)
                 break;
         }
     }
 
     const updateNameFilter = (event) => {
-        filters.updateNameFilter(event.detail.text);
+        filterComponent.updateNameFilter(event.detail.text);
     }
 
     const updateRegionFilter = (event) => {
-        filters.updateRegionFilter(event.detail.region);
+        filterComponent.updateRegionFilter(event.detail.region);
     }
 
     const updateTypesFilter = (event) => {
-        filters.updateTypesFilter(event.detail.types);
+        filterComponent.updateTypesFilter(event.detail.types);
     }
 
     const updatePriceFilter = (event) => {
-        filters.updatePriceFilter(event.detail.value);
+        filterComponent.updatePriceFilter(event.detail.value);
     }
 
     let search = (event) => {
-        let search = "";
-        const filters = event.detail.filters;
-
-        if(filters.name){
-            search = "name="+filters.name;
-        }
-        if(filters.region){
-            search = "region="+filters.region;
-        }
-        if(filters.types){
-            let types = filters.types.join(',');
-            search = "types="+types;
-        }
-        if(filters.price){
-            search = "price="+filters.price;
-        }
-
-        const params = {
-            resource: "auctions",
-            queryParam: search
-        }
-        //makefilter
+        filters = event.detail.filters;
+        newPage(1)
     }
 </script>
 
-<OptionsNav bind:this={filters} on:buttonPushed={toggleModal} on:filters={search} name type price region/>
+<OptionsNav bind:this={filterComponent} on:buttonPushed={toggleModal} on:filters={search} name type price region/>
 
 <Modal bind:this={nameModal} title="Name">
     <TextInput on:textTyped={updateNameFilter}/>

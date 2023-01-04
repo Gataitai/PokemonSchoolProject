@@ -2,7 +2,6 @@
     import {imgUrlId} from "../../util/images";
     import TypeBadgeBlock from "../badges/TypeBadgeBlock.svelte";
     import CountDown from "../CountDown.svelte";
-    import Button from "../buttons/Button.svelte";
     export let auction;
 
 </script>
