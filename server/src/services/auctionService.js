@@ -1,5 +1,6 @@
 const auctionData = require("../data/auctionData");
 const pokemonService = require("../services/pokemonService");
+const pokemonData = require("../data/pokemonData");
 const crypto = require("crypto");
 
 const get = (filters, page, pageSize) => {
@@ -7,21 +8,29 @@ const get = (filters, page, pageSize) => {
 
     if (filters.typeList) {
         if(filters.typeList.length >= 2){
-            return auctions.filter(a => filters.typeList.includes(a.pokemon.typeList[0]) && filters.typeList.includes(a.pokemon.typeList[1]))
+            auctions = auctions.filter(a => filters.typeList.includes(a.pokemon.typeList[0]) && filters.typeList.includes(a.pokemon.typeList[1]))
         }
         else{
-            return auctions.filter(a => a.pokemon.typeList.some(t => filters.typeList.includes(t)));
+            auctions = auctions.filter(a => a.pokemon.typeList.some(t => filters.typeList.includes(t)));
         }
     }
 
     if (filters.endingDate) {
         auctions = auctions.filter((auction) => {
             if (filters.endingDate.startsWith('>=')) {
-                return auction.endingDate >= filters.endingDate.slice(2)
+                auctions = auction.endingDate >= filters.endingDate.slice(2)
             } else if (filters.endingDate.startsWith('<=')) {
-                return auction.endingDate <= filters.endingDate.slice(2)
+                auctions = auction.endingDate <= filters.endingDate.slice(2)
             }
         })
+    }
+
+    if (filters.region) {
+        const region = pokemonData.generations.find(g => g.name === filters.region);
+        if(!region){
+            throw new Error("Region doesnt exist.")
+        }
+        auctions = auctions.filter(a => a.pokemon.id >= region.from && a.pokemon.id <= region.to);
     }
 
     if (filters.startingPrice) {
@@ -34,7 +43,10 @@ const get = (filters, page, pageSize) => {
 
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    return auctions.slice(startIndex, endIndex);
+    return {
+        auctions: auctions.slice(startIndex, endIndex),
+        length: auctions.length
+    }
 }
 
 const getById = (id) => {

@@ -18,10 +18,10 @@
 
         page ? params.set('page', page) : null;
 
-        filters.name ? params.set('name', filters.name) : params.delete('name');
-        filters.region ? params.set('region', filters.region) : params.delete('region');
-        filters.types ? params.set('typeList', filters.types.join(',')) : params.delete('typeList');
-        filters.price ? params.set('price', filters.price) : params.delete('price');
+        filters?.name ? params.set('name', filters.name) : params.delete('name');
+        filters?.region ? params.set('region', filters.region) : params.delete('region');
+        filters?.types ? params.set('typeList', filters.types.join(',')) : params.delete('typeList');
+        filters?.price ? params.set('price', filters.price) : params.delete('price');
 
         const route = params.toString() ? `auctions?${params.toString()}` : "auctions";
         const response = await fetch("http://localhost:3001/"+route);
@@ -44,6 +44,7 @@
     let priceModal;
     let regionModal;
     let filterComponent;
+    let paginator;
 
     let toggleModal = (event) => {
         switch(event.detail.button) {
@@ -61,6 +62,7 @@
                 break;
             case "backwards":
                 filters = null;
+                paginator.reset();
                 newPage(1)
                 break;
         }
@@ -84,6 +86,7 @@
 
     let search = (event) => {
         filters = event.detail.filters;
+        paginator.reset();
         newPage(1)
     }
 </script>
@@ -112,7 +115,7 @@
     {/each}
 </div>
 
-<Paginator totalPages={totalPages} on:page={updatePage}/>
+<Paginator bind:this={paginator} totalPages={totalPages} on:page={updatePage}/>
 
 <style>
     .items{

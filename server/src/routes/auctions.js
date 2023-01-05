@@ -12,17 +12,20 @@ const parseAuctionQueryParams = (params) => {
     const filters = {};
     if (searchParams.has('typeList')) filters.typeList = searchParams.get('typeList').split(',');
     if (searchParams.has('name')) filters.name = searchParams.get('name');
-    if (searchParams.has('startingPrice')) filters.startingPrice = parseInt(searchParams.get('startingPrice'), 10);
+    if (searchParams.has('region')) filters.region = searchParams.get('region');
+    if (searchParams.has('price')) filters.startingPrice = parseInt(searchParams.get('price'), 10);
     return filters;
 }
 
 router.get("/", async (req, res) => {
     try {
         const page = Number(req.query.page) || 1
-        const pageSize = Number(req.query.pageSize) || 24
+        const pageSize = Number(req.query.pageSize) || 32
         const filters = parseAuctionQueryParams(req.query);
-        const auctions = auctionService.get(filters, page, pageSize);
-        const totalCount = auctionData.data.length;
+        console.log(filters)
+        const items = auctionService.get(filters, page, pageSize);
+        const auctions = items.auctions
+        const totalCount = items.length;
 
         res.json({
             auctions, totalCount, pageSize, page
