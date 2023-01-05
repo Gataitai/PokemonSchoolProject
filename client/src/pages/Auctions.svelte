@@ -15,7 +15,6 @@
 
     async function newPage(page) {
         const params = new URLSearchParams(window.location.search);
-
         page ? params.set('page', page) : null;
 
         filters?.name ? params.set('name', filters.name) : params.delete('name');
@@ -31,12 +30,18 @@
         window.history.pushState({}, "", route);
     }
 
+    let search = (event) => {
+        filters = event.detail.filters;
+        paginator.reset();
+        newPage(1)
+    }
+
     async function updatePage(event){
         await newPage(event.detail.page);
     }
 
     onMount(async () => {
-        await newPage();
+        await newPage(1);
     });
 
     let nameModal;
@@ -82,12 +87,6 @@
 
     const updatePriceFilter = (event) => {
         filterComponent.updatePriceFilter(event.detail.value);
-    }
-
-    let search = (event) => {
-        filters = event.detail.filters;
-        paginator.reset();
-        newPage(1)
     }
 </script>
 

@@ -15,7 +15,7 @@
   let currentRoute;
 
   let page;
-  let params;
+  let id;
 
   router('/', (ctx) => {
     page = Home;
@@ -40,7 +40,7 @@
   router('/detail/:id', (ctx) => {
     page = Detail;
     currentRoute = ctx.pathname;
-    params.id = ctx.params.id;
+    id = ctx.params.id;
   });
 
   router.start();
@@ -62,7 +62,7 @@
 </script>
 <Nav active="{currentRoute}"/>
 <main>
-  <svelte:component this={page} {params} />
+  <svelte:component this={page} {id} />
 </main>
 {#if errorMessage}
   <Message error="{errorMessage}"/>

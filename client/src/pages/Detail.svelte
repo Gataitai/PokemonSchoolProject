@@ -28,7 +28,7 @@
                 <div class="detail-info-item">
                     <TimeIcon small/>
                     <p>Ending</p>
-                    <CountDown date={auction.endingDate}/>
+                    <CountDown date={auction.endDate}/>
                 </div>
 
                 <div class="detail-info-item">
