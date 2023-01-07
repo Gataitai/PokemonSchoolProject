@@ -4,7 +4,6 @@ const auctionService = require("../services/auctionService");
 const {validateAuction} = require("../middleware/validate");
 const {authorizeToken} = require("../middleware/authorize");
 const {getUserName} = require("../util/getUser");
-const auctionData = require("../data/auctionData");
 const bidsRouter = require('./bids');
 
 const parseAuctionQueryParams = (params) => {
@@ -46,7 +45,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", validateAuction, authorizeToken, (req, res) => {
+router.post("/", validateAuction, authorizeToken, async (req, res) => {
     try {
         const user = getUserName(req.headers.authorization);
         const auction = auctionService.save(req.body, user);
@@ -58,7 +57,7 @@ router.post("/", validateAuction, authorizeToken, (req, res) => {
     }
 });
 
-router.patch("/:id", authorizeToken, (req, res) => {
+router.patch("/:id", authorizeToken, async (req, res) => {
     try {
         const updatedAuction = auctionService.update(req.params.id, req.body);
         res.json({
@@ -69,6 +68,6 @@ router.patch("/:id", authorizeToken, (req, res) => {
     }
 });
 
-router.use("/:auctionId/bids", bidsRouter);
+router.use(bidsRouter);
 
 module.exports = router;

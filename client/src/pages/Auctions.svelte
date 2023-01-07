@@ -101,7 +101,7 @@
 </Modal>
 
 <Modal bind:this={priceModal} title="Price">
-    <RangeInput max={10000} on:change={updatePriceFilter}/>
+    <RangeInput max={1000} on:change={updatePriceFilter}/>
 </Modal>
 
 <Modal bind:this={regionModal} title="Region">

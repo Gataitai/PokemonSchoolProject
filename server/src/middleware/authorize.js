@@ -11,7 +11,6 @@ const authorizeToken = (req, res, next) => {
     if(payload !== null){
 
         const user = userService.getByName(payload.username);
-        console.log(user);
         if(jwt.verify(token, user.secret)){
             next();
         } else {

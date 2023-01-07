@@ -44,7 +44,8 @@
         <TextInput password placeholder="Password" on:textTyped={updatePassword}/>
     </div>
 
-    <button class="submit" type="submit">Login</button>
+
+    <button class="submit" type="submit">Signup</button>
 </form>
 
 <style>

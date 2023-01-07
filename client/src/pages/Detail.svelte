@@ -1,22 +1,62 @@
 <script>
-    import {getById} from "../util/fetch";
     import DetailCard from "../components/card/DetailCard.svelte";
     import TimeIcon from "../icons/TimeIcon.svelte";
     import CountDown from "../components/CountDown.svelte";
     import ArrowUpIcon from "../icons/ArrowUpIcon.svelte";
     import HashtagIcon from "../icons/HashtagIcon.svelte";
     import AboutCard from "../components/card/AboutCard.svelte";
+    import {onMount} from "svelte";
+    import Modal from "../components/Modal.svelte";
+    import router from "page";
+    import BidInput from "../components/input/BidInput.svelte";
+    import {token} from "../stores/auth";
+    import CloseIcon from "../icons/CloseIcon.svelte";
+    import jwt from "jwt-decode";
 
     export let id;
-    let promise = getById({
-        resource: "auctions",
-        id: id
+    let auction;
+
+    onMount(async () => {
+        await getAuction();
     });
+
+    const getAuction = async () => {
+        const response = await fetch("http://localhost:3001/auctions/"+id);
+        const data = await response.json();
+        auction = data.auction;
+    }
+
+    const postBid = async (event) => {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + $token
+            },
+            body: JSON.stringify({biddingPrice: event.detail.bid})
+        }
+        const response = await fetch("http://localhost:3001/auctions/"+id+"/bids",options)
+        const data = await response.json();
+        auction.bids = [data.bid, ...auction.bids];
+        bidModal.toggle();
+    }
+
+    const deleteBid = async (bidId) => {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + $token
+            }
+        }
+        await fetch("http://localhost:3001/auctions/"+id+"/bids/"+bidId,options)
+        await getAuction();
+    }
+
+    let bidModal;
 </script>
 
-{#await promise}
-    Loading
-{:then auction}
+{#if auction}
     <div class="container">
         <div class="images">
             {id}
@@ -34,28 +74,49 @@
                 <div class="detail-info-item">
                     <ArrowUpIcon small/>
                     <p>Highest</p>
-                    ${auction.startingPrice},-
+                    {#if auction.bids.length === 0}
+                        ${auction.startingPrice},-
+                        {:else}
+                        ${Math.max(...auction.bids.map(bid => bid.biddingPrice))},-
+                    {/if}
                 </div>
 
                 <div class="detail-info-item">
                     <HashtagIcon small/>
                     <p>Bids</p>
-                    {0}
+                    {auction.bids.length}
                 </div>
             </span>
-            <button class="bid-button">
-                Bid now
-            </button>
+            {#if $token}
+                <button class="bid-button" on:click={() => bidModal.toggle()}>
+                    Bid now
+                </button>
+                {:else}
+                <button class="bid-button" on:click={() => router('/login')}>
+                    Bid now
+                </button>
+            {/if}
             <AboutCard pokemon={auction.pokemon}/>
         </div>
 
         <div class="bids">
-            {id}
+            {#each auction.bids as bid}
+                <div class="bid">
+                    {bid.user}: ${bid.biddingPrice}
+                    {#if $token && jwt($token).username === bid.user}
+                        <div class="close" on:click={() => deleteBid(bid.id)}>
+                            <CloseIcon small/>
+                        </div>
+                    {/if}
+                </div>
+            {/each}
         </div>
     </div>
-{:catch error}
-    <p>{error.message}</p>
-{/await}
+{/if}
+
+<Modal bind:this={bidModal} title="Bid">
+    <BidInput on:bid={postBid}/>
+</Modal>
 
 <style>
     .container{
@@ -78,7 +139,30 @@
 
     .bids{
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .bid{
+        width: 15rem;
+        display: flex;
+        align-items: center;
         background-color: var(--bg-primary);
+        color: var(--text-secondary);
+        border-radius: .5rem;
+        padding: 1rem;
+    }
+
+    .close{
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        color: var(--text-primary);
+    }
+
+    .close:hover{
+        color: var(--hl-primary);
     }
 
 

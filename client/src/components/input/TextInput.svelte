@@ -4,6 +4,7 @@
         const dispatch = createEventDispatcher();
 
     export let placeholder = "Type here";
+    export let password;
 
     let input;
     const dispatchText = () => {
@@ -17,10 +18,15 @@
     }
 </script>
 
-<input on:keyup={dispatchText} bind:value={input} type="text" class="form-control" placeholder="{placeholder}">
+{#if password}
+    <input on:keyup={dispatchText} bind:value={input} type="password" class="form-control" placeholder="{placeholder}">
+    {:else}
+    <input on:keyup={dispatchText} bind:value={input} type="text" class="form-control" placeholder="{placeholder}">
+{/if}
+
 
 <style>
-    input[type=text] {
+    input {
         background-color: var(--bg-tertiary);
         height: 2rem;
         width: 100%;

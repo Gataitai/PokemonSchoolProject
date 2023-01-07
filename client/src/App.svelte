@@ -5,12 +5,10 @@
   import Pokemons from "./pages/Pokemons.svelte";
   import Detail from "./pages/Detail.svelte"
   import Login from "./pages/Login.svelte";
-
-  import {error} from "./stores/error.js";
-
-  import Message from "./components/Message.svelte";
+  import Signup from "./pages/Signup.svelte";
   import Nav from "./components/navigation/Nav.svelte";
   import Home from "./pages/Home.svelte";
+  import Account from "./pages/Account.svelte";
 
   let currentRoute;
 
@@ -37,6 +35,16 @@
     currentRoute = ctx.pathname;
   });
 
+  router('/signup', (ctx) => {
+    page = Signup;
+    currentRoute = ctx.pathname;
+  });
+
+  router('/account', (ctx) => {
+    page = Account;
+    currentRoute = ctx.pathname;
+  });
+
   router('/detail/:id', (ctx) => {
     page = Detail;
     currentRoute = ctx.pathname;
@@ -44,29 +52,13 @@
   });
 
   router.start();
-
-  let errorMessage;
-
-  const clear = () => {
-    if($error != null){
-      $error = null;
-      errorMessage = null;
-    }
-  }
-
-  $: if ($error) {
-    errorMessage = $error;
-    setTimeout(clear, 5000)
-  }
-
 </script>
+
 <Nav active="{currentRoute}"/>
 <main>
   <svelte:component this={page} {id} />
 </main>
-{#if errorMessage}
-  <Message error="{errorMessage}"/>
-{/if}
+
 <style>
   main{
     padding: 8rem 3rem 3rem 3rem;

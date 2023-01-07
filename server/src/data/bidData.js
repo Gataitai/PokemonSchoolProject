@@ -1,6 +1,4 @@
 const bidDefinition = [
-    "auctionId",
-    "userId",
     "biddingPrice"
 ];
 

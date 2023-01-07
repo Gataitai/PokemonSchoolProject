@@ -2,31 +2,31 @@ const express = require('express');
 const {validateBid, validateAuction} = require("../middleware/validate");
 const {authorizeToken} = require("../middleware/authorize");
 const bidService = require("../services/bidsService");
-const {getUserName} = require("../util/getUser");
 const auctionService = require("../services/auctionService");
+const {getUserName} = require("../util/getUser");
 const router = express.Router();
 
 module.exports = router;
 
-router.get("/:id", (req, res) => {
-    const bidsByAuction = bidService.getByAuctionId(req.params.id);
-    res.json({
-        bidsByAuction
-    })
-});
-
-router.post("/", validateBid, authorizeToken, (req, res) => {
-    const user = getUserName(req.headers.authorization);
-    const bid = bidService.save(req.body, user, req.params.auctionId);
-    res.json({
-        bid
-    })
-});
-
-router.delete("/:id", validateAuction, authorizeToken, (req, res) => {
+router.post("/:auctionId/bids", validateBid, authorizeToken, async (req, res) => {
     try {
-        bidService.remove(req.params.bidId)
-        res.status(204)
+        const user = getUserName(req.headers.authorization);
+        const bid = bidService.save(req.body, user, req.params.auctionId);
+        res.json({
+            bid
+        })
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+router.delete("/:auctionId/bids/:bidId", authorizeToken, async (req, res) => {
+    try {
+        const status = bidService.remove(req.params.bidId, req.params.auctionId);
+        const bids = auctionService.getById(req.params.auctionId);
+        res.status(status).json({
+            message: "deleted"
+        })
     } catch (error) {
         res.status(500).json({error: error.message});
     }

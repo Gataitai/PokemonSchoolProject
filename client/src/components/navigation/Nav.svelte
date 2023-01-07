@@ -2,6 +2,10 @@
     import AlienIcon from "../../icons/AlienIcon.svelte";
     import AuctionIcon from "../../icons/AuctionIcon.svelte";
     import LoginIcon from "../../icons/LoginIcon.svelte";
+    import SignupIcon from "../../icons/SignupIcon.svelte";
+    import {token} from "../../stores/auth";
+    import UserIcon from "../../icons/UserIcon.svelte";
+    import jwt from 'jwt-decode';
 
     export let active;
 </script>
@@ -29,12 +33,25 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="/login" class="nav-link" class:nav-link-active={active === "/login"}>
-                <LoginIcon/>
-                <span>Login</span>
-            </a>
-        </li>
+        {#if $token}
+            <li class="nav-item">
+                <a href="/account" class="nav-link" class:nav-link-active={active === "/account"}>
+                    <UserIcon/>
+                    <span>{jwt($token).username}</span>
+                </a>
+            </li>
+            {:else}
+            <li class="nav-item nav-login">
+                <a href="/login" class="nav-link login-signup" class:nav-link-active={active === "/login"}>
+                    <LoginIcon/>
+                    <span>Login</span>
+                </a>
+                <a href="/signup" class="nav-link login-signup" class:nav-link-active={active === "/signup"}>
+                    <SignupIcon/>
+                    <span>Signup</span>
+                </a>
+            </li>
+        {/if}
     </ul>
 </nav>
 
@@ -64,6 +81,11 @@
         margin-left: auto;
     }
 
+    .nav-login{
+        display: flex;
+        width: 10rem;
+    }
+
     .nav-link {
         display: flex;
         flex-direction: column;
@@ -74,6 +96,10 @@
         text-decoration: none;
         filter: grayscale(100%) opacity(0.7);
         transition: var(--transition-speed);
+    }
+
+    .login-signup{
+        width: 5rem;
     }
 
     .nav-link:hover {
