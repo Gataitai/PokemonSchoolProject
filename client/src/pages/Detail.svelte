@@ -12,9 +12,11 @@
     import {token} from "../stores/auth";
     import CloseIcon from "../icons/CloseIcon.svelte";
     import jwt from "jwt-decode";
+    import Error from "../components/Error.svelte";
 
     export let id;
     let auction;
+    let error;
 
     onMount(async () => {
         await getAuction();
@@ -23,6 +25,10 @@
     const getAuction = async () => {
         const response = await fetch("http://localhost:3001/auctions/"+id);
         const data = await response.json();
+        console.log(data)
+        if(data.error){
+            error = data.error;
+        }
         auction = data.auction;
     }
 
@@ -37,8 +43,14 @@
         }
         const response = await fetch("http://localhost:3001/auctions/"+id+"/bids",options)
         const data = await response.json();
-        auction.bids = [data.bid, ...auction.bids];
-        bidModal.toggle();
+        if(data.error){
+            error = data.error;
+            auction = null;
+        }
+        else{
+            auction.bids = [data.bid, ...auction.bids];
+            bidModal.toggle();
+        }
     }
 
     const deleteBid = async (bidId) => {
@@ -112,6 +124,10 @@
             {/each}
         </div>
     </div>
+{/if}
+
+{#if error}
+    <Error message={error}/>
 {/if}
 
 <Modal bind:this={bidModal} title="Bid">

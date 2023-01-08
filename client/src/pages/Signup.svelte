@@ -7,33 +7,54 @@
 
     let username = '';
     let password = '';
+    let password2 = '';
+    let error;
 
     const updateUsername = (event) => {
         username = event.detail.text;
+        error = '';
     }
 
     const updatePassword = (event) => {
         password = event.detail.text;
+        error = '';
     }
 
-    async function login() {
-        const response = await fetch('http://localhost:3001/auths', {
+    const updatePassword2 = (event) => {
+        password2 = event.detail.text;
+        error = '';
+    }
+
+    async function signup() {
+        if(username === 'EMPTY' || !username){
+            error = "Username is not filled in!"
+            return;
+        }
+        if(!password){
+            error = "You have to fill in a password!"
+            return;
+        }
+        if(password !== password2){
+            error = "Passwords don't match!"
+            return;
+        }
+        const response = await fetch('http://localhost:3001/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         });
         const data = await response.json();
         if (data.error) {
-            // handle error
+            error = data.error;
         } else {
             token.set(data.token);
-            router("/")
+            router("/account")
         }
     }
 
 </script>
 
-<form class="form" on:submit|preventDefault={login}>
+<form class="form" on:submit|preventDefault={signup}>
     <div class="input">
         <UserIcon/>
         <TextInput placeholder="Username" on:textTyped={updateUsername}/>
@@ -44,8 +65,19 @@
         <TextInput password placeholder="Password" on:textTyped={updatePassword}/>
     </div>
 
+    <div class="input">
+        <PasswordIcon/>
+        <TextInput password placeholder="Repeat password" on:textTyped={updatePassword2}/>
+    </div>
+
 
     <button class="submit" type="submit">Signup</button>
+
+    {#if error}
+        <div class="error">
+            {error}
+        </div>
+    {/if}
 </form>
 
 <style>
@@ -80,6 +112,16 @@
     .submit:hover{
         cursor: pointer;
         background-color: #5fa45f;
+    }
+
+    .error{
+        border-radius: .5rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bg-primary);
+        background-color: var(--hl-secondary);
     }
 </style>
 

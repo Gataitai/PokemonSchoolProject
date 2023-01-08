@@ -5,6 +5,8 @@ const {validateAuction} = require("../middleware/validate");
 const {authorizeToken} = require("../middleware/authorize");
 const {getUserName} = require("../util/getUser");
 const bidsRouter = require('./bids');
+const {auctionWonCheck} = require("../middleware/AuctionWonCheck");
+const {auctionHasToExist} = require("../middleware/exists");
 
 const parseAuctionQueryParams = (params) => {
     const searchParams = new URLSearchParams(params);
@@ -21,7 +23,6 @@ router.get("/", async (req, res) => {
         const page = Number(req.query.page) || 1
         const pageSize = Number(req.query.pageSize) || 32
         const filters = parseAuctionQueryParams(req.query);
-        console.log(filters)
         const items = auctionService.get(filters, page, pageSize);
         const auctions = items.auctions
         const totalCount = items.length;
@@ -34,7 +35,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auctionHasToExist, auctionWonCheck, async (req, res) => {
     try {
         let auction = auctionService.getById(req.params.id);
         res.json({

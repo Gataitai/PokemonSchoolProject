@@ -28,8 +28,10 @@ const getByType = (type) => {
 const save = (user) => {
     user.password = bcrypt.hashSync(user.password, 10);
     user.secret = crypto.randomBytes(64).toString('hex');
+    user.type = 'user';
+    user.wonAuctions = [];
     userData.data.push(user);
-
+    console.log(userData.data)
     const payload = {
         username: user.username,
         type: userData.userTypes[0]

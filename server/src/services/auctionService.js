@@ -79,24 +79,10 @@ const update = (auctionId, updatedAuction) => {
     return auctionData.data[index];
 }
 
-// const remove = (bidId, auctionId) => {
-//     const foundAuction = auctionData.data.find((auction) => auction.id === auctionId);
-//     if(foundAuction){
-//         const index = foundAuction.bids.findIndex((bid) => bid.id === bidId);
-//         if(index === -1) {
-//             throw new Error('Bid not found');
-//         }
-//         foundAuction.bids.splice(index, 1)
-//     }
-//     else{
-//         throw new Error('Auction not found');
-//     }
-// }
-
 const remove = (id) => {
-    const index = auctionData.data.findIndex((auction) => auction.id === id)
+    const index = auctionData.data.findIndex(a => a.id === id)
     if(index === -1) {
-        throw new Error('Bid not found');
+        throw new Error('Auction not found');
     }
     auctionData.data.splice(index, 1)
 }

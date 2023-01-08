@@ -7,6 +7,8 @@
 
     let username = '';
     let password = '';
+    let error;
+
 
     const updateUsername = (event) => {
         username = event.detail.text;
@@ -17,6 +19,14 @@
     }
 
     async function login() {
+        if(!username){
+            error = "You have to fill in a username!"
+            return;
+        }
+        if(!password){
+            error = "You have to fill in a password!"
+            return;
+        }
         const response = await fetch('http://localhost:3001/auths', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -24,10 +34,10 @@
         });
         const data = await response.json();
         if (data.error) {
-            // handle error
+            error = data.error;
         } else {
             token.set(data.token);
-            router("/")
+            router("/account")
         }
     }
 
@@ -45,6 +55,12 @@
     </div>
 
     <button class="submit" type="submit">Login</button>
+
+    {#if error}
+        <div class="error">
+            {error}
+        </div>
+    {/if}
 </form>
 
 <style>
@@ -79,6 +95,16 @@
     .submit:hover{
         cursor: pointer;
         background-color: #5fa45f;
+    }
+
+    .error{
+        border-radius: .5rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bg-primary);
+        background-color: var(--hl-secondary);
     }
 </style>
 
