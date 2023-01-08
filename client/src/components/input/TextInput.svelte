@@ -5,8 +5,8 @@
 
     export let placeholder = "Type here";
     export let password;
+    export let input;
 
-    let input;
     const dispatchText = () => {
         let text = input;
         if(!input){

@@ -60,10 +60,10 @@ const save = (auction, user) => {
         startingPrice: auction.startingPrice,
         pokemon: pokemonService.getById(auction.pokemonId),
         startingDate: new Date(),
-        endDate: auction.endDate,
+        endDate: new Date(auction.endDate),
         bids: []
     }
-
+    console.log(newAuction);
     auctionData.data.push(newAuction);
     return newAuction;
 }
@@ -75,6 +75,9 @@ const update = (auctionId, updatedAuction) => {
     }
     if(updatedAuction.startingPrice){
         auctionData.data[index].startingPrice = updatedAuction.startingPrice;
+    }
+    if(updatedAuction.pokemonId){
+        auctionData.data[index].pokemon = pokemonService.getById(updatedAuction.pokemonId);
     }
     return auctionData.data[index];
 }

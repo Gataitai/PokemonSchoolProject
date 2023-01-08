@@ -1,0 +1,65 @@
+###
+### Get a list of auctions
+###
+GET {{protocol}}{{host}}:{{port}}/auctions
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.global.set("auctions", response.body.auctions);
+%}
+
+###
+### Get an auction by ID
+###
+GET {{protocol}}{{host}}:{{port}}/auctions/{{auctions[0]._id}}
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.global.set("auction", response.body.auction);
+%}
+
+###
+### Create an auction
+###
+POST {{protocol}}{{host}}:{{port}}/auctions
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "startingPrice": 100,
+  "pokemonId": "25",
+  "endDate": "2023-01-08T16:33:30.258Z"
+}
+
+> {%
+client.global.set("auction", response.body.auction);
+%}
+
+###
+### Update an auction
+###
+PATCH {{protocol}}{{host}}:{{port}}/auctions/{{auction._id}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "startingPrice": 150,
+  "pokemonId": "1",
+  "endDate": "2023-01-09T16:33:30.258Z"
+}
+
+> {%
+client.global.set("auction", response.body.auction);
+%}
+
+###
+### Delete an auction
+###
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auction._id}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}

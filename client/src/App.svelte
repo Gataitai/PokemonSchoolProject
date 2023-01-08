@@ -9,6 +9,9 @@
   import Nav from "./components/navigation/Nav.svelte";
   import Home from "./pages/Home.svelte";
   import Account from "./pages/Account.svelte";
+  import Create from "./pages/Create.svelte";
+  import Update from "./pages/Update.svelte";
+  import Delete from "./pages/Delete.svelte";
 
   let currentRoute;
 
@@ -29,6 +32,22 @@
     page = Auctions;
     currentRoute = ctx.pathname;
   });
+
+  router('/create', (ctx) => {
+    page = Create;
+    currentRoute = ctx.pathname;
+  });
+
+  router('/update', (ctx) => {
+    page = Update;
+    currentRoute = ctx.pathname;
+  });
+
+  router('/delete', (ctx) => {
+    page = Delete;
+    currentRoute = ctx.pathname;
+  });
+
 
   router('/login', (ctx) => {
     page = Login;

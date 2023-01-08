@@ -7,6 +7,7 @@ const {getUserName} = require("../util/getUser");
 const bidsRouter = require('./bids');
 const {auctionWonCheck} = require("../middleware/AuctionWonCheck");
 const {auctionHasToExist} = require("../middleware/exists");
+const {isAdmin} = require("../middleware/isAdmin");
 
 const parseAuctionQueryParams = (params) => {
     const searchParams = new URLSearchParams(params);
@@ -46,7 +47,7 @@ router.get("/:id", auctionHasToExist, auctionWonCheck, async (req, res) => {
     }
 });
 
-router.post("/", validateAuction, authorizeToken, async (req, res) => {
+router.post("/", authorizeToken, isAdmin, validateAuction,  async (req, res) => {
     try {
         const user = getUserName(req.headers.authorization);
         const auction = auctionService.save(req.body, user);
@@ -58,12 +59,21 @@ router.post("/", validateAuction, authorizeToken, async (req, res) => {
     }
 });
 
-router.patch("/:id", authorizeToken, async (req, res) => {
+router.patch("/:id", authorizeToken, isAdmin, validateAuction, async (req, res) => {
     try {
         const updatedAuction = auctionService.update(req.params.id, req.body);
         res.json({
             updatedAuction
         })
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+router.delete("/:id", authorizeToken, isAdmin, async (req, res) => {
+    try {
+        auctionService.remove(req.params.id);
+        res.status(204).json({message: "deleted"});
     } catch (error) {
         res.status(500).json({error: error.message});
     }

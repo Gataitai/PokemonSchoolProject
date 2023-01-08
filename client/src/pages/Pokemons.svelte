@@ -1,27 +1,25 @@
 <script>
-    import {get} from "../util/fetch";
     import OptionsNav from "../components/navigation/OptionsNav.svelte";
     import PokemonCard from "../components/card/PokemonCard.svelte";
+    import {onMount} from "svelte";
 
-    const params = {
-        resource: "pokemons",
-    }
-    let promise = get(params);
+
+    let pokemons = [];
+
+    onMount(async () => {
+        const response = await fetch("http://localhost:3001/pokemons");
+        const data = await response.json();
+        pokemons = data.pokemons;
+    });
 
 </script>
 
 <OptionsNav name type generation/>
 
 <div class="pokemon-list">
-    {#await promise}
-        Loading
-        {:then pokemons}
-            {#each pokemons as pokemon}
-                <PokemonCard pokemon={pokemon}/>
-            {/each}
-        {:catch error}
-        <p>{error.message}</p>
-    {/await}
+    {#each pokemons as pokemon}
+        <PokemonCard pokemon={pokemon}/>
+    {/each}
 </div>
 
 

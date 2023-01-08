@@ -16,7 +16,7 @@ const auctionHasToExist = (req, res, next) => {
         next();
     }
     else{
-        return res.status(statusCodes.CONFLICT).json({error: "Username doesn't exist"});
+        return res.status(statusCodes.CONFLICT).json({error: "Auction with id doesn't exist"});
     }
 }
 

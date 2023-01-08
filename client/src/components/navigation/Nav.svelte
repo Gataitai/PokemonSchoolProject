@@ -6,6 +6,11 @@
     import {token} from "../../stores/auth";
     import UserIcon from "../../icons/UserIcon.svelte";
     import jwt from 'jwt-decode';
+    import CreateIcon from "../../icons/CreateIcon.svelte";
+    import CloseIcon from "../../icons/CloseIcon.svelte";
+    import Update from "../../pages/Update.svelte";
+    import UpdateIcon from "../../icons/UpdateIcon.svelte";
+    import DeleteIcon from "../../icons/DeleteIcon.svelte";
 
     export let active;
 </script>
@@ -34,6 +39,28 @@
         </li>
 
         {#if $token}
+            {#if jwt($token).type === "admin"}
+                <li class="nav-item">
+                    <a href="/create" class="nav-link" class:nav-link-active={active === "/create"}>
+                        <CreateIcon/>
+                        <span>Create</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/update" class="nav-link" class:nav-link-active={active === "/update"}>
+                        <UpdateIcon/>
+                        <span>Update</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/delete" class="nav-link" class:nav-link-active={active === "/delete"}>
+                        <DeleteIcon/>
+                        <span>Delete</span>
+                    </a>
+                </li>
+            {/if}
             <li class="nav-item">
                 <a href="/account" class="nav-link" class:nav-link-active={active === "/account"}>
                     <UserIcon/>
