@@ -30,17 +30,29 @@
 
 
     const updateStartingPrice = (event) => {
-        startingPrice = event.detail.text;
+        if(event.detail.text === "EMPTY"){
+            startingPrice = '';
+        }else{
+            startingPrice = event.detail.text;
+        }
         error = '';
     }
 
     const updatePokemonId = (event) => {
-        pokemonId = event.detail.text;
+        if(event.detail.text === "EMPTY"){
+            pokemonId = '';
+        }else{
+            pokemonId = event.detail.text;
+        }
         error = '';
     }
 
     const updateEndDate = (event) => {
-        endDate = event.detail.text;
+        if(event.detail.text === "EMPTY"){
+            endDate = '';
+        }else{
+            endDate = event.detail.text;
+        }
         error = '';
     }
 

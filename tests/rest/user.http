@@ -1,0 +1,53 @@
+###
+### Register a user
+###
+POST {{protocol}}{{host}}:{{port}}/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "newuser",
+  "password": "password"
+}
+
+###
+### Get a user by username
+###
+GET {{protocol}}{{host}}:{{port}}/users/newuser
+Content-Type: application/json
+Accept: application/json
+
+###
+### Bad weather - register a user with short password
+###
+POST {{protocol}}{{host}}:{{port}}/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "newuser2",
+  "password": "123"
+}
+
+> {%
+client.test("Request fails with short password", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+### Bad weather - register a user with missing password field
+###
+POST {{protocol}}{{host}}:{{port}}/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "newuser2"
+}
+
+> {%
+client.test("Request fails with missing password field", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}

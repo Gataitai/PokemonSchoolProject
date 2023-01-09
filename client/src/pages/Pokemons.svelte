@@ -13,9 +13,6 @@
     });
 
 </script>
-
-<OptionsNav name type generation/>
-
 <div class="pokemon-list">
     {#each pokemons as pokemon}
         <PokemonCard pokemon={pokemon}/>
@@ -25,7 +22,6 @@
 
 <style>
     .pokemon-list{
-        padding-left: 5rem;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         grid-gap: 3rem;

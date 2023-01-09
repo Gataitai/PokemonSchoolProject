@@ -7,12 +7,13 @@ Accept: application/json
 
 > {%
 client.global.set("auctions", response.body.auctions);
+client.global.set("auctionId", response.body.auctions[0].id);
 %}
 
 ###
 ### Get an auction by ID
 ###
-GET {{protocol}}{{host}}:{{port}}/auctions/{{auctions[0]._id}}
+GET {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}
 Content-Type: application/json
 Accept: application/json
 
@@ -26,40 +27,106 @@ client.global.set("auction", response.body.auction);
 POST {{protocol}}{{host}}:{{port}}/auctions
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{adminToken}}
 
 {
   "startingPrice": 100,
   "pokemonId": "25",
-  "endDate": "2023-01-08T16:33:30.258Z"
+  "endDate": "2025-01-08T16:33:30.258Z"
 }
 
 > {%
-client.global.set("auction", response.body.auction);
+client.global.set("auctionId", response.body.auction.id);
+%}
+
+###
+### bad weather auction that doesnt exist
+###
+GET {{protocol}}{{host}}:{{port}}/auctions/non-existent-id
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.test("Request fails with non-existent ID", function() {
+client.assert(response.status === 404, "Response status is not 404");
+});
+%}
+
+###
+### Create an auction with invalid payload
+###
+
+POST {{protocol}}{{host}}:{{port}}/auctions
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "startingPrice": "invalid",
+  "pokemonId": "25",
+  "endDate": "2025-01-08T16:33:30.258Z"
+}
+
+> {%
+client.test("Request fails with invalid payload", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+### Update an auction with invalid payload
+###
+PATCH {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "startingPrice": "invalid",
+  "pokemonId": "1",
+  "endDate": "2025-01-09T16:33:30.258Z"
+}
+
+> {%
+client.test("Request fails with invalid payload", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+### Delete an auction with invalid authorization
+###
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer invalid
+
+> {%
+client.test("Request fails with invalid authorization", function() {
+client.assert(response.status === 401, "Response status is not 401");
+});
 %}
 
 ###
 ### Update an auction
 ###
-PATCH {{protocol}}{{host}}:{{port}}/auctions/{{auction._id}}
+PATCH {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{adminToken}}
 
 {
   "startingPrice": 150,
   "pokemonId": "1",
-  "endDate": "2023-01-09T16:33:30.258Z"
+  "endDate": "2025-01-09T16:33:30.258Z"
 }
 
-> {%
-client.global.set("auction", response.body.auction);
-%}
 
 ###
 ### Delete an auction
 ###
-DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auction._id}}
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{adminToken}}
+

@@ -1,24 +1,41 @@
 ###
 ### Retrieve a token that can be used for calls requiring authentication
 ###
-POST {{protocol}}{{host}}:{{post}}/auth
+POST {{protocol}}{{host}}:{{port}}/auths
 Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "user",
-  "password": "pass"
+"username": "admin",
+"password": "admin"
 }
 
 > {%
-client.global.set("token", "m1jnH3l3L4ng3en5uperV31l!geT0ken");
+client.global.set("token", response.body.token);
 %}
 
+###
+### Retrieve a token with invalid credentials
+###
+POST {{protocol}}{{host}}:{{port}}/auths
+Content-Type: application/json
+Accept: application/json
+
+{
+"username": "admin",
+"password": "invalid"
+}
+
+> {%
+client.test("Request fails with invalid credentials", function() {
+client.assert(response.status === 401, "Response status is not 401");
+});
+%}
 
 ###
-### Invalidate the token
+###Invalidate the token
 ###
-DELETE {{protocol}}{{host}}:{{post}}/auth
+DELETE {{protocol}}{{host}}:{{port}}/auths
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

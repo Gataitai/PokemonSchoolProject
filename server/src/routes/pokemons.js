@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pokemonService = require("../services/pokemonService");
+const {pokemonHasToExist} = require("../middleware/exists");
 
 const parsePokemonQueryParam = (params) => {
     const searchParams = new URLSearchParams(params);
@@ -11,8 +12,6 @@ const parsePokemonQueryParam = (params) => {
 
 router.get("/", async (req, res) => {
     try {
-        // const page = Number(req.query.page) || 1
-        // const pageSize = Number(req.query.pageSize) || 10
         const filters = parsePokemonQueryParam(req.query);
         const pokemons = pokemonService.get(filters)
 
@@ -24,7 +23,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", pokemonHasToExist, async (req, res) => {
     const pokemon = pokemonService.getById(req.params.id);
     res.json({
         pokemon

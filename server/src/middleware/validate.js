@@ -1,5 +1,4 @@
 const {allowedProperties} = require("../util/allowedProperties");
-const pokemonData = require("../data/pokemonData");
 const userData = require("../data/userData");
 const authData = require("../data/authData");
 const statusCodes = require("http-status-codes");
@@ -12,6 +11,8 @@ const validateAuction = (req, res, next) => {
         return res.status(validate).json({error:'Please provide these values: ' + auctionData.auctionDefinition});
     }else if (req.body.startingPrice < 1) {
         return res.status(statusCodes.BAD_REQUEST).json({error:'Price can not be below 0!'});
+    }else if(isNaN(req.body.startingPrice)){
+        return res.status(statusCodes.BAD_REQUEST).json({error:'Price must be a number!'});
     }else if(req.body.pokemonId < 1 || req.body.pokemonId > 905){
         return res.status(statusCodes.BAD_REQUEST).json({error:'Pokemon Id must be between 1 and 905!'});
     }else if (isNaN(Date.parse(req.body.endDate))) {

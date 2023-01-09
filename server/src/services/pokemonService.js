@@ -1,5 +1,4 @@
 const pokemonData = require("../data/pokemonData");
-const allowedProperties = require("../util/allowedProperties");
 
 const get = (filters) => {
     let pokemons = pokemonData.data;

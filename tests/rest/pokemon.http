@@ -1,4 +1,35 @@
+###
+### Get a list of Pokemon
+###
 GET {{protocol}}{{host}}:{{port}}/pokemons
 Content-Type: application/json
 Accept: application/json
 
+> {%
+client.global.set("pokemons", response.body.pokemons);
+client.global.set("pokemonId", response.body.pokemons[0].id);
+%}
+
+###
+### Get a Pokemon by ID
+###
+GET {{protocol}}{{host}}:{{port}}/pokemons/{{pokemonId}}
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.global.set("pokemon", response.body.pokemon);
+%}
+
+###
+### Get a Pokemon with non-existent ID
+###
+GET {{protocol}}{{host}}:{{port}}/pokemons/non-existent-id
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.test("Request fails with non-existent ID", function() {
+client.assert(response.status === 404, "Response status is not 404");
+});
+%}

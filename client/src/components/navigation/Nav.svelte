@@ -7,8 +7,6 @@
     import UserIcon from "../../icons/UserIcon.svelte";
     import jwt from 'jwt-decode';
     import CreateIcon from "../../icons/CreateIcon.svelte";
-    import CloseIcon from "../../icons/CloseIcon.svelte";
-    import Update from "../../pages/Update.svelte";
     import UpdateIcon from "../../icons/UpdateIcon.svelte";
     import DeleteIcon from "../../icons/DeleteIcon.svelte";
 

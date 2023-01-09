@@ -1,21 +1,8 @@
 const userData = require("../data/userData");
-const statusCodes = require('http-status-codes');
-const {filterProperties} = require("../util/allowedProperties");
 const bcrypt = require('bcrypt');
-const uuid = require("uuid");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const auctionData = require("../data/auctionData");
-
-const getAll = () => {
-    // const users = [];
-    // for(let user in userData.data){
-    //     users.push(filterProperties(user, userData.publicDefinition));
-    // }
-    // return users;
-
-    return userData.data;
-}
 
 const getByName = (username) => {
     return userData.data.find(u => u.username === username);
@@ -57,7 +44,6 @@ const remove = (id) => {
 }
 
 module.exports = {
-    getAll,
     getByName,
     getByType,
     save,

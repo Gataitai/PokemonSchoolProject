@@ -1,8 +1,6 @@
-const bidData = require("../data/bidData");
 const crypto = require("crypto");
 const auctionData = require("../data/auctionData");
 const statusCodes = require("http-status-codes");
-const userData = require("../data/userData");
 
 
 const save = (bid, user, auctionId) => {

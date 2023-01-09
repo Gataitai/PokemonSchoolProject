@@ -5,7 +5,7 @@ const bidService = require("../services/bidsService");
 const auctionService = require("../services/auctionService");
 const {getUserName} = require("../util/getUser");
 const {auctionWonCheck} = require("../middleware/AuctionWonCheck");
-const {auctionHasToExist} = require("../middleware/exists");
+const {auctionHasToExist, bidHasToExist} = require("../middleware/exists");
 const router = express.Router();
 
 module.exports = router;
@@ -22,7 +22,7 @@ router.post("/:auctionId/bids", validateBid, authorizeToken, auctionHasToExist, 
     }
 });
 
-router.delete("/:auctionId/bids/:bidId", authorizeToken, async (req, res) => {
+router.delete("/:auctionId/bids/:bidId", authorizeToken, bidHasToExist, async (req, res) => {
     try {
         const status = bidService.remove(req.params.bidId, req.params.auctionId);
         res.status(status).json({

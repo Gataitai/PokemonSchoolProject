@@ -1,7 +1,5 @@
 const userService = require("../services/userService");
 const auctionService = require("../services/auctionService");
-const {date} = require("joi");
-const auctionData = require("../data/auctionData");
 const statusCodes = require("http-status-codes");
 
 const auctionWonCheck = (req, res, next) => {

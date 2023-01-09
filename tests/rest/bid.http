@@ -1,0 +1,123 @@
+###
+### Get a list of auctions
+###
+GET {{protocol}}{{host}}:{{port}}/auctions
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.global.set("auctions", response.body.auctions);
+client.global.set("auctionId", response.body.auctions[0].id);
+%}
+
+###
+### Create a bid for an auction
+###
+POST {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{userToken}}
+
+{
+"biddingPrice": 100
+}
+
+> {%
+client.global.set("bidId", response.body.bid.id);
+%}
+
+###
+### Create a bid for an auction with incorrect property
+###
+POST {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{userToken}}
+
+{
+"incorrectProperty": 100
+}
+
+> {%
+client.test("Request fails with invalid property", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+### Bad weather: Post a bid with invalid payload
+###
+POST {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{userToken}}
+
+{
+"invalid": "payload"
+}
+
+> {%
+client.test("Request fails with invalid payload", function() {
+client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+### Bad weather: Post a bid with invalid authorization
+###
+POST {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer invalid
+
+{
+"biddingPrice": 100
+}
+
+> {%
+client.test("Request fails with invalid or wrong token", function() {
+client.assert(response.status === 401, "Response status is not 401");
+});
+%}
+
+###
+### Bad weather test for deleting a bid with an invalid authorization token
+###
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids/{{bidId}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer invalid
+
+> {%
+client.test("Request fails with invalid authorization", function() {
+client.assert(response.status === 401, "Response status is not 401");
+});
+%}
+
+###
+### Bad weather test for deleting a bid with a non-existent ID
+###
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids/non-existent-id
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{userToken}}
+
+> {%
+client.test("Request fails with non-existent ID", function() {
+client.assert(response.status === 404, "Response status is not 404");
+});
+%}
+
+###
+### Good weather test for deleting a bid
+###
+DELETE {{protocol}}{{host}}:{{port}}/auctions/{{auctionId}}/bids/{{bidId}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{userToken}}
+
+> {%
+client.test("Request executed successfully", function() {
+client.assert(response.status === 204, "Response status is not 204");
+});
+%}
